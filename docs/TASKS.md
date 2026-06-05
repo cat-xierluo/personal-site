@@ -1,10 +1,10 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.5 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009）均已落定。ISS-008 自定义域按用户决策取消。
+> **当前阶段**：v0.1.0-alpha.6 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010）均已落定。ISS-008 自定义域按用户决策取消。
 
 ## 活跃任务
 
-> 当前无可执行活跃任务。如下方"已取消任务"或"归档任务索引"所示，v1 MVP / v1.1 增量 / 部署链路全部收口。下一步可推进 ISS-010（v1.2 内容增量：博客 / 案例 / 时讯 / 真实微信二维码替换 等）或其他 v1.3 想法，等 PM 启动新一波。
+> 当前无可执行活跃任务。如下方"已取消任务"或"归档任务索引"所示，v1 MVP / v1.1 增量 / 部署链路 / QR 真实化均已收口。下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-011 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
 
 ## 已取消任务
 
@@ -84,6 +84,15 @@
   - **决策记录**：DEC-008（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）。
   - **已知限制**：GitHub Pages 启用是用户一次性手动操作（未来 transfer ownership 或新 fork 需要重做）；Astro 6.4.x 仍在 minor 演进，未来若引入 Node 24+ 强制要求需同步升 setup-node。
 
+### ISS-010 真实微信二维码替换（已完成）
+
+- 2026-06-05：ISS-010 落地（feat/iss-010-real-qr，docs 同步）
+  - **修正 DEC-007 单源声明**：DEC-007 § 资源单源 写的"从 `FaroPDF/src/assets/wechat-qrcode.png` 复制"实际是误读 — FaroPDF 那个文件自 ISS-007 时就是 1×1 占位（67 字节），真实 QR 一直在 `Folia/docs/wechat-qr.png`（734×734 / 184KB / 2026-05-20 入仓）。本次新增 DEC-009 supersede 修正单源 = Folia docs，**不**改 DEC-007 原文保留历史
+  - **资源替换**：`cp Folia/docs/wechat-qr.png personal-site/src/assets/wechat-qrcode.png`（734×734 / 184KB），Astro build 资源 hash 从 `DdK2Yptz`（占位 67B）自动变为 `BL2G81aV`（真图 184KB）。零代码改动
+  - **范围**：1 commit（feat/iss-010-real-qr）。**未**修改任何源项目（Folia / FaroPDF）仓内容；FaroPDF 仓 `AuthorCard` 仍是 1×1 占位，跨仓 follow-up 不在本次范围
+  - **验证**：`npm run build` 干净 6 页生成，`dist/_astro/wechat-qrcode.BL2G81aV.png` 184KB 已替换占位版本，HTML/JS 自动跟随新 hash
+  - **决策记录**：DEC-009（背景 / DEC-007 修正说明 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+
 ## 进度日志
 
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
@@ -96,4 +105,5 @@
 - 2026-06-05：ISS-007 微信二维码（feat/iss-007-wechat-qr，QR 资源从 FaroPDF 复制 + 新 WechatQr 共享组件 + footer mini 64×64 + contact big 160×160 + i18n 字典扩展 + docs 同步）
 - 2026-06-05：ISS-009 部署修复（PR #3 fix/iss-009-lock-file 补 `package-lock.json` + 用户手动启用 GitHub Pages + 本次 follow-up 升 Node 22 修 Astro 6.4 engine；DEC-008 落地）
 - 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
-- 下一步：v1 MVP / v1.1 增量 / 部署链路全部收口；可启动 v1.2 增量（ISS-010 候选：博客 / 案例 / 时讯 / 真实微信二维码替换 / RSS / sitemap 等）或等用户下一步指令
+- 2026-06-05：ISS-010 真实微信二维码替换（feat/iss-010-real-qr，从 Folia/docs 真源复制 184KB QR，hash 升级到 `BL2G81aV`；DEC-009 supersede 修正 DEC-007 单源）
+- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-011 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令
