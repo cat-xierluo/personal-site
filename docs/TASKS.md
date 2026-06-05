@@ -94,16 +94,6 @@
 
 ## 暂缓任务
 
-### ISS-006 中英文切换（v1.1）
-
-- 优先级：P2
-- 类型：i18n
-- 状态：暂缓
-- 依赖：v1 MVP 收口
-- 范围：所有 `*.astro` 文件 + 共享 components
-- 目标：i18n 框架选型（自建 / astro-i18next / paraglide），路由分语言，`/en/` 子路径
-- 验收：zh-CN 为默认语言；`/en/folia` / `/en/faropdf` 路由可访问；切换不破坏 layout
-
 ### ISS-007 微信二维码（v1.1）
 
 - 优先级：P2
@@ -131,6 +121,22 @@
 - 2026-06-05：调研 Folia website Astro 6.3.1 单页静态站结构（`website/src/pages/index.astro` + `site.css` + `public/favicon.png` + `src/assets/folia-icon.png`），与 FaroPDF 主项目 `src-tauri/icons/icon-source.png` 作为两个 icon 源
 - 2026-06-05：brainstorm ISS-028 关键决策（独立仓库 / Astro / 必选 bio+产品 / 联系方式可选 / i18n v1.1 / Folia 迁出）
 
+### ISS-006 中英文切换（v1.1，已完成）
+
+- 2026-06-05：ISS-006 落地（PR feat/iss-006-i18n，待合并）
+  - i18n 框架选型：自建轻量字典 + `/en/` 子路径，zh-CN 为默认（DEC-006）
+  - **新增** `src/i18n/{types.ts,zh-CN.ts,en.ts,index.ts}`：4 个文件 ~600 行，强类型 Messages interface
+  - **重构** `src/data/author.ts`：补 `nameEn` / `titleEn` / `focusEn` / `bioEn`
+  - **重构** `src/layouts/BaseLayout.astro`：接受 `locale?` prop，URL 检测 fallback，`<html lang>` 切换
+  - **重构** `src/components/{SiteHeader,SiteFooter,ProductCard}.astro`：3 个公共组件全走 dict，SiteHeader 右上角加 lang-switch pill 按钮
+  - **新增** `src/components/pages/{HomePage,FoliaPage,FaroPdfPage}.astro`：3 个 page 组件（zh-CN / en 共享），`FolioPage.astro` 已重命名为 `FoliaPage.astro`
+  - **重写** `src/pages/{index,folia,faropdf}.astro` 为 thin wrappers（URL 检测 locale）
+  - **新增** `src/pages/en/{index,folia,faropdf}.astro` 镜像（locale="en" 硬编码）
+  - **新增** `set:html` 指令用于 FaroPDF downloadBody1/Body2 渲染 `<strong>` / `<code>` 标签
+  - Folia preview 窗口 h2 用 `preview.heading1.replace(/^#\s*/, '')` 去掉 `# ` 前缀（中英都生效）
+  - **范围**：1 commit（feat/iss-006-i18n）。未修改任何源项目（Folia / FaroPDF）仓内容。
+  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` / `dist/faropdf/index.html` / `dist/en/faropdf/index.html` 抽检中英差异正确，lang-switch href 切换方向正确。
+
 ## 进度日志
 
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
@@ -138,4 +144,6 @@
 - 2026-06-05：ISS-003 Folia website 迁出主体（commit `3891da4`）
 - 2026-06-05：ISS-004 FaroPDF 详情页扩全结构（commit `6d8f52b`）
 - 2026-06-05：项目协议落地（AGENTS / docs/TASKS / docs/DECISIONS / docs/ROADMAP / CHANGELOG，commit `0ef5455`）
-- 下一步：ISS-005 跨仓 cleanup（删除 Folia `website/` + 删 `.github/workflows/pages.yml` + 更新 Folia / FaroPDF README 链接到 personal-site）→ ISS-006/007/008 暂缓任务 v1.1 / v1.2
+- 2026-06-05：ISS-005 跨仓 cleanup（PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新，PR-A 已合并 / PR-B 已合并）
+- 2026-06-05：ISS-006 中英文切换（feat/iss-006-i18n，6 页 + 3 components + 1 layout + 2 data + i18n/ 字典，docs-only 同步）
+- 下一步：ISS-007 微信二维码（personal-site v1.1）→ ISS-008 自定义域（personal-site v1.2）

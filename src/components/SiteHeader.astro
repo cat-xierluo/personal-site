@@ -1,23 +1,62 @@
 ---
 import { author } from '../data/author';
+import { alternatePathForLocale } from '../i18n';
+import type { Locale, Messages } from '../i18n/types';
 
 interface Props {
+  locale: Locale;
+  dict: Messages;
   activeSection?: 'home' | 'folia' | 'faropdf';
 }
 
-const { activeSection = 'home' } = Astro.props;
+const { locale, dict, activeSection = 'home' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const homePath = locale === 'en' ? `${base}en/` : base;
+const foliaPath = locale === 'en' ? `${base}en/folia/` : `${base}folia/`;
+const faropdfPath = locale === 'en' ? `${base}en/faropdf/` : `${base}faropdf/`;
+const switchHref = alternatePathForLocale(Astro.url.pathname, locale, base);
+
+const authorName = locale === 'en' ? author.nameEn : author.name;
+const brandAriaLabel = locale === 'en'
+  ? `${authorName} personal site`
+  : `${authorName} 个人主页`;
+const navAriaLabel = locale === 'en' ? 'Main navigation' : '主导航';
 ---
 
 <header class="site-header">
-  <a class="brand" href={`${base}`} aria-label={`${author.name} 个人主页`}>
+  <a class="brand" href={homePath} aria-label={brandAriaLabel}>
     <span class="brand-mark">▲</span>
-    <span>{author.name}</span>
+    <span>{authorName}</span>
   </a>
-  <nav class="nav-links" aria-label="主导航">
-    <a href={`${base}`} class={activeSection === 'home' ? 'is-active' : ''}>主页</a>
-    <a href={`${base}folia/`} class={activeSection === 'folia' ? 'is-active' : ''}>Folia</a>
-    <a href={`${base}faropdf/`} class={activeSection === 'faropdf' ? 'is-active' : ''}>FaroPDF</a>
-    <a href={author.contacts.github} target="_blank" rel="noreferrer">GitHub</a>
+  <nav class="nav-links" aria-label={navAriaLabel}>
+    <a href={homePath} class={activeSection === 'home' ? 'is-active' : ''}>{dict.nav.home}</a>
+    <a href={foliaPath} class={activeSection === 'folia' ? 'is-active' : ''}>{dict.nav.folia}</a>
+    <a href={faropdfPath} class={activeSection === 'faropdf' ? 'is-active' : ''}>{dict.nav.faropdf}</a>
+    <a href={author.contacts.github} target="_blank" rel="noreferrer">{dict.nav.github}</a>
+    <a
+      class="lang-switch"
+      href={switchHref}
+      title={dict.nav.switchLanguageTitle}
+      aria-label={dict.nav.switchLanguageAria}
+      data-locale={locale}
+    >{dict.nav.switchLanguage}</a>
   </nav>
 </header>
+
+<style>
+  .lang-switch {
+    margin-left: 4px;
+    padding: 4px 9px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent-deep);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>

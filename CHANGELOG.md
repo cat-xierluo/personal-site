@@ -1,5 +1,25 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.3 - 2026-06-05
+
+- ISS-006 中英文切换（v1.1）落地：3 页 zh-CN 全部支持 en 镜像，3 个公共组件（SiteHeader / SiteFooter / ProductCard）走 dict 驱动，SiteHeader 右上角加 lang-switch pill 按钮。
+  - i18n 框架选型：自建轻量字典 + `/en/` 子路径，zh-CN 为默认（DEC-006）。**不**引入 astro-i18next / paraglide / next-intl 等运行时库。
+  - **新增** `src/i18n/{types,zh-CN,en,index}.ts` 4 个文件 ~600 行：`Locale = 'zh-CN' | 'en'`，`Messages` interface 强约束字典结构，漏译 TS 编译失败。工具函数 `isLocale` / `resolveLocale` / `getDictionary` / `localeFromPath` / `alternatePathForLocale`。
+  - **重构** `src/data/author.ts` 加 `nameEn` / `titleEn` / `focusEn` / `bioEn` 4 个英文字段。`bioEn` 由 ChatGPT 协助翻译（专有名词「技术类纠纷」/「数据与 AI 相关争议」/「证据组织 / OCR / 翻译 / 整理」等关键术语保持与中文一致语义）。
+  - **重构** `src/layouts/BaseLayout.astro` 接受可选 `locale?: Locale` prop（URL 检测 fallback），计算 `htmlLang` 输出到 `<html lang>`，author 信息根据 locale 切中英，`description` 优先用 `dict.meta.defaultDescription`。
+  - **重构** `src/components/SiteHeader.astro`：3 个导航链接走 `dict.nav.{home,folia,faropdf}`，按 locale 拼 base 路径；右上角新增 `.lang-switch` 按钮，href 由 `alternatePathForLocale(Astro.url.pathname, locale, base)` 计算，p2p 切换保留当前页面（不强制回首页）。
+  - **重构** `src/components/SiteFooter.astro`：微信联系方式行根据 locale 切全角「：」/ 半角「:」分号，版权行加 `${year} · ` 前缀。
+  - **重构** `src/components/ProductCard.astro`：按 locale 切 `taglineEn` / `summaryEn`，详情页 href 在 en locale 加 `/en/` 前缀。
+  - **新增** `src/components/pages/{HomePage,FolioPage,FaroPdfPage}.astro` 3 个 page 组件，**重构动机**：避免 zh-CN / en 6 个页面 body 内容重复 ~1000 行。所有 page 组件接受 `locale: Locale` prop，内部 compute dict / title / backHref / 各种 locale-aware 值，再渲染完整 body + scoped `<style>` 块。
+  - **重命名** `FolioPage.astro` → `FoliaPage.astro`（typo fix，与 Folia 产品名一致；class 命名都是 `folia-`）。
+  - **重写** `src/pages/{index,folia,faropdf}.astro` 为 thin wrappers（5 行：URL 检测 locale → 调用 page 组件）。
+  - **新增** `src/pages/en/{index,folia,faropdf}.astro` 镜像（4 行：直接 `<Component locale="en" />`）。
+  - **关键交互**：FaroPDF downloadBody1 / Body2 用 `set:html` 指令渲染 `<strong>` / `<code>` 标签。Folia preview 窗口 paper pane h2 用 `preview.heading1.replace(/^#\s*/, '')` 去掉 `# ` 前缀（中英都生效）。
+  - **新增** Folia preview 字典化：filename / heading1 / heading2a / heading2b / bullet1 / bullet2 / paragraph / tableCol1-3 / cellInput / cellInterview / cellOrganized / cellReference / cellPending / cellOutput / cellOutputValue / blockquote，共 18 个字段，中英两套完整对照。
+  - **范围**：1 commit（feat/iss-006-i18n，squash merge）。未修改任何源项目（Folia / FaroPDF）仓内容。
+  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` / `dist/faropdf/index.html` / `dist/en/faropdf/index.html` 抽检中英差异正确，lang-switch href 切换方向正确（中文页 `href="/personal-site/en/"`，英文页 `href="/personal-site/"`）。`@astrojs/check` 未装（无 typecheck npm script，build 内置类型校验通过即认为 OK）。
+  - **已知限制**：v1 不做 locale cookie 记忆（用户每次切语言不持久化），不做 `/zh/` 显式前缀（zh-CN 是 root 默认）。后续 ISS-007 微信二维码和 ISS-008 自定义域与 i18n 框架正交，可独立推进。
+
 ## 0.1.0-alpha.2 - 2026-06-05
 
 - FaroPDF 详情页扩为全结构（ISS-004 Phase 3）：从 minimal（6 features 列表）扩为 Folia 详情页同 5 段式（hero / intro / features 8 项 / workflow 4 步 / download）。

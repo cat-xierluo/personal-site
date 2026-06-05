@@ -1,0 +1,380 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { products } from '../../data/products';
+import { getDictionary } from '../../i18n';
+import type { Locale, Messages } from '../../i18n/types';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict: Messages = getDictionary(locale);
+const base = import.meta.env.BASE_URL;
+const p = products.faropdf;
+
+const tagline = locale === 'en' ? p.taglineEn : p.tagline;
+const title = `${p.name} - ${tagline}`;
+const description = locale === 'en' ? p.summaryEn : p.summary;
+const backHref = locale === 'en' ? `${base}en/` : base;
+const repoUrl = p.repo;
+const releasesUrl = `${repoUrl}/releases/latest`;
+const introKicker = `${dict.faropdf.introKickerPrefix} ${p.name}`;
+const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activeSection="faropdf"
+  locale={locale}
+>
+  <section class="faropdf-hero" aria-labelledby="hero-title">
+    <div class="faropdf-hero-inner">
+      <a class="faropdf-hero-back" href={backHref}>{dict.faropdf.heroBack}</a>
+      <div class="faropdf-hero-icon-frame">
+        <img class="faropdf-hero-icon" src={`${base}${p.icon}`} width="120" height="120" alt={`${p.name} ${dict.faropdf.heroIconAlt}`} />
+      </div>
+      <p class="eyebrow">{dict.faropdf.heroEyebrow}</p>
+      <h1 id="hero-title">{p.name}</h1>
+      <p class="faropdf-hero-tagline">{tagline}</p>
+      <p class="faropdf-hero-summary">{description}</p>
+      <div class="faropdf-hero-actions" aria-label={dict.faropdf.heroDownload}>
+        <a class="button button-primary" href={releasesUrl}>{dict.faropdf.heroDownload}</a>
+        <a class="button button-secondary" href={repoUrl} target="_blank" rel="noreferrer">{dict.faropdf.heroViewSource}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-intro" aria-labelledby="intro-title">
+    <div class="section-inner intro-grid">
+      <div>
+        <p class="section-kicker">{introKicker}</p>
+        <h2 id="intro-title">{dict.faropdf.introTitle}</h2>
+      </div>
+      <p>{introBody}</p>
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="section-inner">
+      <p class="section-kicker">{dict.faropdf.featuresKicker}</p>
+      <h2 id="features-title">{dict.faropdf.featuresTitle}</h2>
+      <div class="feature-grid">
+        {dict.faropdf.features.map((feature) => (
+          <article class="feature-card">
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-workflow" aria-labelledby="workflow-title">
+    <div class="section-inner workflow-grid">
+      <div>
+        <p class="section-kicker">{dict.faropdf.workflowKicker}</p>
+        <h2 id="workflow-title">{dict.faropdf.workflowTitle}</h2>
+      </div>
+      <ol class="workflow-list">
+        {dict.faropdf.workflow.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="download" aria-labelledby="download-title">
+    <div class="section-inner download-panel">
+      <div>
+        <p class="section-kicker">{dict.faropdf.downloadKicker}</p>
+        <h2 id="download-title">{dict.faropdf.downloadTitle}</h2>
+        <p set:html={dict.faropdf.downloadBody1} />
+        <p set:html={dict.faropdf.downloadBody2} />
+      </div>
+      <div class="download-actions">
+        <a class="button button-primary" href={releasesUrl}>{dict.faropdf.downloadPrimary}</a>
+        <a class="button button-secondary" href={`${repoUrl}#readme`} target="_blank" rel="noreferrer">{dict.faropdf.downloadSecondary}</a>
+      </div>
+      <ul class="download-list" aria-label={dict.faropdf.downloadListAria}>
+        {dict.faropdf.downloadOptions.map((option) => (
+          <li>{option}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faropdf-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(46px, 7vw, 82px) clamp(18px, 4vw, 56px) clamp(28px, 4vw, 42px);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  }
+
+  .faropdf-hero-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(820px, 100%);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .faropdf-hero-back {
+    align-self: flex-start;
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .faropdf-hero-back:hover {
+    color: var(--accent);
+  }
+
+  .faropdf-hero-icon-frame {
+    display: grid;
+    place-items: center;
+    width: 132px;
+    height: 132px;
+    margin-bottom: 22px;
+    border-radius: 28px;
+    background: var(--surface);
+    box-shadow: 0 14px 38px oklch(32% 0.035 60 / 14%);
+  }
+
+  .faropdf-hero-icon {
+    display: block;
+    width: 96px;
+    height: 96px;
+  }
+
+  .faropdf-hero-tagline {
+    max-width: 640px;
+    margin: 16px 0 0;
+    color: var(--accent-deep);
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.4vw, 24px);
+    font-weight: 400;
+  }
+
+  .faropdf-hero-summary {
+    max-width: 580px;
+    margin: 22px 0 0;
+    color: oklch(28% 0.025 60);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.7;
+  }
+
+  .faropdf-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  /* Intro */
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
+    gap: clamp(32px, 7vw, 96px);
+    align-items: start;
+  }
+
+  .intro-grid > p {
+    margin: 36px 0 0;
+    font-size: clamp(17px, 2vw, 21px);
+  }
+
+  /* Features */
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 42px;
+  }
+
+  .feature-card {
+    min-height: 250px;
+    padding: 24px 22px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-card:nth-child(2) {
+    border-top-color: var(--sage);
+  }
+
+  .feature-card:nth-child(3) {
+    border-top-color: var(--accent);
+  }
+
+  .feature-card:nth-child(4) {
+    border-top-color: var(--steel);
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .feature-card p {
+    margin: 14px 0 0;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .section-workflow {
+    background: var(--surface-strong);
+  }
+
+  /* Workflow */
+
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
+    gap: clamp(32px, 7vw, 96px);
+    align-items: start;
+  }
+
+  .workflow-list {
+    display: grid;
+    gap: 12px;
+    margin: 8px 0 0;
+    padding: 0;
+    counter-reset: workflow;
+    list-style: none;
+  }
+
+  .workflow-list li {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 16px;
+    align-items: center;
+    min-height: 66px;
+    padding: 14px 18px;
+    border: 1px solid oklch(82% 0.018 76);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .workflow-list li::before {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent-deep);
+    content: counter(workflow, decimal-leading-zero);
+    counter-increment: workflow;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  /* Download */
+
+  .download-panel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    padding: clamp(28px, 4vw, 42px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .download-panel p {
+    max-width: 660px;
+  }
+
+  .download-panel code {
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: var(--surface-strong);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  .download-actions {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .download-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .download-list li {
+    min-height: 76px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Responsive */
+
+  @media (max-width: 980px) {
+    .feature-grid,
+    .download-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .intro-grid,
+    .workflow-grid,
+    .download-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .download-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .feature-grid,
+    .download-list {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      min-height: 0;
+    }
+
+    .faropdf-hero-icon-frame {
+      width: 100px;
+      height: 100px;
+    }
+
+    .faropdf-hero-icon {
+      width: 76px;
+      height: 76px;
+    }
+  }
+</style>

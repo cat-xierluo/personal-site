@@ -1,0 +1,545 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import foliaIcon from '../../assets/folia-icon.png';
+import { products } from '../../data/products';
+import { getDictionary } from '../../i18n';
+import type { Locale, Messages } from '../../i18n/types';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict: Messages = getDictionary(locale);
+const base = import.meta.env.BASE_URL;
+const p = products.folia;
+
+const tagline = locale === 'en' ? p.taglineEn : p.tagline;
+const title = `${p.name} - ${tagline}`;
+const description = locale === 'en' ? p.summaryEn : p.summary;
+const backHref = locale === 'en' ? `${base}en/` : base;
+const repoUrl = p.repo;
+const releasesUrl = `${repoUrl}/releases/latest`;
+const preview = dict.folia.preview;
+const introKicker = `${dict.folia.introKickerPrefix} ${p.name}`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activeSection="folia"
+  locale={locale}
+>
+  <section class="folia-hero" aria-labelledby="hero-title">
+    <div class="folia-hero-inner">
+      <a class="folia-hero-back" href={backHref}>{dict.folia.heroBack}</a>
+      <img class="folia-hero-icon" src={foliaIcon.src} width="86" height="86" alt="" />
+      <p class="eyebrow">{dict.folia.heroEyebrow}</p>
+      <h1 id="hero-title">{p.name}</h1>
+      <p class="folia-hero-tagline">{tagline}</p>
+      <div class="folia-hero-actions" aria-label={dict.folia.heroDownload}>
+        <a class="button button-primary" href={releasesUrl}>{dict.folia.heroDownload}</a>
+        <a class="button button-secondary" href={repoUrl} target="_blank" rel="noreferrer">{dict.folia.heroViewSource}</a>
+      </div>
+
+      <div class="folia-hero-product" aria-hidden="true">
+        <div class="app-window">
+          <div class="app-toolbar">
+            <span></span>
+            <span></span>
+            <span></span>
+            <strong>{preview.filename}</strong>
+          </div>
+          <div class="app-body">
+            <aside class="app-rail">
+              <span></span>
+              <span></span>
+              <span></span>
+            </aside>
+            <div class="editor-pane">
+              <p class="md-heading">{preview.heading1}</p>
+              <p>{preview.heading2a}</p>
+              <p>{preview.bullet1}</p>
+              <p>{preview.bullet2}</p>
+              <p>{preview.heading2b}</p>
+              <p>{preview.paragraph}</p>
+            </div>
+            <div class="paper-pane">
+              <div class="paper">
+                <h2>{preview.heading1.replace(/^#\s*/, '')}</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{preview.tableCol1}</th>
+                      <th>{preview.tableCol2}</th>
+                      <th>{preview.tableCol3}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="2">{preview.cellInput}</td>
+                      <td>{preview.cellInterview}</td>
+                      <td>{preview.cellOrganized}</td>
+                    </tr>
+                    <tr>
+                      <td>{preview.cellReference}</td>
+                      <td>{preview.cellPending}</td>
+                    </tr>
+                    <tr>
+                      <td>{preview.cellOutput}</td>
+                      <td colspan="2">{preview.cellOutputValue}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <blockquote>{preview.blockquote}</blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-intro" aria-labelledby="intro-title">
+    <div class="section-inner intro-grid">
+      <div>
+        <p class="section-kicker">{introKicker}</p>
+        <h2 id="intro-title">{dict.folia.introTitle}</h2>
+      </div>
+      <p>{dict.folia.introBody}</p>
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="section-inner">
+      <p class="section-kicker">{dict.folia.featuresKicker}</p>
+      <h2 id="features-title">{dict.folia.featuresTitle}</h2>
+      <div class="feature-grid">
+        {dict.folia.features.map((feature) => (
+          <article class="feature-card">
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-workflow" aria-labelledby="workflow-title">
+    <div class="section-inner workflow-grid">
+      <div>
+        <p class="section-kicker">{dict.folia.workflowKicker}</p>
+        <h2 id="workflow-title">{dict.folia.workflowTitle}</h2>
+      </div>
+      <ol class="workflow-list">
+        {dict.folia.workflow.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="download" aria-labelledby="download-title">
+    <div class="section-inner download-panel">
+      <div>
+        <p class="section-kicker">{dict.folia.downloadKicker}</p>
+        <h2 id="download-title">{dict.folia.downloadTitle}</h2>
+        <p>{dict.folia.downloadBody}</p>
+      </div>
+      <div class="download-actions">
+        <a class="button button-primary" href={releasesUrl}>{dict.folia.downloadPrimary}</a>
+        <a class="button button-secondary" href={`${repoUrl}#readme`} target="_blank" rel="noreferrer">{dict.folia.downloadSecondary}</a>
+      </div>
+      <ul class="download-list" aria-label={dict.folia.downloadListAria}>
+        {dict.folia.downloadOptions.map((option) => (
+          <li>{option}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .folia-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(46px, 7vw, 82px) clamp(18px, 4vw, 56px) clamp(28px, 4vw, 42px);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  }
+
+  .folia-hero-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(1080px, 100%);
+    margin: 0 auto;
+  }
+
+  .folia-hero-back {
+    align-self: flex-start;
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .folia-hero-back:hover {
+    color: var(--accent);
+  }
+
+  .folia-hero-icon {
+    display: block;
+    width: 86px;
+    height: 86px;
+    margin-bottom: 26px;
+    border-radius: 18px;
+    box-shadow: 0 12px 34px oklch(32% 0.035 60 / 14%);
+  }
+
+  .folia-hero-tagline {
+    max-width: 660px;
+    margin: 12px 0 0;
+    color: oklch(28% 0.025 60);
+    font-size: clamp(17px, 2.2vw, 23px);
+    line-height: 1.72;
+  }
+
+  .folia-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .folia-hero-product {
+    position: relative;
+    z-index: 1;
+    width: min(900px, 100%);
+    max-height: 260px;
+    margin-top: clamp(30px, 4vw, 44px);
+    overflow: hidden;
+  }
+
+  .app-window {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    border: 1px solid oklch(82% 0.018 75);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    transform: rotate(-0.7deg);
+  }
+
+  .app-toolbar {
+    display: grid;
+    grid-template-columns: 10px 10px 10px 1fr;
+    gap: 8px;
+    align-items: center;
+    height: 42px;
+    padding: 0 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .app-toolbar span {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+
+  .app-toolbar strong {
+    justify-self: center;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  .app-body {
+    display: grid;
+    grid-template-columns: 38px minmax(220px, 0.9fr) minmax(360px, 1.25fr);
+    min-height: 360px;
+  }
+
+  .app-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    padding-top: 24px;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .app-rail span {
+    width: 16px;
+    height: 2px;
+    background: oklch(72% 0.02 75);
+  }
+
+  .editor-pane {
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .editor-pane p {
+    margin: 0 0 13px;
+  }
+
+  .editor-pane .md-heading {
+    color: var(--accent-deep);
+  }
+
+  .paper-pane {
+    display: grid;
+    place-items: center;
+    padding: 34px;
+    background: oklch(93% 0.014 78);
+  }
+
+  .paper {
+    width: min(360px, 100%);
+    min-height: 320px;
+    padding: 34px 32px;
+    border: 1px solid oklch(86% 0.012 75);
+    border-radius: 2px;
+    background: white;
+    box-shadow: 0 14px 42px oklch(30% 0.025 60 / 12%);
+    color: var(--ink);
+  }
+
+  .paper h2 {
+    margin: 0 0 18px;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .paper table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .paper th,
+  .paper td {
+    padding: 8px 9px;
+    border: 1px solid oklch(82% 0.015 76);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .paper th {
+    background: oklch(96% 0.01 78);
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .paper blockquote {
+    margin: 22px 0 0;
+    padding: 0 0 0 12px;
+    border-left: 2px solid var(--accent);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  /* Intro / features / workflow / download — reuse BaseLayout section styles */
+
+  .intro-grid,
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
+    gap: clamp(32px, 7vw, 96px);
+    align-items: start;
+  }
+
+  .intro-grid > p {
+    margin: 36px 0 0;
+    font-size: clamp(17px, 2vw, 21px);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 42px;
+  }
+
+  .feature-card {
+    min-height: 250px;
+    padding: 24px 22px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-card:nth-child(2) {
+    border-top-color: var(--sage);
+  }
+
+  .feature-card:nth-child(3) {
+    border-top-color: var(--accent);
+  }
+
+  .feature-card:nth-child(4) {
+    border-top-color: var(--steel);
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .feature-card p {
+    margin: 18px 0 0;
+    font-size: 14px;
+  }
+
+  .section-workflow {
+    background: var(--surface-strong);
+  }
+
+  .workflow-list {
+    display: grid;
+    gap: 12px;
+    margin: 8px 0 0;
+    padding: 0;
+    counter-reset: workflow;
+    list-style: none;
+  }
+
+  .workflow-list li {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 16px;
+    align-items: center;
+    min-height: 66px;
+    padding: 14px 18px;
+    border: 1px solid oklch(82% 0.018 76);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .workflow-list li::before {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent-deep);
+    content: counter(workflow, decimal-leading-zero);
+    counter-increment: workflow;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .download-panel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    padding: clamp(28px, 4vw, 42px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .download-panel p {
+    max-width: 660px;
+  }
+
+  .download-actions {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .download-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .download-list li {
+    min-height: 76px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 980px) {
+    .folia-hero-product {
+      max-height: 220px;
+    }
+
+    .app-window {
+      width: 780px;
+      max-width: none;
+      opacity: 0.78;
+    }
+
+    .feature-grid,
+    .download-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .intro-grid,
+    .workflow-grid,
+    .download-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .download-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .folia-hero-product {
+      max-height: 160px;
+      margin-top: 40px;
+    }
+
+    .app-window {
+      width: 640px;
+      margin-left: 50%;
+      opacity: 0.38;
+      transform: translateX(-50%) rotate(-0.7deg);
+    }
+
+    .feature-grid,
+    .download-list {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      min-height: 0;
+    }
+  }
+</style>
