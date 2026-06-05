@@ -418,6 +418,67 @@ h1 {
   border-bottom: 1px solid var(--accent);
 }
 
+/* === WeChat QR === */
+
+.wechat-qr {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.wechat-qr__img {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: white;
+  box-shadow: 0 6px 18px oklch(28% 0.035 60 / 10%);
+}
+
+.wechat-qr--64 .wechat-qr__img {
+  width: 64px;
+  height: 64px;
+}
+
+.wechat-qr--160 .wechat-qr__img {
+  width: 160px;
+  height: 160px;
+}
+
+.wechat-qr__caption {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contact-item--qr {
+  grid-template-columns: 92px auto;
+  align-items: center;
+}
+
+.footer-wechat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-wechat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.footer-wechat__handle {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
 /* === Footer === */
 
 .site-footer {
@@ -558,6 +619,12 @@ h1 {
   .contact-item {
     grid-template-columns: 1fr;
     gap: 4px;
+  }
+
+  .contact-item--qr {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    justify-items: start;
   }
 
   .footer-inner {

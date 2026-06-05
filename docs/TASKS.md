@@ -94,16 +94,6 @@
 
 ## 暂缓任务
 
-### ISS-007 微信二维码（v1.1）
-
-- 优先级：P2
-- 类型：内容补完
-- 状态：暂缓
-- 依赖：v1 MVP 收口
-- 范围：`src/data/author.ts` + footer + 联系方式 section
-- 目标：把微信 `ywxlaw` 二维码加到主页（footer + contact section），与 Folia / FaroPDF AuthorCard 数据打通
-- 验收：二维码图片可扫描，扫描后是 `ywxlaw` 公众号（实际添加时 PM 替换真实二维码）
-
 ### ISS-008 自定义域（v1.2）
 
 - 优先级：P2
@@ -137,6 +127,19 @@
   - **范围**：1 commit（feat/iss-006-i18n）。未修改任何源项目（Folia / FaroPDF）仓内容。
   - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` / `dist/faropdf/index.html` / `dist/en/faropdf/index.html` 抽检中英差异正确，lang-switch href 切换方向正确。
 
+### ISS-007 微信二维码（v1.1，已完成）
+
+- 2026-06-05：ISS-007 落地（feat/iss-007-wechat-qr，docs 同步）
+  - 资源单源：从 `FaroPDF/src/assets/wechat-qrcode.png` 复制到 `personal-site/src/assets/wechat-qrcode.png`（DEC-002 § 2.3 + DEC-007）
+  - 已知事实：两仓当前都是 1×1 灰度占位（67 字节），任务卡接受标准里写明「实际添加时 PM 替换真实二维码」（替换入口：FaroPDF `src/assets/wechat-qrcode.png` 和 personal-site `src/assets/wechat-qrcode.png` 各替换一次，rebuild 后 hash 自动刷新）
+  - **新增** `src/components/WechatQr.astro`：共享组件，props `size: 64 | 160` + `alt: string` + `caption?: string`；用 Astro `import qrImage from '../assets/wechat-qrcode.png'` 走 `dist/_astro/` hash 资源
+  - **重构** `src/components/SiteFooter.astro`：`footer-meta` 行内新增 `footer-wechat` 块，64×64 QR + 微信标签 + handle 文本
+  - **重构** `src/components/pages/HomePage.astro`：contact 列表新增 `contact-item--qr` 一项，160×160 QR + caption
+  - **扩展** i18n 字典（4 个字段 ×2 语种 = 8 处）：`footer.wechatHandlePrefix` / `footer.wechatQrAlt` / `index.contactWechatCaption` / `index.contactWechatQrAlt`
+  - **扩展** `src/styles/site.css`：`.wechat-qr` 系列 + `.contact-item--qr` + `.footer-wechat` 样式，窄屏（≤680px）下 contact-item--qr 改单列布局
+  - **范围**：1 commit（feat/iss-007-wechat-qr）。未修改任何源项目（Folia / FaroPDF）仓内容；后续 PM 替换真实二维码时需要分别去两仓替换一次。
+  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` 抽检 footer mini QR + contact big QR 都在，alt 文案中英分别正确（`微信二维码 — ywxlaw` / `WeChat QR code — ywxlaw` 等），资源 hash 一致（`DdK2Yptz`），BASE_URL 前缀 `/personal-site/` 正确。
+
 ## 进度日志
 
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
@@ -146,4 +149,5 @@
 - 2026-06-05：项目协议落地（AGENTS / docs/TASKS / docs/DECISIONS / docs/ROADMAP / CHANGELOG，commit `0ef5455`）
 - 2026-06-05：ISS-005 跨仓 cleanup（PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新，PR-A 已合并 / PR-B 已合并）
 - 2026-06-05：ISS-006 中英文切换（feat/iss-006-i18n，6 页 + 3 components + 1 layout + 2 data + i18n/ 字典，docs-only 同步）
-- 下一步：ISS-007 微信二维码（personal-site v1.1）→ ISS-008 自定义域（personal-site v1.2）
+- 2026-06-05：ISS-007 微信二维码（feat/iss-007-wechat-qr，QR 资源从 FaroPDF 复制 + 新 WechatQr 共享组件 + footer mini 64×64 + contact big 160×160 + i18n 字典扩展 + docs 同步）
+- 下一步：ISS-008 自定义域（personal-site v1.2）

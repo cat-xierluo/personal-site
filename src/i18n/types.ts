@@ -19,6 +19,8 @@ export interface FooterMessages {
   faropdf: string;
   github: string;
   wechatLabel: string;
+  wechatHandlePrefix: string;
+  wechatQrAlt: string;
   copyright: string;
 }
 
@@ -43,6 +45,8 @@ export interface IndexMessages {
   contactKicker: string;
   contactTitle: string;
   contactWechatLabel: string;
+  contactWechatCaption: string;
+  contactWechatQrAlt: string;
   contactGithubLabel: string;
   contactDomainLabel: string;
   contactDomainValue: string;

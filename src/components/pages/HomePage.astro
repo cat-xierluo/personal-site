@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../ProductCard.astro';
+import WechatQr from '../WechatQr.astro';
 import { author } from '../../data/author';
 import { getDictionary } from '../../i18n';
 import type { Locale, Messages } from '../../i18n/types';
@@ -79,6 +80,14 @@ const githubDisplay = author.contacts.github.replace('https://', '');
         <div class="contact-item">
           <span class="contact-label">{dict.index.contactWechatLabel}</span>
           <code>{author.contacts.wechat}</code>
+        </div>
+        <div class="contact-item contact-item--qr">
+          <span class="contact-label">{dict.index.contactWechatLabel}</span>
+          <WechatQr
+            size={160}
+            alt={dict.index.contactWechatQrAlt}
+            caption={dict.index.contactWechatCaption}
+          />
         </div>
         <div class="contact-item">
           <span class="contact-label">{dict.index.contactGithubLabel}</span>
