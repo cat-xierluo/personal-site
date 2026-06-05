@@ -58,21 +58,18 @@
 
 - 优先级：P1
 - 类型：内容扩写
-- 状态：待 PM 启动
-- 建议分支：`feat/faropdf-detail-page-full`
+- 状态：第一版已交付
+- 建议分支：—
 - 依赖：ISS-001 scaffold
 - 范围：`src/pages/faropdf.astro`
 - 目标：把当前 minimal FaroPDF 详情页（6 features 列表）扩为 Folia website 同结构：hero（含产品 icon + tagline + 介绍 + 主要操作）+ intro（"为什么做 FaroPDF"）+ features 6-8 大类（阅读 / 批注 / 页面整理 / OCR / 导出 / 表单签署 / 设置 / 法律材料）+ workflow 4-6 步 + download（GitHub Releases + 安装包说明 + macOS 首次运行提示）
 - 验收：
-  - 结构与 Folia 详情页一致（hero / intro / features / workflow / download）
-  - 数据来源：FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力
-  - **不**发明未交付功能
-  - Icon 源：`cat-xierluo/FaroPDF/src-tauri/icons/icon-source.png`（与 DEC-002 § 2.3 单一真相源一致）
-  - `npm run build` 干净
-- 关键决策（待 brainstorm 时确认）：
-  - 详略：是否做 Folia 同款 "app mockup"？需要 FaroPDF UI 截图或纯 CSS 复刻
-  - 下载入口：当前 0 release 公开，"下载"section 标"待发布"还是留 v0.3 计划
-  - 关联：与 Folia detail 共享哪些基础组件 / CSS
+  - 结构与 Folia 详情页一致（hero / intro / features / workflow / download）✅
+  - 数据来源：FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力 ✅
+  - **不**发明未交付功能 ✅
+  - Icon 源：`cat-xierluo/FaroPDF/src-tauri/icons/icon-source.png`（与 DEC-002 § 2.3 单一真相源一致）✅
+  - `npm run build` 干净 ✅
+- 当前进度：commit `6d8f52b` 已 push。FaroPDF 详情页 5 段齐全（hero / intro / features 8 项 / workflow 4 步 / download），8 项 features 与 FaroPDF CHANGELOG 实际交付一致。下载入口标"待发布"（与 README + DEC-048 一致）。
 
 ### ISS-005 跨仓 cleanup（Folia + FaroPDF README 链接）
 
@@ -139,4 +136,6 @@
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
 - 2026-06-05：ISS-002 GitHub Actions workflow（commit `01c4f75`）
 - 2026-06-05：ISS-003 Folia website 迁出主体（commit `3891da4`）
-- 下一步：ISS-004 FaroPDF 详情页扩全结构（hero / intro / features / workflow / download）→ ISS-005 跨仓 cleanup → ISS-006/007/008 暂缓任务 v1.1
+- 2026-06-05：ISS-004 FaroPDF 详情页扩全结构（commit `6d8f52b`）
+- 2026-06-05：项目协议落地（AGENTS / docs/TASKS / docs/DECISIONS / docs/ROADMAP / CHANGELOG，commit `0ef5455`）
+- 下一步：ISS-005 跨仓 cleanup（删除 Folia `website/` + 删 `.github/workflows/pages.yml` + 更新 Folia / FaroPDF README 链接到 personal-site）→ ISS-006/007/008 暂缓任务 v1.1 / v1.2
