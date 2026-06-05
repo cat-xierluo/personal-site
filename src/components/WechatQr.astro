@@ -1,0 +1,24 @@
+---
+import qrImage from '../assets/wechat-qrcode.png';
+
+interface Props {
+  size: 64 | 160;
+  alt: string;
+  caption?: string;
+}
+
+const { size, alt, caption } = Astro.props;
+---
+
+<figure class:list={['wechat-qr', `wechat-qr--${size}`]}>
+  <img
+    class="wechat-qr__img"
+    src={qrImage.src}
+    width={size}
+    height={size}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+  />
+  {caption && <figcaption class="wechat-qr__caption">{caption}</figcaption>}
+</figure>

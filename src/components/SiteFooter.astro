@@ -1,5 +1,6 @@
 ---
 import { author } from '../data/author';
+import WechatQr from './WechatQr.astro';
 import type { Locale, Messages } from '../i18n/types';
 
 interface Props {
@@ -16,9 +17,6 @@ const faropdfPath = locale === 'en' ? `${base}en/faropdf/` : `${base}faropdf/`;
 const authorName = locale === 'en' ? author.nameEn : author.name;
 const authorFocus = locale === 'en' ? author.focusEn : author.focus;
 const year = new Date().getFullYear();
-const wechatLine = locale === 'en'
-  ? `${dict.footer.wechatLabel}: ${author.contacts.wechat}`
-  : `${dict.footer.wechatLabel}：${author.contacts.wechat}`;
 ---
 
 <footer class="site-footer">
@@ -34,7 +32,13 @@ const wechatLine = locale === 'en'
       <a href={author.contacts.github} target="_blank" rel="noreferrer">{dict.footer.github}</a>
     </div>
     <div class="footer-meta">
-      <span>{wechatLine}</span>
+      <div class="footer-wechat">
+        <WechatQr size={64} alt={dict.footer.wechatQrAlt} />
+        <div class="footer-wechat__text">
+          <span class="footer-tagline">{dict.footer.wechatLabel}</span>
+          <span class="footer-wechat__handle">{dict.footer.wechatHandlePrefix}{author.contacts.wechat}</span>
+        </div>
+      </div>
       <span class="footer-license">© {year} · {dict.footer.copyright}</span>
     </div>
   </div>

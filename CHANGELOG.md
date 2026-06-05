@@ -1,5 +1,18 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.4 - 2026-06-05
+
+- ISS-007 微信二维码（v1.1）落地：footer mini QR（64×64）+ 首页 contact section big QR（160×160）两处露出，统一走 `WechatQr.astro` 共享组件。
+  - 资源单源：从 `FaroPDF/src/assets/wechat-qrcode.png` 复制到 `personal-site/src/assets/wechat-qrcode.png`（DEC-002 § 2.3 + DEC-007）。Astro `import qrImage from '../assets/wechat-qrcode.png'` 自动 hash 并落到 `dist/_astro/wechat-qrcode.<hash>.png`，BASE_URL 前缀自动应用。
+  - **已知事实**：当前两仓的 `wechat-qrcode.png` 都是 1×1 灰度占位（67 字节，`file` 报告 `PNG image data, 1 x 1, 8-bit grayscale, non-interlaced`）。ISS-007 任务卡接受标准写明「实际添加时 PM 替换真实二维码」（替换入口：FaroPDF 仓 `src/assets/wechat-qrcode.png` 和 personal-site 仓 `src/assets/wechat-qrcode.png` 各替换一次，rebuild 后 hash 自动刷新，build 产物无需手工改）。
+  - **新增** `src/components/WechatQr.astro` 共享组件：props `size: 64 | 160` + `alt: string` + `caption?: string`；用 `class:list={['wechat-qr', \`wechat-qr--${size}\`]}` 区分尺寸（CSS 集中控制，不靠 inline style）。`<img>` 带 `loading="lazy"` + `decoding="async"`。
+  - **重构** `src/components/SiteFooter.astro`：`footer-meta` 行内新增 `.footer-wechat` 块，64×64 QR + 微信/WeChat 标签 + handle 文本。`wechatLine` 字符串拼接移除（改走 dict 字段）。
+  - **重构** `src/components/pages/HomePage.astro` contact section：列表新增 `.contact-item--qr` 一项，160×160 QR + caption（"扫码添加微信" / "Scan to add on WeChat"）。
+  - **扩展** i18n 字典：4 个字段 ×2 语种 = 8 处。`FooterMessages` 加 `wechatHandlePrefix`（"微信：" / "WeChat: "）+ `wechatQrAlt`（footer 64×64 的 alt 文案）；`IndexMessages` 加 `contactWechatCaption` + `contactWechatQrAlt`（160×160 的 caption 和 alt 文案）。
+  - **扩展** `src/styles/site.css`：新增 `.wechat-qr` / `.wechat-qr--64` / `.wechat-qr--160` / `.wechat-qr__caption` / `.contact-item--qr` / `.footer-wechat` 样式。窄屏（≤680px）下 `.contact-item--qr` 改单列布局（grid-template-columns: 1fr + gap: 12px + justify-items: start）。
+  - **范围**：1 commit（feat/iss-007-wechat-qr，docs 同步）。未修改任何源项目（Folia / FaroPDF）仓代码。
+  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` 抽检 footer mini QR（64×64，alt "微信二维码 — ywxlaw" / "WeChat QR code — ywxlaw"）+ contact big QR（160×160，alt "微信二维码 — 扫码添加 ywxlaw" / "WeChat QR code — scan to add ywxlaw"）都在，资源 hash 一致（`DdK2Yptz`），BASE_URL 前缀 `/personal-site/` 正确。footer "微信：ywxlaw" / "WeChat: ywxlaw" 在中英两版 footer 均出现。
+
 ## 0.1.0-alpha.3 - 2026-06-05
 
 - ISS-006 中英文切换（v1.1）落地：3 页 zh-CN 全部支持 en 镜像，3 个公共组件（SiteHeader / SiteFooter / ProductCard）走 dict 驱动，SiteHeader 右上角加 lang-switch pill 按钮。
@@ -18,7 +31,7 @@
   - **新增** Folia preview 字典化：filename / heading1 / heading2a / heading2b / bullet1 / bullet2 / paragraph / tableCol1-3 / cellInput / cellInterview / cellOrganized / cellReference / cellPending / cellOutput / cellOutputValue / blockquote，共 18 个字段，中英两套完整对照。
   - **范围**：1 commit（feat/iss-006-i18n，squash merge）。未修改任何源项目（Folia / FaroPDF）仓内容。
   - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` / `dist/faropdf/index.html` / `dist/en/faropdf/index.html` 抽检中英差异正确，lang-switch href 切换方向正确（中文页 `href="/personal-site/en/"`，英文页 `href="/personal-site/"`）。`@astrojs/check` 未装（无 typecheck npm script，build 内置类型校验通过即认为 OK）。
-  - **已知限制**：v1 不做 locale cookie 记忆（用户每次切语言不持久化），不做 `/zh/` 显式前缀（zh-CN 是 root 默认）。后续 ISS-007 微信二维码和 ISS-008 自定义域与 i18n 框架正交，可独立推进。
+  - **已知限制**：v1 不做 locale cookie 记忆（用户每次切语言不持久化），不做 `/zh/` 显式前缀（zh-CN 是 root 默认）。ISS-007 微信二维码已落地（见 0.1.0-alpha.4），ISS-008 自定义域与 i18n 框架正交，可独立推进。
 
 ## 0.1.0-alpha.2 - 2026-06-05
 

@@ -17,6 +17,8 @@ const messages: Messages = {
     faropdf: 'FaroPDF',
     github: 'GitHub',
     wechatLabel: '微信',
+    wechatHandlePrefix: '微信：',
+    wechatQrAlt: '微信二维码 — ywxlaw',
     copyright: 'Apache License 2.0',
   },
 
@@ -50,6 +52,8 @@ const messages: Messages = {
     contactKicker: '联系方式',
     contactTitle: '欢迎交流合作、产品建议或法律问题咨询。',
     contactWechatLabel: '微信',
+    contactWechatCaption: '扫码添加微信',
+    contactWechatQrAlt: '微信二维码 — 扫码添加 ywxlaw',
     contactGithubLabel: 'GitHub',
     contactDomainLabel: '领域',
     contactDomainValue: '技术类纠纷 · 数据与 AI 相关争议',

@@ -304,3 +304,60 @@ zh-CN 页面 thin wrapper：URL 检测 locale 后传给 `HomePage` / `FoliaPage`
   - lang switch href：中文页 `href="/personal-site/en/"`，英文页 `href="/personal-site/"`
 - 后续 ISS-007 微信二维码和 ISS-008 自定义域不影响 i18n 框架
 - 已知限制：v1 不做 locale cookie 记忆（用户每次切语言不持久化），不做 `/zh/` 显式前缀（zh-CN 是 root 默认）
+
+## DEC-007 微信二维码：FaroPDF 资源单源复制 + 共享 WechatQr 组件
+
+- 日期：2026-06-05
+- 状态：已采纳
+- 关联任务：ISS-007
+
+### 背景
+
+personal-site v1.1（继 ISS-006 中英文切换之后）需要在 footer + 首页 contact section 露出微信二维码 `ywxlaw`，便于扫码联系作者。资源在 FaroPDF 仓 `src/assets/wechat-qrcode.png` 已有占位文件（被 `AboutSection.tsx` 的 `AuthorCard` 引用），任务是把它带到 personal-site 并设计成可复用的共享组件，避免后续改文案 / 替换真实二维码时在多处散改。
+
+### 决策
+
+1. **资源单源**：从 `FaroPDF/src/assets/wechat-qrcode.png` 复制到 `personal-site/src/assets/wechat-qrcode.png`。后续 PM 替换真实二维码时，两仓分别替换即可（FaroPDF 的 `AuthorCard` 已经引用同名路径）。
+2. **共享组件**：新建 `src/components/WechatQr.astro`，props `size: 64 | 160` + `alt: string` + `caption?: string`。footer 用 64×64 不带 caption，contact section 用 160×160 带 caption。
+3. **i18n 字典扩展**：`FooterMessages` 加 `wechatHandlePrefix`（"微信：" / "WeChat: "）+ `wechatQrAlt`（footer 64×64 的 alt 文案）；`IndexMessages` 加 `contactWechatCaption`（"扫码添加微信" / "Scan to add on WeChat"）+ `contactWechatQrAlt`（160×160 的 alt 文案）。
+
+### 关键决策
+
+- **优**：
+  - 共享组件 + alt 字典让 64/160 两种尺寸共用同一份图片资源 + 同一段 `<img>` 渲染逻辑，文案 / 替换只改一处
+  - Astro 的 `import qrImage from '../assets/wechat-qrcode.png'` 自动把图片打进 `dist/_astro/`，build 时生成 hash 文件名，BASE_URL 正确前缀
+  - 用 `class:list` 区分 `.wechat-qr--64` / `.wechat-qr--160`，CSS 集中控制尺寸而不靠 props 拼 inline style
+  - 资源单源（personal-site 复刻 FaroPDF 资源）符合 DEC-002 单一真相源原则
+- **劣**：
+  - 依赖 FaroPDF 占位文件状态：FaroPDF 仓的 `wechat-qrcode.png` 当前是 1×1 灰度占位（67 字节），personal-site 复制得到的也是 1×1 像素（已确认 `file` 报告 `PNG image data, 1 x 1, 8-bit grayscale, non-interlaced`）。ISS-007 任务卡接受标准里写明「实际添加时 PM 替换真实二维码」
+  - Astro 不会做 CDN 缓存优化（直接走 `/_astro/` 静态 hash 文件），但 site 流量低、QR 几乎不更新，无影响
+  - alt 文案写死「ywxlaw」在字典里，未来换账号需要改两处 dict（zh-CN / en）。**接受**：换号本身就是低频的破坏性动作，集中改两处比拆 dict 字段更直观
+- **拒绝的方案**：
+  - **用 SVG inline / 远程 QR 生成 API**：增加运行时或第三方依赖；ISS-007 是营销展示，不需要动态生成
+  - **不做组件、footer 和 contact 各贴一份 `<img>`**：30 行内就要散改，不符合 DEC-002
+  - **图片用 base64 内联到 CSS**：会让 CSS 文件膨胀，hash 缓存失效；Astro 的 import 已经是正确做法
+  - **复制图片到 `public/` 而非 `src/assets/`**：`public/` 走原始文件名发布，BASE_URL / cache busting 都不友好
+
+### 资源放置与文案
+
+- `src/assets/wechat-qrcode.png`（Astro build 产物：`dist/_astro/wechat-qrcode.<hash>.png`）
+- `src/components/WechatQr.astro`：`<figure>` + `<img>` + 可选 `<figcaption>`，带 `loading="lazy"` + `decoding="async"`
+- `src/components/SiteFooter.astro`：`footer-meta` 行内 `footer-wechat` 块，64×64 QR + "微信 / WeChat" 标签 + handle 文本
+- `src/components/pages/HomePage.astro`：contact 列表新增一项 `contact-item--qr`，160×160 QR + caption
+- `src/styles/site.css`：新增 `.wechat-qr`、`.wechat-qr--64`、`.wechat-qr--160`、`.wechat-qr__caption`、`.contact-item--qr`、`.footer-wechat` 样式；窄屏（≤680px）下 `.contact-item--qr` 改单列布局
+
+### 验证
+
+- `npm run build` 6 页（3 zh-CN + 3 en）干净生成，无类型 / 资源警告
+- 抽检 `dist/index.html` / `dist/en/index.html`：
+  - footer mini QR（64×64）：`alt="微信二维码 — ywxlaw"` / `alt="WeChat QR code — ywxlaw"`，`src="/personal-site/_astro/wechat-qrcode.DdK2Yptz.png"`
+  - contact big QR（160×160）：`alt="微信二维码 — 扫码添加 ywxlaw"` / `alt="WeChat QR code — scan to add ywxlaw"`，同源
+  - 资源哈希一致（`DdK2Yptz`）：64/160 共用同一张图
+- footer "微信：ywxlaw" / "WeChat: ywxlaw" 在中英两版 footer 均出现
+- 窄屏（≤680px）下 contact-item--qr 自动从 92px + auto 改单列，QR 居左
+
+### 已知限制
+
+- 当前两仓的 `wechat-qrcode.png` 都是 1×1 灰度占位，扫描不可识别。ISS-007 任务卡明文接受标准「实际添加时 PM 替换真实二维码」；替换入口：FaroPDF 仓 `src/assets/wechat-qrcode.png` 和 personal-site 仓 `src/assets/wechat-qrcode.png` 各替换一次（rebuild 后 hash 变化，build 产物自然刷新）
+- 没有把 QR 资源发布到 CDN 或 OSS：当前体量不需要，PM 替换文件后随 next release 一起发布即可
+- v1 不做「点击按钮复制微信号」之类的客户端交互；只露出 QR + 文字 handle

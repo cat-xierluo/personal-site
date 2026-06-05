@@ -17,6 +17,8 @@ const messages: Messages = {
     faropdf: 'FaroPDF',
     github: 'GitHub',
     wechatLabel: 'WeChat',
+    wechatHandlePrefix: 'WeChat: ',
+    wechatQrAlt: 'WeChat QR code — ywxlaw',
     copyright: 'Apache License 2.0',
   },
 
@@ -52,6 +54,8 @@ const messages: Messages = {
     contactKicker: 'Contact',
     contactTitle: 'Open to collaboration, product feedback, and legal inquiries.',
     contactWechatLabel: 'WeChat',
+    contactWechatCaption: 'Scan to add on WeChat',
+    contactWechatQrAlt: 'WeChat QR code — scan to add ywxlaw',
     contactGithubLabel: 'GitHub',
     contactDomainLabel: 'Focus',
     contactDomainValue: 'Technology-related disputes · Data and AI-related issues',
