@@ -1,0 +1,24 @@
+---
+import { author } from '../data/author';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>{author.name}</strong>
+      <span class="footer-tagline">{author.focus}</span>
+    </div>
+    <div class="footer-links">
+      <a href={`${base}`}>主页</a>
+      <a href={`${base}folia/`}>Folia</a>
+      <a href={`${base}faropdf/`}>FaroPDF</a>
+      <a href={author.contacts.github} target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+    <div class="footer-meta">
+      <span>微信：{author.contacts.wechat}</span>
+      <span class="footer-license">© {new Date().getFullYear()} · Apache License 2.0</span>
+    </div>
+  </div>
+</footer>

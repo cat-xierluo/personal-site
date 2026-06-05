@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { products } from '../data/products';
+import { author } from '../data/author';
+
+const p = products.folia;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title={`${p.name} — ${p.tagline}`}
+  description={p.summary}
+  activeSection="folia"
+>
+  <section class="product-hero" aria-labelledby="product-title">
+    <div class="product-hero__inner">
+      <a class="product-hero__back" href={`${base}`}>← 返回 {author.name} 主页</a>
+      <img class="product-hero__icon" src={`${base}${p.icon}`} width="120" height="120" alt={`${p.name} 图标`} />
+      <p class="eyebrow">{p.name} · 产品页</p>
+      <h1 id="product-title">{p.name}</h1>
+      <p class="product-hero__tagline">{p.tagline}</p>
+      <p class="product-hero__summary">{p.summary}</p>
+      <div class="product-hero__actions">
+        <a class="button button-primary" href={p.repo} target="_blank" rel="noreferrer">查看源码（GitHub）</a>
+        <a class="button button-secondary" href={`${base}faropdf/`}>了解 FaroPDF →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-features" aria-labelledby="features-title">
+    <div class="section-inner">
+      <p class="section-kicker">核心能力</p>
+      <h2 id="features-title">稳定阅读 · 纸张预览 · 导出 Word</h2>
+      <div class="features-list">
+        <article class="feature-row">
+          <h3>复杂 Markdown 稳定阅读</h3>
+          <p>长文档、HTML 片段、宽表格和混合排版可以保持清晰，不把复杂资料压成难以阅读的源码。</p>
+        </article>
+        <article class="feature-row">
+          <h3>Markdown 所见即所得</h3>
+          <p>普通 Markdown 默认进入轻量编辑视图，源码模式仍可随时切回，适合阅读、修订和整理知识材料。</p>
+        </article>
+        <article class="feature-row">
+          <h3>Word 纸张预览与导出</h3>
+          <p>导出前先看到接近 A4 的页面效果，再用内置或自定义 JSON 预设生成可交付的 .docx。</p>
+        </article>
+        <article class="feature-row">
+          <h3>HTML 文章与演示预览</h3>
+          <p>可复制为公众号编辑器友好的 HTML，也能隔离运行自包含 HTML 演示文件。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .product-hero {
+    padding: clamp(40px, 6vw, 80px) clamp(18px, 4vw, 56px) clamp(32px, 4vw, 56px);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  }
+
+  .product-hero__inner {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .product-hero__back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .product-hero__back:hover {
+    color: var(--accent);
+  }
+
+  .product-hero__icon {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 26px;
+    box-shadow: 0 14px 38px oklch(28% 0.035 60 / 14%);
+  }
+
+  .product-hero__tagline {
+    margin: 14px 0 0;
+    color: var(--accent-deep);
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.4vw, 24px);
+    font-weight: 400;
+  }
+
+  .product-hero__summary {
+    max-width: 580px;
+    margin: 22px auto 0;
+    color: oklch(28% 0.025 60);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.7;
+  }
+
+  .product-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .features-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 36px;
+  }
+
+  .feature-row {
+    padding: 22px 26px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-row h3 {
+    margin: 0 0 10px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .feature-row p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 680px) {
+    .product-hero__icon {
+      width: 88px;
+      height: 88px;
+    }
+  }
+</style>

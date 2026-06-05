@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { author } from '../data/author';
+---
+
+<BaseLayout
+  title={`${author.name} — ${author.title}（${author.focus}）`}
+  activeSection="home"
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="eyebrow">个人主页 · 律师 + 独立开发者</p>
+      <h1 id="hero-title">{author.name}</h1>
+      <p class="hero-title-line">{author.title} · {author.focus}</p>
+      <p class="hero-copy">{author.bio}</p>
+      <div class="hero-actions" aria-label="主要链接">
+        <a class="button button-primary" href="#products">查看产品</a>
+        <a class="button button-secondary" href={author.contacts.github} target="_blank" rel="noreferrer">GitHub · {author.contacts.github.replace('https://', '')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="section-inner about-grid">
+      <div>
+        <p class="section-kicker">关于</p>
+        <h2 id="about-title">把法律工作里的小障碍，一件一件解决。</h2>
+      </div>
+      <div class="about-text">
+        <p>
+          我是杨卫薪律师，专注于技术类纠纷领域，包括知识产权、数据与 AI 相关争议；同时长期关注 AI 技术在法律实务、知识管理和专业写作中的应用。
+        </p>
+        <p>
+          这个页面是「作者 + 产品」的入口。下面两个项目都来自日常法律工作中的真实痛点：Folia 解决「复杂 Markdown 文档的稳定阅读和纸面导出」，FaroPDF 解决「卷宗、证据、扫描件、合同 PDF 的快读、批注、OCR 和签署交付」。
+        </p>
+        <p>
+          联系方式：微信 <code>{author.contacts.wechat}</code> · <a href={author.contacts.github} target="_blank" rel="noreferrer">GitHub</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-products" id="products" aria-labelledby="products-title">
+    <div class="section-inner">
+      <p class="section-kicker">产品</p>
+      <h2 id="products-title">两个为日常法律工作打磨的开源项目。</h2>
+      <div class="product-grid">
+        <ProductCard slug="folia" />
+        <ProductCard slug="faropdf" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+    <div class="section-inner contact-grid">
+      <div>
+        <p class="section-kicker">联系方式</p>
+        <h2 id="contact-title">欢迎交流合作、产品建议或法律问题咨询。</h2>
+      </div>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-label">微信</span>
+          <code>{author.contacts.wechat}</code>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">GitHub</span>
+          <a href={author.contacts.github} target="_blank" rel="noreferrer">cat-xierluo</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">领域</span>
+          <span>技术类纠纷 · 数据与 AI 相关争议</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

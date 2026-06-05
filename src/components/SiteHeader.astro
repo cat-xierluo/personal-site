@@ -1,0 +1,23 @@
+---
+import { author } from '../data/author';
+
+interface Props {
+  activeSection?: 'home' | 'folia' | 'faropdf';
+}
+
+const { activeSection = 'home' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <a class="brand" href={`${base}`} aria-label={`${author.name} 个人主页`}>
+    <span class="brand-mark">▲</span>
+    <span>{author.name}</span>
+  </a>
+  <nav class="nav-links" aria-label="主导航">
+    <a href={`${base}`} class={activeSection === 'home' ? 'is-active' : ''}>主页</a>
+    <a href={`${base}folia/`} class={activeSection === 'folia' ? 'is-active' : ''}>Folia</a>
+    <a href={`${base}faropdf/`} class={activeSection === 'faropdf' ? 'is-active' : ''}>FaroPDF</a>
+    <a href={author.contacts.github} target="_blank" rel="noreferrer">GitHub</a>
+  </nav>
+</header>

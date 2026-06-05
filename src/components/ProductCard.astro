@@ -1,0 +1,27 @@
+---
+import { products } from '../data/products';
+
+interface Props {
+  slug: 'folia' | 'faropdf';
+}
+
+const { slug } = Astro.props;
+const product = products[slug];
+const base = import.meta.env.BASE_URL;
+---
+
+<article class={`product-card product-card--${product.accent}`}>
+  <div class="product-card__icon">
+    <img src={`${base}${product.icon}`} width="80" height="80" alt={`${product.name} 图标`} />
+  </div>
+  <div class="product-card__body">
+    <p class="product-card__eyebrow">开源项目 · 个人开发</p>
+    <h3 class="product-card__name">{product.name}</h3>
+    <p class="product-card__tagline">{product.tagline}</p>
+    <p class="product-card__summary">{product.summary}</p>
+    <div class="product-card__actions">
+      <a class="button button-primary" href={`${base}${slug}/`}>了解详情</a>
+      <a class="button button-secondary" href={product.repo} target="_blank" rel="noreferrer">查看源码</a>
+    </div>
+  </div>
+</article>

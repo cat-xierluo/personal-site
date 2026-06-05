@@ -1,0 +1,16 @@
+{
+  "name": "@cat-xierluo/personal-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "typecheck": "astro check"
+  },
+  "devDependencies": {
+    "astro": "^6.3.1",
+    "typescript": "~5.8.3"
+  }
+}
