@@ -224,3 +224,83 @@ personal-site 是纯静态站，需要：
 
 - workflow 文件已落（commit `01c4f75`）
 - deploy.yml 用 withastro/action + actions/deploy-pages 官方组合
+
+## DEC-006 i18n：自建轻量字典 + `/en/` 子路径（zh-CN 为默认）
+
+- 日期：2026-06-05
+- 状态：已采纳
+- 关联任务：ISS-006
+
+### 背景
+
+personal-site v1 是中文-only（杨卫薪律师中文受众为主）。v1.1 路线图要补英文版：Folia / FaroPDF 是开源技术产品，国际读者中英文都重要，i18n 是产品曝光必要项。3 页（首页 / Folia 详情 / FaroPDF 详情）+ SiteHeader / SiteFooter / ProductCard 共 6 个组件都要支持中英。
+
+### 决策
+
+**自建轻量字典**（`src/i18n/{types,zh-CN,en,index}.ts`）：
+- `Locale = 'zh-CN' | 'en'`，`DEFAULT_LOCALE = 'zh-CN'`
+- 字典按页面分组（`nav` / `footer` / `index` / `folia` / `faropdf` / `meta`），不引入 astro-i18next / paraglide
+- 路由用 `src/pages/en/*` 子路径分组，zh-CN 页面在 `src/pages/*`（默认 root）
+- 三个 zh-CN 页面 + 三个 en 页面都是 thin wrapper，调用 `HomePage` / `FoliaPage` / `FaroPdfPage` 组件，组件接受 `locale: Locale` prop
+
+### 关键决策
+
+- **优**：
+  - 零运行时依赖：不需要 astro-i18next / paraglide / next-intl 等库
+  - 类型安全：`Messages` interface 强约束字典结构，漏译 TS 编译失败
+  - 字典集中：所有翻译文本在 `src/i18n/{zh-CN,en}.ts` 两个文件，新增 locale 复制一份即可
+  - 与 Folia website 风格延续：Folia website 早期是手写 if/else 处理 i18n，轻量可读
+  - 6 个页面去重：所有 zh-CN / en 页面共享 3 个 page components + 3 个 public components，不重复 ~1000 行 body
+- **劣**：
+  - 手写字典：缺 IDE 翻译高亮、缺 plural / interpolation 标准库（自写 `{name}` 占位符替换）
+  - 不支持运行时 locale 协商：靠 URL 切换，无 cookie 记忆
+  - 不支持按 locale 拆 bundle：所有字典被 build-time 拉入（但 v1 字典 < 5KB 可忽略）
+
+### 拒绝的方案
+
+- **astro-i18next**：与 i18next 体系强耦合，多余中间层；项目无动态 locale 协商需求
+- **paraglide-js**（inlang）：tree-shake 友好但需 build pipeline 集成，v1 阶段无此需求
+- **Astro 官方 i18n routing**（`i18n: { defaultLocale, locales }` config）：原生支持有限，routing 与 dictionary 解耦需要自己写，本项目用 URL 直接判断更直观
+
+### 路由约定
+
+```text
+src/pages/
+  index.astro            → /personal-site/             (zh-CN, URL-detected)
+  folia.astro            → /personal-site/folia/       (zh-CN, URL-detected)
+  faropdf.astro          → /personal-site/faropdf/     (zh-CN, URL-detected)
+  en/
+    index.astro          → /personal-site/en/          (en, hardcoded)
+    folia.astro          → /personal-site/en/folia/    (en, hardcoded)
+    faropdf.astro        → /personal-site/en/faropdf/  (en, hardcoded)
+```
+
+zh-CN 页面 thin wrapper：URL 检测 locale 后传给 `HomePage` / `FoliaPage` / `FaroPdfPage` 组件。en 页面 thin wrapper：直接 `locale="en"` 硬编码。
+
+### 关键工具
+
+- `isLocale(value)`：类型守卫
+- `resolveLocale(value)`：归一化（容错）
+- `getDictionary(locale)`：返回 `Messages`（强制类型对齐）
+- `localeFromPath(pathname, baseUrl)`：去掉 baseUrl 后判断是否以 `/en/` 开头，返回 'en' | 'zh-CN' | 默认
+- `alternatePathForLocale(pathname, currentLocale, baseUrl)`：计算语言切换 URL（从 `/en/foo/` 切到 `/foo/`，从 `/foo/` 切到 `/en/foo/`），保留 `trailingSlash: 'always'`
+
+### 语言切换器
+
+- `SiteHeader` 右上角 pill 样式按钮：中文页显示「EN」+ `title="Switch to English"` + `aria-label="切换到英文"`；英文页显示「中」+ `title="Switch to Chinese"` + `aria-label="Switch to English"`
+- 切换 URL 通过 `alternatePathForLocale` 计算，保留在当前页面（不强制回首页）
+- 用 `data-locale` 标记当前 locale，便于后续 CSS / a11y 扩展
+
+### HTML `lang` 属性
+
+`BaseLayout` 在 `<html lang={htmlLang}>` 中输出 `en` 或 `zh-CN`，便于 SEO / 浏览器翻译 / 屏幕阅读器。
+
+### 验证
+
+- `npm run build` 6 页（3 zh-CN + 3 en）干净生成
+- 抽检 `dist/index.html` / `dist/en/index.html`：
+  - `<title>`：中文 `杨卫薪律师 — 律师（技术类纠纷 · 数据与 AI 相关争议）` vs 英文 `Yang Weixin, Esq. — Lawyer (Technology-related disputes · Data and AI-related issues)`
+  - hero tagline：FaroPDF 中文 `面向律师的独立 PDF 阅读器` vs 英文 `An independent PDF reader for lawyers`
+  - lang switch href：中文页 `href="/personal-site/en/"`，英文页 `href="/personal-site/"`
+- 后续 ISS-007 微信二维码和 ISS-008 自定义域不影响 i18n 框架
+- 已知限制：v1 不做 locale cookie 记忆（用户每次切语言不持久化），不做 `/zh/` 显式前缀（zh-CN 是 root 默认）

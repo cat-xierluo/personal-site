@@ -3,34 +3,50 @@ import '../styles/site.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { author } from '../data/author';
+import { getDictionary, localeFromPath, resolveLocale } from '../i18n';
+import type { Locale, Messages } from '../i18n/types';
 
 interface Props {
   title: string;
   description?: string;
   activeSection?: 'home' | 'folia' | 'faropdf';
+  locale?: Locale;
 }
 
-const { title, description, activeSection = 'home' } = Astro.props;
-const desc = description ?? `${author.name}（${author.title}）— ${author.focus}。产品：Folia（Markdown 阅读与 Word 导出）与 FaroPDF（律师 PDF 阅读器）。`;
+const { title, description, activeSection = 'home', locale: localeProp } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const resolved: Locale = localeProp ?? resolveLocale(localeFromPath(Astro.url.pathname, base));
+const dict: Messages = getDictionary(resolved);
+
+const authorName = resolved === 'en' ? author.nameEn : author.name;
+const authorTitle = resolved === 'en' ? author.titleEn : author.title;
+const authorFocus = resolved === 'en' ? author.focusEn : author.focus;
+
+const defaultDesc =
+  resolved === 'en'
+    ? `${authorName} (${authorTitle}) — ${authorFocus}. ${dict.meta.descriptionSuffix.trim()}`
+    : `${authorName}（${authorTitle}）— ${authorFocus}${dict.meta.descriptionSuffix}`;
+
+const desc = description ?? defaultDesc;
+const htmlLang = resolved === 'en' ? 'en' : 'zh-CN';
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={desc} />
     <meta name="theme-color" content="#f7f1e8" />
-    <meta name="author" content={author.name} />
+    <meta name="author" content={authorName} />
     <title>{title}</title>
     <link rel="icon" href={`${base}favicon.png`} type="image/png" />
   </head>
   <body>
-    <SiteHeader activeSection={activeSection} />
+    <SiteHeader locale={resolved} dict={dict} activeSection={activeSection} />
     <main>
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter locale={resolved} dict={dict} />
   </body>
 </html>

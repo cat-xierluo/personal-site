@@ -1,24 +1,41 @@
 ---
 import { author } from '../data/author';
+import type { Locale, Messages } from '../i18n/types';
 
+interface Props {
+  locale: Locale;
+  dict: Messages;
+}
+
+const { locale, dict } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const homePath = locale === 'en' ? `${base}en/` : base;
+const foliaPath = locale === 'en' ? `${base}en/folia/` : `${base}folia/`;
+const faropdfPath = locale === 'en' ? `${base}en/faropdf/` : `${base}faropdf/`;
+
+const authorName = locale === 'en' ? author.nameEn : author.name;
+const authorFocus = locale === 'en' ? author.focusEn : author.focus;
+const year = new Date().getFullYear();
+const wechatLine = locale === 'en'
+  ? `${dict.footer.wechatLabel}: ${author.contacts.wechat}`
+  : `${dict.footer.wechatLabel}：${author.contacts.wechat}`;
 ---
 
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <strong>{author.name}</strong>
-      <span class="footer-tagline">{author.focus}</span>
+      <strong>{authorName}</strong>
+      <span class="footer-tagline">{authorFocus}</span>
     </div>
     <div class="footer-links">
-      <a href={`${base}`}>主页</a>
-      <a href={`${base}folia/`}>Folia</a>
-      <a href={`${base}faropdf/`}>FaroPDF</a>
-      <a href={author.contacts.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a href={homePath}>{dict.footer.home}</a>
+      <a href={foliaPath}>{dict.footer.folia}</a>
+      <a href={faropdfPath}>{dict.footer.faropdf}</a>
+      <a href={author.contacts.github} target="_blank" rel="noreferrer">{dict.footer.github}</a>
     </div>
     <div class="footer-meta">
-      <span>微信：{author.contacts.wechat}</span>
-      <span class="footer-license">© {new Date().getFullYear()} · Apache License 2.0</span>
+      <span>{wechatLine}</span>
+      <span class="footer-license">© {year} · {dict.footer.copyright}</span>
     </div>
   </div>
 </footer>

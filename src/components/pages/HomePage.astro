@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../ProductCard.astro';
+import { author } from '../../data/author';
+import { getDictionary } from '../../i18n';
+import type { Locale, Messages } from '../../i18n/types';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict: Messages = getDictionary(locale);
+const base = import.meta.env.BASE_URL;
+
+const authorName = locale === 'en' ? author.nameEn : author.name;
+const authorTitle = locale === 'en' ? author.titleEn : author.title;
+const authorFocus = locale === 'en' ? author.focusEn : author.focus;
+const authorBio = locale === 'en' ? author.bioEn : author.bio;
+const githubHandle = author.contacts.githubHandle;
+
+const title = locale === 'en'
+  ? `${authorName} — ${authorTitle} (${authorFocus})`
+  : `${authorName} — ${authorTitle}（${authorFocus}）`;
+
+const aboutContactLine = locale === 'en'
+  ? `${dict.index.aboutContactLine}: WeChat ${author.contacts.wechat} · GitHub ${githubHandle}`
+  : `${dict.index.aboutContactLine}：微信 ${author.contacts.wechat} · GitHub ${githubHandle}`;
+
+const githubDisplay = author.contacts.github.replace('https://', '');
+---
+
+<BaseLayout title={title} activeSection="home" locale={locale}>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="eyebrow">{dict.index.heroEyebrow}</p>
+      <h1 id="hero-title">{authorName}</h1>
+      <p class="hero-title-line">{authorTitle} · {authorFocus}</p>
+      <p class="hero-copy">{authorBio}</p>
+      <div class="hero-actions" aria-label={dict.nav.home}>
+        <a class="button button-primary" href="#products">{dict.index.heroPrimaryCta}</a>
+        <a class="button button-secondary" href={author.contacts.github} target="_blank" rel="noreferrer">{dict.index.heroSecondaryCtaPrefix}{githubDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="section-inner about-grid">
+      <div>
+        <p class="section-kicker">{dict.index.aboutKicker}</p>
+        <h2 id="about-title">{dict.index.aboutTitle}</h2>
+      </div>
+      <div class="about-text">
+        <p>{dict.index.aboutParagraph1}</p>
+        <p>{dict.index.aboutParagraph2}</p>
+        <p>{aboutContactLine}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-products" id="products" aria-labelledby="products-title">
+    <div class="section-inner">
+      <p class="section-kicker">{dict.index.productsKicker}</p>
+      <h2 id="products-title">{dict.index.productsTitle}</h2>
+      <div class="product-grid">
+        <ProductCard slug="folia" locale={locale} dict={dict} />
+        <ProductCard slug="faropdf" locale={locale} dict={dict} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+    <div class="section-inner contact-grid">
+      <div>
+        <p class="section-kicker">{dict.index.contactKicker}</p>
+        <h2 id="contact-title">{dict.index.contactTitle}</h2>
+      </div>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-label">{dict.index.contactWechatLabel}</span>
+          <code>{author.contacts.wechat}</code>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">{dict.index.contactGithubLabel}</span>
+          <a href={author.contacts.github} target="_blank" rel="noreferrer">{githubHandle}</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">{dict.index.contactDomainLabel}</span>
+          <span>{dict.index.contactDomainValue}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
