@@ -1,5 +1,15 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.6 - 2026-06-05
+
+- ISS-010 真实微信二维码替换：把 ISS-007 时复制的 1×1 占位（67 字节）换成真实 QR（734×734 / 184KB，源自 `Folia/docs/wechat-qr.png`）。footer mini QR + contact section big QR 露出可扫码的真实图片。docs 同步（DEC-009）。
+  - **资源替换**：`cp Folia/docs/wechat-qr.png personal-site/src/assets/wechat-qrcode.png`（734×734 / 184KB / 8-bit gray+alpha）。Astro `import qrImage from '../assets/wechat-qrcode.png'` 自动 hash，build 产物 `dist/_astro/wechat-qrcode.<hash>.png` 从占位 `DdK2Yptz`（67B）变为 `BL2G81aV`（184KB）。HTML/JS 自动跟随新 hash，零代码改动
+  - **修正 DEC-007 单源声明**：DEC-007 § 资源单源 写"从 `FaroPDF/src/assets/wechat-qrcode.png` 复制"是 ISS-007 时未核验文件尺寸的误读。FaroPDF 那个 PNG 自始至终是 1×1 占位（`file` 报告 `PNG image data, 1 x 1, 8-bit grayscale, non-interlaced`），真实 QR 一直在 `Folia/docs/wechat-qr.png`（2026-05-20 入仓，比 ISS-007 早两周）。**不**修改 DEC-007 原文（保留历史准确性），新增 DEC-009 supersede 标注单源修正
+  - **单源 = `Folio/docs/wechat-qr.png`**：三仓副本（personal-site 替换 / FaroPDF 待跨仓 follow-up / Folia 不动）
+  - **范围**：1 commit（feat/iss-010-real-qr，docs 同步）。未修改任何源项目（Folio / FaroPDF）仓内容。FaroPDF 仓 `AuthorCard` 仍是 1×1 占位，跨仓 follow-up 不在本次范围（DEC-009 § 已知限制）
+  - **验证**：`npm run build` 干净 6 页生成，`dist/_astro/wechat-qrcode.BL2G81aV.png` 184KB 已替换占位版本，HTML 抽检 `<img src="/personal-site/_astro/wechat-qrcode.BL2G81aV.png">` 已切换。Post-merge 站点应可实际扫码加微信
+  - **决策记录**：DEC-009（背景含 DEC-007 修正说明 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+
 ## 0.1.0-alpha.5 - 2026-06-05
 
 - ISS-009 部署修复（v1.1 收口）落地：把 main 上 5 个 push Actions 全失败的问题拆成三个根因分别解决，docs 同步（DEC-008）。ISS-008 自定义域按用户决策取消。
