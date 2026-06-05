@@ -1,115 +1,46 @@
 # personal-site 任务源
 
-> **当前阶段**：Phase 1 + Phase 1.5 + Phase 2 主体已落（v0.1.0-alpha.1）。Phase 3 详情页扩内容 + 跨仓 cleanup 待推进。
+> **当前阶段**：v0.1.0-alpha.5 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009）均已落定。ISS-008 自定义域按用户决策取消。
 
 ## 活跃任务
 
-### ISS-001 个人主页 scaffold + bio + 产品列表
+> 当前无可执行活跃任务。如下方"已取消任务"或"归档任务索引"所示，v1 MVP / v1.1 增量 / 部署链路全部收口。下一步可推进 ISS-010（v1.2 内容增量：博客 / 案例 / 时讯 / 真实微信二维码替换 等）或其他 v1.3 想法，等 PM 启动新一波。
 
-- 优先级：P0
-- 类型：项目卫生（chore / 工具链）
-- 状态：第一版已交付
-- 建议分支：—
-- 依赖：无
-- 范围：`astro.config.mjs` / `package.json` / `tsconfig.json` / `src/{components,data,layouts,pages,styles}/` / `public/{favicon.png,icons/}` / `README.md` / `AGENTS.md` / `docs/{TASKS,DECISIONS,ROADMAP}.md` / `CHANGELOG.md`
-- 目标：杨卫薪律师个人主页 v1 MVP 落地：bio hero + about + 产品列表（2 cards：Folia / FaroPDF）+ 联系方式；产品详情页占位版本（待 Phase 3 扩内容）
-- 验收：
-  - `npm run build` 干净
-  - 主页 5 段齐全（hero / about / products / contact / footer）
-  - Folia / FaroPDF 详情页可达
-  - 资源严格从源项目复用（DEC-002 § 2.3）
-  - 部署到 `https://cat-xierluo.github.io/personal-site/`
-- 当前进度：3 页静态生成（`index.html` / `folia/index.html` / `faropdf/index.html`），commit `a92dacd` 已 push。Folia / FaroPDF 详情页是 minimal 状态。
+## 已取消任务
 
-### ISS-002 personal-site GitHub Pages 自动部署
-
-- 优先级：P0
-- 类型：CI / 部署
-- 状态：第一版已交付
-- 建议分支：—
-- 依赖：无
-- 范围：`.github/workflows/deploy.yml`
-- 目标：main 分支 push 后自动 build + deploy 到 GitHub Pages
-- 验收：
-  - workflow 触发：push main / workflow_dispatch
-  - 步骤：checkout → setup-node 20 → setup-pages → install (npm ci) → build (PERSONAL_SITE_URL/PERSONAL_BASE_PATH env) → upload-artifact → deploy-pages
-  - 权限：pages: write + id-token: write
-  - 并发组：pages（避免并发 deploy 互相覆盖）
-  - 环境：github-pages
-- 当前进度：commit `01c4f75` 已 push，workflow 文件已就位。**首次需要手动在 GitHub repo Settings → Pages → Source = GitHub Actions 启用一次**，之后全自动。
-
-### ISS-003 Folia website 迁出到 personal-site（Phase 2 主体）
-
-- 优先级：P0
-- 类型：内容迁移（跨仓协调）
-- 状态：主体已落，跨仓 cleanup 待办
-- 建议分支：—
-- 依赖：无（独立 Phase 1.5 后即可）
-- 范围：`src/pages/folia.astro` / `src/assets/folia-icon.png`
-- 目标：把 `cat-xierluo/Folia/website/src/pages/index.astro` 完整内容迁到 personal-site，替换 minimal 详情页
-- 验收：
-  - hero（app mockup：editor + paper 双栏）+ intro + features 4 项 + workflow 4 步 + download 5 段齐全
-  - 复用 personal-site BaseLayout / SiteHeader / SiteFooter / 共享 site.css
-  - Folia 专属样式（app mockup / paper / workflow 编号圆 / feature-card 彩条）内嵌在 `<style>` 块
-  - 资源从源项目 `cat-xierluo/Folia/website/src/assets/folia-icon.png` 复制
-- 当前进度：commit `3891da4` 已 push。Folia 仓库 cleanup（删 `website/` + 更新 README）**未做**，是独立小 PR。
-
-### ISS-004 FaroPDF 详情页扩为全结构（Phase 3）
-
-- 优先级：P1
-- 类型：内容扩写
-- 状态：第一版已交付
-- 建议分支：—
-- 依赖：ISS-001 scaffold
-- 范围：`src/pages/faropdf.astro`
-- 目标：把当前 minimal FaroPDF 详情页（6 features 列表）扩为 Folia website 同结构：hero（含产品 icon + tagline + 介绍 + 主要操作）+ intro（"为什么做 FaroPDF"）+ features 6-8 大类（阅读 / 批注 / 页面整理 / OCR / 导出 / 表单签署 / 设置 / 法律材料）+ workflow 4-6 步 + download（GitHub Releases + 安装包说明 + macOS 首次运行提示）
-- 验收：
-  - 结构与 Folia 详情页一致（hero / intro / features / workflow / download）✅
-  - 数据来源：FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力 ✅
-  - **不**发明未交付功能 ✅
-  - Icon 源：`cat-xierluo/FaroPDF/src-tauri/icons/icon-source.png`（与 DEC-002 § 2.3 单一真相源一致）✅
-  - `npm run build` 干净 ✅
-- 当前进度：commit `6d8f52b` 已 push。FaroPDF 详情页 5 段齐全（hero / intro / features 8 项 / workflow 4 步 / download），8 项 features 与 FaroPDF CHANGELOG 实际交付一致。下载入口标"待发布"（与 README + DEC-048 一致）。
-
-### ISS-005 跨仓 cleanup（Folia + FaroPDF README 链接）
-
-- 优先级：P1
-- 类型：跨仓协调
-- 状态：待 PM 启动
-- 建议分支：分别独立小 PR
-- 依赖：ISS-003 + ISS-004 落定
-- 范围：
-  - **Folia 仓**（`cat-xierluo/Folia`）：
-    - 删 `website/` 子目录（内容已迁到 personal-site）
-    - 删 `.github/workflows/pages.yml`（Folia 不再自部署）
-    - 更新 `README.md` §"官方仓库" 或加注 "官网迁到 https://cat-xierluo.github.io/personal-site/folia/"
-  - **FaroPDF 仓**（`cat-xierluo/FaroPDF`）：
-    - 更新 `README.md` §"官方仓库" 链接到 `https://cat-xierluo.github.io/personal-site/faropdf/`
-    - 同步更新 `docs/ROADMAP.md` §"v0.3 性能与发布"（如果提到官网）
-- 验收：
-  - 两个仓 README 一致指向 personal-site 产品页
-  - Folia 仓 `website/` 删除干净（无遗漏引用）
-  - Folia GitHub Pages 配置不冲突（已删 workflow）
-  - 跨仓链接从 `https://github.com/cat-xierluo/personal-site` 反向连接到 `https://github.com/cat-xierluo/FaroPDF` 等
-
-## 暂缓任务
-
-### ISS-008 自定义域（v1.2）
+### ISS-008 自定义域（v1.2，已取消）
 
 - 优先级：P2
 - 类型：部署
-- 状态：暂缓
+- 状态：**用户决策取消（2026-06-05）**
 - 依赖：v1 MVP + v1.1
 - 范围：DNS 配置 + `astro.config.mjs` site URL
 - 目标：从 `cat-xierluo.github.io/personal-site/` 迁到自定义域（如 `yangweixin.com` / `weixin.law` 等）
 - 验收：DNS CNAME 配置正确；HTTPS 证书自动；`PERSONAL_SITE_URL` 环境变量在 deploy.yml 覆盖
+- **取消原因**：用户在 ISS-009 排查期间明确决定"项目的域名就先不做配置吧，我们就用这个 GitHub 本身的那个，GitHub 点 io 的这个网址"，保持 `https://cat-xierluo.github.io/personal-site/` 作为正式站点。资源投入（DNS / CNAME / HTTPS 证书 / 续费）相对项目体量（v1 MVP 6 页静态站）ROI 偏低；如未来需要再重启为 v1.3+ 任务。
 
 ## 归档任务索引
 
-### Phase 0 调研（已完成）
+### ISS-001 个人主页 scaffold + bio + 产品列表（已完成）
 
-- 2026-06-05：调研 Folia website Astro 6.3.1 单页静态站结构（`website/src/pages/index.astro` + `site.css` + `public/favicon.png` + `src/assets/folia-icon.png`），与 FaroPDF 主项目 `src-tauri/icons/icon-source.png` 作为两个 icon 源
-- 2026-06-05：brainstorm ISS-028 关键决策（独立仓库 / Astro / 必选 bio+产品 / 联系方式可选 / i18n v1.1 / Folia 迁出）
+- 2026-06-05：commit `a92dacd`。3 页静态生成（`index.html` / `folia/index.html` / `faropdf/index.html`），5 段齐全（hero / about / products / contact / footer），资源从源项目复用（DEC-002 § 2.3）。
+
+### ISS-002 personal-site GitHub Pages 自动部署（workflow 已交付，ISS-009 修复激活）
+
+- 2026-06-05：commit `01c4f75`。workflow 文件就位（permissions / concurrency / 环境变量 / 步骤顺序）。
+- 2026-06-05：ISS-009 排查发现 workflow 文件本身正确，但 main 上 5 个 push 的 Actions 全部失败，根因不在 workflow 而是 (1) 缺 lock file + (2) GitHub Pages 未启用 + (3) Node 20 不足以跑 Astro 6.4。三项在 ISS-009 / DEC-008 收口（见归档）。
+
+### ISS-003 Folia website 迁出到 personal-site（Phase 2 主体，已完成）
+
+- 2026-06-05：commit `3891da4`。Folia 详情页 5 段式（hero / app mockup / intro / features 4 / workflow 4 / download）从 `cat-xierluo/Folia/website/src/pages/index.astro` 完整迁出。Folia 仓 cleanup（删 `website/` + 更新 README）由 ISS-005 PR-A 处理。
+
+### ISS-004 FaroPDF 详情页扩为全结构（Phase 3，已完成）
+
+- 2026-06-05：commit `6d8f52b`。FaroPDF 详情页从 minimal 扩为 Folia 同结构（hero / intro / features 8 / workflow 4 / download），数据严格来自 FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力，**不**发明未交付功能。
+
+### ISS-005 跨仓 cleanup（Folio + FaroPDF README 链接，已完成）
+
+- 2026-06-05：PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新（PR-A 已合并 / PR-B 已合并）。两个仓 README 一致指向 personal-site 产品页。
 
 ### ISS-006 中英文切换（v1.1，已完成）
 
@@ -140,6 +71,19 @@
   - **范围**：1 commit（feat/iss-007-wechat-qr）。未修改任何源项目（Folia / FaroPDF）仓内容；后续 PM 替换真实二维码时需要分别去两仓替换一次。
   - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` 抽检 footer mini QR + contact big QR 都在，alt 文案中英分别正确（`微信二维码 — ywxlaw` / `WeChat QR code — ywxlaw` 等），资源 hash 一致（`DdK2Yptz`），BASE_URL 前缀 `/personal-site/` 正确。
 
+### ISS-009 修复 Actions 失败：补 lock file + 启用 GitHub Pages + 升 Node 22（已完成）
+
+- 2026-06-05：ISS-009 落地（PR #3 fix/iss-009-lock-file 已合并为 `4ffff64`；本次 follow-up PR docs/iss-009-deploy-fix 待合并）
+  - **根因 1 — 缺 `package-lock.json`**：`npm ci` 严格要求 lock file，scaffold 时只生成 `package.json`。**修复**：`npm install --package-lock-only` 生成 `package-lock.json`（257 packages / 0 vulnerabilities），让 Install 步骤通过。PR #3。
+  - **根因 2 — GitHub Pages 未启用**：`.github/workflows/deploy.yml` 假设 Pages 已开，但仓库 Settings 默认是关闭的。**修复**：用户手动在 GitHub 仓库 Settings → Pages → Source = GitHub Actions 启用一次（一次性配置，Agent 不应代调 API 改共享仓库设置）。验证：`GET /repos/cat-xierluo/personal-site/pages` 返回 `{"build_type":"workflow","public":true,"html_url":"https://cat-xierluo.github.io/personal-site/"}`。
+  - **根因 3 — Node 20 不支持 Astro 6.4**（follow-up 发现）：补完 lock file 后 PR #3 触发的 run 仍然失败 —— Astro 6.4.4 要求 Node `>=22.12.0`，但 `setup-node@v4` 装的是 20.20.2，错误信息 `Node.js v20.20.2 is not supported by Astro!`。**修复**：
+    - `.github/workflows/deploy.yml` line 27 `node-version: 20` → `node-version: 22`
+    - `package.json` 新增 `"engines": { "node": ">=22.12.0" }` 显式声明
+  - **范围**：1 commit（fix/iss-009-lock-file）+ 1 follow-up commit（docs/iss-009-deploy-fix，含 workflow 修复 + 文档同步）。未修改任何源项目（Folia / FaroPDF）仓内容。
+  - **验证（预期）**：`gh run watch` 跑完一次 main 触发的 deploy 应进入 success；`curl -I https://cat-xierluo.github.io/personal-site/` 应返回 200 + `text/html`。
+  - **决策记录**：DEC-008（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）。
+  - **已知限制**：GitHub Pages 启用是用户一次性手动操作（未来 transfer ownership 或新 fork 需要重做）；Astro 6.4.x 仍在 minor 演进，未来若引入 Node 24+ 强制要求需同步升 setup-node。
+
 ## 进度日志
 
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
@@ -150,4 +94,6 @@
 - 2026-06-05：ISS-005 跨仓 cleanup（PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新，PR-A 已合并 / PR-B 已合并）
 - 2026-06-05：ISS-006 中英文切换（feat/iss-006-i18n，6 页 + 3 components + 1 layout + 2 data + i18n/ 字典，docs-only 同步）
 - 2026-06-05：ISS-007 微信二维码（feat/iss-007-wechat-qr，QR 资源从 FaroPDF 复制 + 新 WechatQr 共享组件 + footer mini 64×64 + contact big 160×160 + i18n 字典扩展 + docs 同步）
-- 下一步：ISS-008 自定义域（personal-site v1.2）
+- 2026-06-05：ISS-009 部署修复（PR #3 fix/iss-009-lock-file 补 `package-lock.json` + 用户手动启用 GitHub Pages + 本次 follow-up 升 Node 22 修 Astro 6.4 engine；DEC-008 落地）
+- 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
+- 下一步：v1 MVP / v1.1 增量 / 部署链路全部收口；可启动 v1.2 增量（ISS-010 候选：博客 / 案例 / 时讯 / 真实微信二维码替换 / RSS / sitemap 等）或等用户下一步指令

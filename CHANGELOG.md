@@ -1,5 +1,19 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.5 - 2026-06-05
+
+- ISS-009 部署修复（v1.1 收口）落地：把 main 上 5 个 push Actions 全失败的问题拆成三个根因分别解决，docs 同步（DEC-008）。ISS-008 自定义域按用户决策取消。
+  - **根因 1 — 缺 `package-lock.json`**：`npm ci` 严格要求 lock file，scaffold 时只生成 `package.json`。**修复**：`npm install --package-lock-only` 生成 `package-lock.json`（257 packages / 0 vulnerabilities）。commit `4ffff64`（PR #3 fix/iss-009-lock-file）。
+  - **根因 2 — GitHub Pages 未启用**：`.github/workflows/deploy.yml` 假设 Pages 已开，但仓库 Settings 默认是关闭的（`GET /repos/cat-xierluo/personal-site/pages` 在启用前返回 404）。**修复**：用户手动在 GitHub 仓库 Settings → Pages → Source = GitHub Actions 启用一次（一次性配置，Agent 不代调 API 改共享仓库设置，Auto mode 拒了 `POST /pages`）。验证：启用后 `GET /pages` 返回 `{"build_type":"workflow","public":true,"html_url":"https://cat-xierluo.github.io/personal-site/"}`。
+  - **根因 3 — Node 20 不支持 Astro 6.4**（PR #3 之后 re-run 才发现的 follow-up 根因）：Astro 6.4.4 要求 Node `>=22.12.0`，但 `setup-node@v4` 装的是 20.20.2，build 步骤报 `Node.js v20.20.2 is not supported by Astro!`。**修复**：
+    - `.github/workflows/deploy.yml` line 27 `node-version: 20` → `node-version: 22`
+    - `package.json` 新增 `"engines": { "node": ">=22.12.0" }` 显式声明
+  - **ISS-008 自定义域取消**：用户明确决定不做自定义域，保持 `https://cat-xierluo.github.io/personal-site/`。归档于「已取消任务」段。
+  - **范围**：1 fix commit（`4ffff64` PR #3）+ 1 follow-up commit（本 PR docs/iss-009-deploy-fix，含 workflow 修复 + docs 同步）。未修改任何源项目（Folia / FaroPDF）仓内容。
+  - **验证（预期）**：PR 合并后 main 触发的 deploy 应进入 success；`curl -I https://cat-xierluo.github.io/personal-site/` 应返回 200 + `text/html`。
+  - **决策记录**：DEC-008 完整记录三个根因 / 修复 / 拒绝的方案（锁 Astro 6.3.1、`npm install` 替 `npm ci`、Agent 代调 `POST /pages`、用 Volta 等）。
+  - **已知限制**：GitHub Pages 启用是用户一次性手动操作（未来 transfer ownership 或新 fork 需要重做）；Astro 6.4.x 仍在 minor 演进，未来若引入 Node 24+ 强制要求需同步升 setup-node；`engines` 字段是 advisory 性质（不强制阻断 install），但 `astro build` 启动时会硬性校验。
+
 ## 0.1.0-alpha.4 - 2026-06-05
 
 - ISS-007 微信二维码（v1.1）落地：footer mini QR（64×64）+ 首页 contact section big QR（160×160）两处露出，统一走 `WechatQr.astro` 共享组件。
