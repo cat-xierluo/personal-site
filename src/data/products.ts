@@ -10,7 +10,7 @@ export const products = {
       'Stable rendering of complex Markdown (HTML tables, mixed layouts), WYSIWYG with source-mode fallback, and Word paper preview & export.',
     repo: 'https://github.com/cat-xierluo/Folia',
     path: '/folia',
-    icon: '/icons/folia-icon.png',
+    icon: 'icons/folia-icon.png',
     accent: 'sage',
   },
   faropdf: {
@@ -24,7 +24,7 @@ export const products = {
       'Fast read, search, annotate, organize, OCR, and form signing for case files, evidence, judgments, contracts, and scanned materials.',
     repo: 'https://github.com/cat-xierluo/FaroPDF',
     path: '/faropdf',
-    icon: '/icons/faropdf-icon.png',
+    icon: 'icons/faropdf-icon.png',
     accent: 'steel',
   },
 } as const;

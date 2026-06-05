@@ -1,10 +1,28 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.6 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010）均已落定。ISS-008 自定义域按用户决策取消。
+> **当前阶段**：v0.1.0-alpha.7 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010） + URL 去 subpath（ISS-011）均已落定。ISS-008 自定义域按用户决策取消。
 
 ## 活跃任务
 
-> 当前无可执行活跃任务。如下方"已取消任务"或"归档任务索引"所示，v1 MVP / v1.1 增量 / 部署链路 / QR 真实化均已收口。下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-011 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
+### ISS-011 站点 URL 去 subpath：改仓名为 `cat-xierluo.github.io`（进行中）
+
+- 优先级：P1
+- 类型：部署 / 配置
+- 状态：**进行中（2026-06-05）**
+- 范围：
+  - GitHub 端：`gh api PATCH /repos/cat-xierluo/personal-site` 把 `name` 改为 `cat-xierluo.github.io`
+  - 代码层：`astro.config.mjs` 的 `base` 默认 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认同步
+  - 当前活文档：`AGENTS.md` / `docs/ROADMAP.md` 目标 URL 同步
+  - 历史文档不改动：CHANGELOG 0.1.0-alpha.1~0.1.0-alpha.6 / DEC-001~009 / ISS-001~010 里的旧 URL 是历史事实，遵循 DEC 时间戳语义
+  - 本地目录：保留 `personal-site/`，git remote URL 改向新名
+- 验收：
+  - `npm run build` 干净 6 页生成
+  - `dist/index.html`（不再是 `dist/personal-site/index.html`），HTML 抽检链接路径无 `/personal-site/` 前缀
+  - PR 合并后 deploy 在 `https://cat-xierluo.github.io/` 实际可见（200 + `text/html`）
+  - 旧 `https://cat-xierluo.github.io/personal-site/` 404（用户已确认接受，不加 404 引导页）
+- 决策：DEC-010（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+
+> 收口后下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-012 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
 
 ## 已取消任务
 
@@ -106,4 +124,5 @@
 - 2026-06-05：ISS-009 部署修复（PR #3 fix/iss-009-lock-file 补 `package-lock.json` + 用户手动启用 GitHub Pages + 本次 follow-up 升 Node 22 修 Astro 6.4 engine；DEC-008 落地）
 - 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
 - 2026-06-05：ISS-010 真实微信二维码替换（feat/iss-010-real-qr，从 Folia/docs 真源复制 184KB QR，hash 升级到 `BL2G81aV`；DEC-009 supersede 修正 DEC-007 单源）
-- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-011 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令
+- 2026-06-05：ISS-011 站点 URL 去 subpath（feat/iss-011-no-subpath，仓名 `personal-site` → `cat-xierluo.github.io`，astro base → `/`，旧 URL 失效用户接受；DEC-010 落地）
+- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 / URL 去 subpath 全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-012 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令

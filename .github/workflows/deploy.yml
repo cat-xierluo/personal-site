@@ -36,7 +36,7 @@ jobs:
       - name: Build with Astro
         env:
           PERSONAL_SITE_URL: ${{ vars.PERSONAL_SITE_URL || 'https://cat-xierluo.github.io' }}
-          PERSONAL_BASE_PATH: ${{ vars.PERSONAL_BASE_PATH || '/personal-site' }}
+          PERSONAL_BASE_PATH: ${{ vars.PERSONAL_BASE_PATH || '/' }}
         run: npm run build
 
       - name: Upload artifact
