@@ -1,5 +1,21 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.9 - 2026-06-06
+
+- 代码质量清理 + dead-code 批量清：纯技术债清还，**零用户可见变更**。docs 同步。
+  - **删 dead i18n 字段**（5 字段 × 3 文件 = 15 处）：
+    - `FolioMessages.heroBack` / `FaroPdfMessages.heroBack`（沿用 back-link 共享 `meta.backToHome` 之后的 dead 字段；DEC-011 已知限制已标注）
+    - `MetaMessages.productsList` / `foliaDescription` / `faropdfDescription`（BaseLayout description 走 `products.summary`，这 3 字段从未被引用）
+    - 注：PR #7 review fix 曾声明删 `MetaMessages.legalSkillsDescription` 但**只删了 types.ts 没删 dict**（已在本 PR 一并清理，5 字段 × 2 dict = 10 处全删）
+  - **删 dead 类型**：`src/data/products.ts` 的 `export type Product = ...`（无内部 consumer，0 引用）
+  - **抽重复 CSS 到全局 `site.css`**：
+    - 三个 detail page 的 `.intro-grid` / `.workflow-grid` / `.section-workflow` / `.workflow-list`（含 `li` + `::before`）/ `.download-panel` / `.download-actions` / `.download-list`（含 `li`）100% 相同部分提到全局
+    - 三个 page 各自的 scoped 样式只留 per-page 特有（hero、app-window、icon-frame、4n/nth-child 彩条、feature-card h3 font / size / p margin）
+  - **Astro 智能 chunking 收效**：`FaroPdfPage` 和 `LegalSkillsPage` dedup 后无任何 unique styles，Astro 不再为它们生成独立 CSS chunk，直接走全局 `products.Bcb2jn7z.css`（11KB）。`FoliaPage` 仍因 `.app-window` / `.paper-*` 等独立样式单独 chunk（5.3KB）
+  - **范围**：1 commit（chore/dead-code-and-css-dedup，纯代码 + 注释 + CHANGELOG）。未修改任何源项目（Folia / FaroPDF / legal-skills）仓内容
+  - **build 验证**：`npm run build` 干净 8 页生成（与 PR #7 同样）。dist CSS 总量下降（消除 ~150 行重复 CSS）。HTML 抽检 6 处 back-link / 3 张 product-card / 16 张 feature-card 4n 彩条 / 4 步 workflow / 双许可证 download 全 render OK。控制台 0 error
+  - **视觉零变更**：浏览器实测 4 详情页 + 主页，与 PR #7 像素级一致
+
 ## 0.1.0-alpha.8 - 2026-06-06
 
 - ISS-012 Legal Skills 集成：把 star 数最高的项目（316 stars / 47 skills）以「主页产品卡 + 5 段式详情页」形式加入 personal-site，三个详情页（Folio / FaroPDF / Legal Skills，中英双版）hero 顶部加共享"回到作者主页"小链接。docs 同步（DEC-011）。

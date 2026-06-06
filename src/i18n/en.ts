@@ -33,13 +33,6 @@ const messages: Messages = {
 
   meta: {
     descriptionSuffix: '. Products: Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), and Legal Skills (AI Agent Skills collection).',
-    productsList: 'Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), and Legal Skills (AI Agent Skills collection)',
-    foliaDescription:
-      'A Markdown reader and Word export tool for demanding documents. Stable rendering of complex Markdown, WYSIWYG with source-mode fallback, and Word paper preview & export.',
-    faropdfDescription:
-      'An independent PDF reader for lawyers. Fast read, search, annotate, organize, OCR, and form signing for case files, evidence, judgments, contracts, and scanned materials.',
-    legalSkillsDescription:
-      'A collection of AI Agent Skills for legal professionals — from content acquisition to professional writing, covering the full daily workflow of lawyers.',
     backToHome: 'Back to author homepage',
   },
 
@@ -68,7 +61,6 @@ const messages: Messages = {
 
   folia: {
     heroEyebrow: 'Markdown reader for demanding documents',
-    heroBack: '← Back to home',
     heroDownload: 'Download latest',
     heroViewSource: 'View source',
     preview: {
@@ -139,7 +131,6 @@ const messages: Messages = {
 
   faropdf: {
     heroEyebrow: 'PDF reader for legal materials · v0.1.0-alpha',
-    heroBack: '← Back to home',
     heroDownload: 'Download latest',
     heroViewSource: 'View source',
     heroIconAlt: 'icon',

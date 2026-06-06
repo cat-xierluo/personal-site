@@ -40,5 +40,3 @@ export const products = {
     accent: 'royal',
   },
 } as const;
-
-export type Product = (typeof products)[keyof typeof products];

@@ -170,21 +170,9 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
     margin-top: 30px;
   }
 
-  /* Intro */
+  /* Intro — uses shared .intro-grid from site.css */
 
-  .intro-grid {
-    display: grid;
-    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
-    gap: clamp(32px, 7vw, 96px);
-    align-items: start;
-  }
-
-  .intro-grid > p {
-    margin: 36px 0 0;
-    font-size: clamp(17px, 2vw, 21px);
-  }
-
-  /* Features */
+  /* Features — page-specific (8 features, 3-color sage/accent/steel cycle, display font h3) */
 
   .feature-grid {
     display: grid;
@@ -227,72 +215,9 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
     line-height: 1.65;
   }
 
-  .section-workflow {
-    background: var(--surface-strong);
-  }
+  /* Workflow — uses shared .section-workflow / .workflow-grid / .workflow-list from site.css */
 
-  /* Workflow */
-
-  .workflow-grid {
-    display: grid;
-    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
-    gap: clamp(32px, 7vw, 96px);
-    align-items: start;
-  }
-
-  .workflow-list {
-    display: grid;
-    gap: 12px;
-    margin: 8px 0 0;
-    padding: 0;
-    counter-reset: workflow;
-    list-style: none;
-  }
-
-  .workflow-list li {
-    display: grid;
-    grid-template-columns: 42px 1fr;
-    gap: 16px;
-    align-items: center;
-    min-height: 66px;
-    padding: 14px 18px;
-    border: 1px solid oklch(82% 0.018 76);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-
-  .workflow-list li::before {
-    display: grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--accent-deep);
-    content: counter(workflow, decimal-leading-zero);
-    counter-increment: workflow;
-    font-family: var(--font-mono);
-    font-size: 12px;
-  }
-
-  /* Download */
-
-  .download-panel {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 32px;
-    align-items: start;
-    padding: clamp(28px, 4vw, 42px);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-  }
-
-  .download-panel p {
-    max-width: 660px;
-  }
+  /* Download — uses shared .download-panel / .download-actions / .download-list from site.css */
 
   .download-panel code {
     padding: 1px 6px;
@@ -302,43 +227,11 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
     font-size: 0.9em;
   }
 
-  .download-actions {
-    justify-content: flex-end;
-    margin-top: 0;
-  }
-
-  .download-list {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin: 6px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .download-list li {
-    min-height: 76px;
-    padding: 16px 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  /* Responsive */
+  /* Responsive — only page-specific overrides */
 
   @media (max-width: 980px) {
-    .feature-grid,
-    .download-list {
+    .feature-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .intro-grid,
-    .workflow-grid,
-    .download-panel {
-      grid-template-columns: 1fr;
     }
 
     .download-actions {
@@ -347,8 +240,7 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
   }
 
   @media (max-width: 680px) {
-    .feature-grid,
-    .download-list {
+    .feature-grid {
       grid-template-columns: 1fr;
     }
 
