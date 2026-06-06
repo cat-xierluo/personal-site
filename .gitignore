@@ -4,4 +4,7 @@ dist/
 .DS_Store
 *.log
 .worktrees/
+.playwright-mcp/
+*-page.png
+homepage-*.png
 
