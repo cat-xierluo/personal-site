@@ -17,7 +17,6 @@ const p = products.folia;
 const tagline = locale === 'en' ? p.taglineEn : p.tagline;
 const title = `${p.name} - ${tagline}`;
 const description = locale === 'en' ? p.summaryEn : p.summary;
-const backHref = locale === 'en' ? `${base}en/` : base;
 const repoUrl = p.repo;
 const releasesUrl = `${repoUrl}/releases/latest`;
 const preview = dict.folia.preview;
@@ -32,7 +31,6 @@ const introKicker = `${dict.folia.introKickerPrefix} ${p.name}`;
 >
   <section class="folia-hero" aria-labelledby="hero-title">
     <div class="folia-hero-inner">
-      <a class="back-link" href={backHref}>{dict.meta.backToHome}</a>
       <img class="folia-hero-icon" src={foliaIcon.src} width="86" height="86" alt="" />
       <p class="eyebrow">{dict.folia.heroEyebrow}</p>
       <h1 id="hero-title">{p.name}</h1>

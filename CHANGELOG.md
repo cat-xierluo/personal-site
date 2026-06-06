@@ -1,5 +1,25 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.11 - 2026-06-06
+
+- ISS-014 Header / Footer 简化：详情页 back-link 上移 + 去 brand + Footer 去除重复信息。docs 同步。
+  - **Header 重构**（用户要求"回主页放左上角 / 主页左上留空 / 顶部不要标作者名"）：
+    - 删 `.brand` 块（"▲ 杨卫薪律师" + brand-mark triangle），header 整体不再显作者名
+    - `isHome = activeSection === 'home'` 时 header 左上角**留空**（`<header>` 仍渲染，但只含 `<nav>`）
+    - 详情页（folia / faropdf / legal-skills + en）header 左上角显示 `<a class="back-link" href={homePath}>{dict.meta.backToHome}</a>`，复用全局 `.back-link` pill 样式
+    - Top-right nav 保留（主页 / 产品 / GitHub / lang-switch），删 lang-switch 之外的冗余
+    - 详情页 hero 下方的 in-content back-link 全部删除（功能上移到 header，避免重复）
+  - **Footer 简化**（用户要求"最底部的非必要信息就缩减 / 右下角和右上角内容重复"）：
+    - 删 `.footer-links`（5 nav 链接 — 与 header nav 完全重复）
+    - 删 `.footer-wechat` + `WechatQr` 组件 import（footer QR 与 homepage contact section 重复；hompage contact 已是主 QR 来源）
+    - 删 `FooterMessages` 8 个 dead 字段（`home` / `folia` / `faropdf` / `legalSkills` / `github` / `wechatLabel` / `wechatHandlePrefix` / `wechatQrAlt`）
+    - 删 site.css 中 `.footer-wechat` / `.footer-links` / `.footer-meta` 死样式（约 50 行）
+    - Footer 现在只显示：`杨卫薪律师` + tagline（左）+ `© 2026 · Apache License 2.0`（右）。`WechatQr.astro` 组件本身保留（homepage contact section 仍用）
+  - **范围**：1 commit（feat/iss-014-header-footer-simplify，含代码 + 当前活文档 + DEC-012 + CHANGELOG 条目）。未修改任何源项目（Folio / FaroPDF / legal-skills）仓内容
+  - **build 验证**：`npm run build` 干净 8 页生成。dist HTML 抽检：homepage header 只剩 nav；详情页 header 左 "← 回到作者主页" / 右 nav；hero 下无 in-content back-link。footer 只剩 brand + copyright 2 个文本节点。资源路径无 `/personal-site/` 前缀。控制台 0 error
+  - **视觉收益**：详情页 hero 直接展示产品内容（不再被一个孤立的 back-link pill 隔断）；footer 不再重复 header 的 nav / 微信 QR，信息密度降低
+  - **数据变化**：9 files changed / +15 / -125 (净 -110 行 dead code)
+
 ## 0.1.0-alpha.10 - 2026-06-06
 
 - ISS-013 Legal Skills 详情页 4 大类分组 + 全部 48 skill 卡片 + hover 动画 + mono repo 链接。docs 同步。
