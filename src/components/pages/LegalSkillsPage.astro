@@ -56,14 +56,27 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
     <div class="section-inner">
       <p class="section-kicker">{dict.legalSkills.featuresKicker}</p>
       <h2 id="features-title">{dict.legalSkills.featuresTitle}</h2>
-      <div class="feature-grid feature-grid--legal-skills">
-        {dict.legalSkills.features.map((feature) => (
-          <article class="feature-card">
-            <h3>{feature.title}</h3>
-            <p>{feature.text}</p>
-          </article>
-        ))}
-      </div>
+      {dict.legalSkills.features.map((group) => (
+        <div class="skill-group" data-group={group.key}>
+          <h3 class="skill-group__title">{group.title}</h3>
+          <div class="skill-group__grid">
+            {group.items.map((item) => (
+              <a
+                class="skill-card"
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${dict.legalSkills.featureCardVisitAria}: ${item.title}`}
+              >
+                <span class="skill-card__corner" aria-hidden="true">↗</span>
+                <h4 class="skill-card__title">{item.title}</h4>
+                <p class="skill-card__text">{item.text}</p>
+                <span class="skill-card__cta">{dict.legalSkills.featureCardViewRepo} →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -144,38 +157,86 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
 
   /* Intro / workflow / download — uses shared classes from site.css */
 
-  /* Feature grid + feature-card — page-specific (16 features, 4n sage/steel/royal/accent cycle, mono font h3) */
+  /* Skill groups + skill cards — page-specific (4 categories, clickable links, hover animation) */
 
-  .feature-grid--legal-skills {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
-    margin-top: 42px;
+  .skill-group {
+    margin-top: 36px;
   }
 
-  .feature-card {
-    min-height: 200px;
-    padding: 20px 18px;
+  .skill-group__title {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .skill-group__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* 4 groups × category-color cycle on the top border (sage / steel / royal / accent) */
+  .skill-group[data-group="contentFetch"] .skill-card { border-top-color: var(--sage); }
+  .skill-group[data-group="legalApp"]    .skill-card { border-top-color: var(--steel); }
+  .skill-group[data-group="contentProcess"] .skill-card { border-top-color: var(--royal); }
+  .skill-group[data-group="devTool"]    .skill-card { border-top-color: var(--accent); }
+
+  .skill-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 150px;
+    padding: 18px 20px 16px;
     border: 1px solid var(--border);
     border-top: 3px solid var(--accent);
     border-radius: 8px;
     background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease,
+      border-top-width 200ms ease;
   }
 
-  .feature-card:nth-child(4n + 1) {
-    border-top-color: var(--sage);
+  .skill-card:hover,
+  .skill-card:focus-visible {
+    transform: translateY(-4px) scale(1.012);
+    box-shadow: 0 16px 40px oklch(28% 0.035 60 / 18%);
+    border-top-width: 5px;
   }
 
-  .feature-card:nth-child(4n + 3) {
-    border-top-color: var(--steel);
+  .skill-card:hover .skill-card__corner,
+  .skill-card:focus-visible .skill-card__corner {
+    transform: translate(2px, -2px);
+    color: var(--accent-deep);
   }
 
-  .feature-card:nth-child(4n) {
-    border-top-color: var(--royal);
+  .skill-card:hover .skill-card__cta,
+  .skill-card:focus-visible .skill-card__cta {
+    color: var(--accent-deep);
   }
 
-  .feature-card h3 {
+  .skill-card__corner {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1;
+    transition: transform 200ms ease, color 200ms ease;
+  }
+
+  .skill-card__title {
     margin: 0;
+    padding-right: 22px;
+    color: var(--ink);
     font-family: var(--font-mono);
     font-size: 14px;
     font-weight: 500;
@@ -183,20 +244,31 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
     letter-spacing: -0.01em;
   }
 
-  .feature-card p {
-    margin: 12px 0 0;
+  .skill-card__text {
+    margin: 0;
+    flex: 1 0 auto;
+    color: var(--muted);
     font-size: 13px;
     line-height: 1.55;
   }
 
+  .skill-card__cta {
+    margin: 0;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    transition: color 200ms ease;
+  }
+
   @media (max-width: 980px) {
-    .feature-grid--legal-skills {
+    .skill-group__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 680px) {
-    .feature-grid--legal-skills {
+    .skill-group__grid {
       grid-template-columns: 1fr;
     }
 
