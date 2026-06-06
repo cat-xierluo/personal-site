@@ -1,5 +1,29 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.10 - 2026-06-06
+
+- ISS-013 Legal Skills 详情页 4 大类分组 + 全部 48 skill 卡片 + hover 动画 + mono repo 链接。docs 同步。
+  - **4 大类分组**（沿用 legal-skills README 分类）：📥 内容获取（9）/ ⚖️ 法律专业应用（14）/ 📤 内容处理（12）/ 🔧 开发工具（13）。**全部 48 个 skill 全显示**（用户原话"全放吧，我到时候就进，干脆定期去同步"）
+  - **每个 skill 卡片可点击跳 mono repo**：
+    - in-仓 41 个：`https://github.com/cat-xierluo/legal-skills/tree/main/skills/{slug}`
+    - 独立 mono repo 7 个（README 标记"独立仓库"）：`contract-copilot` / `trademark-assistant` / `patent-analysis` / `code2patent` / `opc-legal-counsel` / `md2word` / `de-ai-polish` → `https://github.com/cat-xierluo/{slug}.skill`
+  - **链接视觉（A + B 组合）**：
+    - 卡片右上角 `↗` 角标（hover 时微动 + 颜色从 muted → accent-deep）
+    - 卡片底部 "查看 GitHub →" CTA（hover 时颜色从 muted → accent-deep）
+    - `target="_blank" rel="noopener noreferrer"` + `aria-label="在 GitHub 上查看: {skill}"`
+  - **hover 动画**（在主页 product-card `translateY(-2px) + box-shadow` 基础上做得更好看）：
+    - `transform: translateY(-4px) scale(1.012)`（lift + 微缩放）
+    - `box-shadow: 0 16px 40px oklch(28% 0.035 60 / 18%)`（更强阴影）
+    - 顶部彩条 3px → 5px（彩条变粗）
+    - 200ms ease（vs 主页 160ms 略慢一点，"更"好看）
+  - **i18n 数据结构重写**：`legalSkills.features` 从平铺 `ProductFeature[]` 改 `SkillGroup[]`（`{key, title, items: SkillItem[]}`），`SkillItem` 新增 `url: string` 字段。新增 i18n 字段 `featureCardViewRepo` + `featureCardVisitAria`（中英各 1）。
+  - **i18n 字段数**：之前 16 features × 2 字段 = 32 处。现在 4 groups × 2 + 48 items × 3 = ~152 字段 + 2 共享 = ~154 字段 × 2 语种 = **~308 处翻译**（zh + en 各 ~154）
+  - **范围**：1 commit（feat/iss-013-skill-cards，含代码 + 当前活文档 + DEC-012 + CHANGELOG 条目）。未修改任何源项目（Folia / FaroPDF / legal-skills）仓内容
+  - **build 验证**：`npm run build` 干净 8 页生成。dist HTML 抽检：4 分类标题 + 48 skill 卡片 + 7 独立 mono repo 链接 + 41 in-仓路径全 render。en 镜像 4 英文分类标题正确。资源路径无 `/personal-site/` 前缀。控制台 0 error
+  - **已知限制**：
+    - 48 skill 描述从 legal-skills README "更新要点" 简化而来，未来 README 演进需要定期 sync（用户接受）
+    - 页面较长（48 卡片 + 4 分类），无折叠 / 过滤，未来若需可加 collapsible
+
 ## 0.1.0-alpha.9 - 2026-06-06
 
 - 代码质量清理 + dead-code 批量清：纯技术债清还，**零用户可见变更**。docs 同步。

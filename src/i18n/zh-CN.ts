@@ -214,74 +214,276 @@ const messages: Messages = {
     introTitle: '律师既是专业工作者，也是创作者。',
     introBody:
       '日常工作的两端都需要顺手工具：一端是从公众号、扫描件、录音视频里把材料拿进来，另一端是把研究成果写成可交付的方案、报告与文章。Legal Skills 把这一整套链路沉淀成可装配的 AI Agent 技能，让律师在自己的 Agent 工作流里直接调用。',
-    featuresKicker: '代表性 Skills',
-    featuresTitle: '从内容获取到多 Agent 编排，按场景挑选。',
+    featuresKicker: '全部 Skills',
+    featuresTitle: '按 4 大类划分，共 48 个 skill（外链到对应 GitHub 仓）。',
     features: [
       {
-        title: 'wechat-article-fetch',
-        text: '无头抓取微信公众号文章，保存为 Markdown。',
+        key: 'contentFetch',
+        title: '📥 内容获取',
+        items: [
+          {
+            title: 'wechat-article-fetch',
+            text: '无头抓取微信公众号文章，保存为 Markdown。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/wechat-article-fetch',
+          },
+          {
+            title: 'legal-ocr',
+            text: 'OCR 与扫描识别统一入口，覆盖 PDF、图片、Office 文档和 URL。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-ocr',
+          },
+          {
+            title: 'mineru-ocr',
+            text: '通过 MinerU API 将 PDF / 图片转 Markdown，支持表格与公式识别。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/mineru-ocr',
+          },
+          {
+            title: 'paddle-ocr',
+            text: '面向法律 PDF 与扫描件的 PaddleOCR 结构化解析，保留 archive。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/paddle-ocr',
+          },
+          {
+            title: 'funasr-transcribe',
+            text: '本地语音转文字，支持说话人分离、会议记录与视频字幕。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/funasr-transcribe',
+          },
+          {
+            title: 'tingwu-asr',
+            text: '阿里云通义听悟云端语音转录，长音频高精度场景。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/tingwu-asr',
+          },
+          {
+            title: 'universal-media-downloader',
+            text: '视频与播客平台下载，支持抖音 / B 站 / YouTube / 小宇宙等。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/universal-media-downloader',
+          },
+          {
+            title: 'douyin-batch-download',
+            text: '抖音视频批量下载，基于 F2 框架，支持 Cookie 自动管理。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/douyin-batch-download',
+          },
+          {
+            title: 'multi-search',
+            text: '智能多主题深度研究，并行 Subagent 检索生成系统化文档。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/multi-search',
+          },
+        ],
       },
       {
-        title: 'legal-ocr',
-        text: 'OCR 与扫描识别统一入口，覆盖 PDF、图片、Office 文档和 URL。',
+        key: 'legalApp',
+        title: '⚖️ 法律专业应用',
+        items: [
+          {
+            title: 'yuandian-law-search',
+            text: '元典法条与案例检索，5 种检索模式。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/yuandian-law-search',
+          },
+          {
+            title: 'zhihe-legal-research',
+            text: '智合 AI 法律大模型研究，提交问题自动调研并生成 docx 报告。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/zhihe-legal-research',
+          },
+          {
+            title: 'court-sms',
+            text: '法院短信识别与文书下载，自动归档到对应案件目录。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/court-sms',
+          },
+          {
+            title: 'new-case',
+            text: '将案件 / 咨询材料整理成标准化目录结构（诉讼 12 目录 / 咨询 3 目录）。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/new-case',
+          },
+          {
+            title: 'litigation-analysis',
+            text: '诉讼分析：起诉状与证据、判决书深度分析、庭审笔录复盘。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/litigation-analysis',
+          },
+          {
+            title: 'contract-copilot',
+            text: '合同起草与审查：风险清单、起草骨架、修改建议、推荐措辞。',
+            url: 'https://github.com/cat-xierluo/contract-copilot.skill',
+          },
+          {
+            title: 'legal-case-analysis',
+            text: '通用法律分析：多场景分析支架与法律任务前置分析引擎。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-case-analysis',
+          },
+          {
+            title: 'legal-proposal-generator',
+            text: '诉讼方案 / 咨询报告 / 建议书 / 结案汇报等法律服务文档自动生成。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-proposal-generator',
+          },
+          {
+            title: 'legal-text-format',
+            text: '法律条文与案例转规范 Markdown，archive 归档。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-text-format',
+          },
+          {
+            title: 'legal-qa-extractor',
+            text: '从律师与客户沟通记录提取 QA 对，结构化知识库 + 脱敏。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-qa-extractor',
+          },
+          {
+            title: 'trademark-assistant',
+            text: '商标服务助手：类别规划、可注册性初筛、申请材料准备。',
+            url: 'https://github.com/cat-xierluo/trademark-assistant.skill',
+          },
+          {
+            title: 'patent-analysis',
+            text: '专利分析 7 种场景：单专利要点、侵权比对、FTO、稳定性、规避设计。',
+            url: 'https://github.com/cat-xierluo/patent-analysis.skill',
+          },
+          {
+            title: 'code2patent',
+            text: '从代码项目提取技术实现证据，生成发明专利申请材料。',
+            url: 'https://github.com/cat-xierluo/code2patent.skill',
+          },
+          {
+            title: 'opc-legal-counsel',
+            text: '面向一人公司 / 单人创业者的常年法律顾问技能。',
+            url: 'https://github.com/cat-xierluo/opc-legal-counsel.skill',
+          },
+        ],
       },
       {
-        title: 'funasr-transcribe',
-        text: '本地语音转文字，支持说话人分离、会议记录、视频字幕。',
+        key: 'contentProcess',
+        title: '📤 内容处理',
+        items: [
+          {
+            title: 'pdf-processor',
+            text: 'PDF 全能处理：扫描件预处理、OCR 双层、页码、合并、解密、水印、压缩。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/pdf-processor',
+          },
+          {
+            title: 'img2pdf',
+            text: '图片 / PDF 按 N 张 / 页编排为标准化 A4 PDF，法律证据材料整理。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/img2pdf',
+          },
+          {
+            title: 'pdf-organizer',
+            text: '法律 PDF 整理：拆分 / 合并 / 重命名，生成页面索引与下游交接文件。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/pdf-organizer',
+          },
+          {
+            title: 'course-generator',
+            text: '课程内容管理：转录稿 / 文献生成结构化课程，归档到知识库。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/course-generator',
+          },
+          {
+            title: 'video-screenshot',
+            text: '从录屏视频自动抽取关键帧，场景变化检测与去重。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/video-screenshot',
+          },
+          {
+            title: 'article2book',
+            text: '现有内容资产再组织：文章、专栏、课程讲稿转书 / 课程 / 手册。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/article2book',
+          },
+          {
+            title: 'svg-article-illustrator',
+            text: 'AI 驱动 SVG 文章配图生成，支持动态 SVG 与 PNG 导出。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/svg-article-illustrator',
+          },
+          {
+            title: 'svg-book-illustrator',
+            text: '书籍 / 文章 SVG 配图，架构图 / 流程图 / 层次图，按印刷尺寸优化。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/svg-book-illustrator',
+          },
+          {
+            title: 'piclist-upload',
+            text: '通过 PicList HTTP Server 将本地图片上传到图床，替换 Markdown 云端链接。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/piclist-upload',
+          },
+          {
+            title: 'md2word',
+            text: 'Markdown 转标准格式 Word，自动应用法律文书排版。',
+            url: 'https://github.com/cat-xierluo/md2word.skill',
+          },
+          {
+            title: 'de-ai-polish',
+            text: '检测并去除文章 AI 化表述，24 种 AI 写作检测规则 + 5 维度质量评分。',
+            url: 'https://github.com/cat-xierluo/de-ai-polish.skill',
+          },
+          {
+            title: 'video-compressor',
+            text: '视频压缩与静默片段剪切，FFmpeg CRF 模式 + 硬件加速。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/video-compressor',
+          },
+        ],
       },
       {
-        title: 'universal-media-downloader',
-        text: '视频与播客平台下载，支持抖音 / B 站 / YouTube / 小宇宙等。',
-      },
-      {
-        title: 'litigation-analysis',
-        text: '诉讼分析：起诉状与证据、判决书深度分析、庭审笔录复盘。',
-      },
-      {
-        title: 'contract-copilot',
-        text: '合同起草与审查：四步流程输出风险清单、起草骨架与修改建议。',
-      },
-      {
-        title: 'legal-proposal-generator',
-        text: '诉讼方案、咨询报告、建议书、结案汇报等法律服务文档自动生成。',
-      },
-      {
-        title: 'patent-analysis',
-        text: '专利分析 7 种场景：单专利技术要点、侵权比对、FTO、稳定性与规避设计。',
-      },
-      {
-        title: 'pdf-processor',
-        text: 'PDF 全能处理：扫描件预处理、OCR 双层 PDF、页码、合并、解密、水印去除、压缩。',
-      },
-      {
-        title: 'pdf-organizer',
-        text: '法律 PDF 整理：拆分 / 合并 / 重命名，生成页面索引和下游交接文件。',
-      },
-      {
-        title: 'md2word',
-        text: 'Markdown 转标准格式 Word，自动应用法律文书排版。',
-      },
-      {
-        title: 'svg-article-illustrator',
-        text: 'AI 驱动的公众号文章 SVG 配图生成，支持动态 SVG 与 PNG 导出。',
-      },
-      {
-        title: 'multi-agent-orchestration',
-        text: '多 Agent 本地执行编排：worktree / session 隔离、Agent Teams / tmux 启动、PM 巡检和 PR 收口。',
-      },
-      {
-        title: 'cross-agent-coordination',
-        text: '跨平台 Agent 任务协调枢纽：任务分配、能力路由、交接上下文。',
-      },
-      {
-        title: 'project-init',
-        text: '项目初始化：自动生成 CLAUDE.md / docs 体系，支持 6 种项目类型。',
-      },
-      {
-        title: 'skill-manager',
-        text: 'AI Agent Skills 的安装、同步、卸载与列表查看，支持本地路径和 GitHub 仓库。',
+        key: 'devTool',
+        title: '🔧 开发工具',
+        items: [
+          {
+            title: 'agent-email',
+            text: 'Agent 专用邮箱服务，通过邮件收发指令和结果。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/agent-email',
+          },
+          {
+            title: 'project-init',
+            text: '项目初始化：自动生成 CLAUDE.md / docs 体系，6 种项目类型。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/project-init',
+          },
+          {
+            title: 'skill-manager',
+            text: 'AI Agent Skills 的安装、同步、卸载与列表查看，本地路径和 GitHub 仓库。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-manager',
+          },
+          {
+            title: 'skill-architect',
+            text: '技能架构师向导与审查，整合 skill-creator 流程与合规检查。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-architect',
+          },
+          {
+            title: 'git-batch-commit',
+            text: '智能 Git 批量提交，混合修改按类型分类，标准化 commit message。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/git-batch-commit',
+          },
+          {
+            title: 'git-workflow',
+            text: 'Git 全流程：分支、Monorepo 安全合并、PR 创建 / 审查 / 合并、冲突恢复。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/git-workflow',
+          },
+          {
+            title: 'cross-agent-coordination',
+            text: '跨平台 Agent 任务协调：任务分配、能力路由、交接上下文。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/cross-agent-coordination',
+          },
+          {
+            title: 'multi-agent-orchestration',
+            text: '多 Agent 本地执行编排：worktree / session 隔离、Agent Teams / tmux、PM 巡检。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/multi-agent-orchestration',
+          },
+          {
+            title: 'release-workflow',
+            text: 'GitHub 项目发布全流程：版本号、CHANGELOG、tag、CI 监控。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/release-workflow',
+          },
+          {
+            title: 'github-star-manager',
+            text: 'GitHub Star 项目管理：自动发现 / 同步已 Star 项目，分类与 Dashboard。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/github-star-manager',
+          },
+          {
+            title: 'skill-lint',
+            text: 'Skill 格式审查：Frontmatter / 版本同步 / 文档一致性 / 冗余内容。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-lint',
+          },
+          {
+            title: 'clawhub-sync',
+            text: '本地 Skills 批量同步到 ClawHub 平台，智能 .gitignore 过滤。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/clawhub-sync',
+          },
+          {
+            title: 'subtree-publish',
+            text: 'monorepo 子目录通过 git subtree 推送到独立 GitHub 仓库。',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/subtree-publish',
+          },
+        ],
       },
     ],
+    featureCardViewRepo: '查看 GitHub',
+    featureCardVisitAria: '在 GitHub 上查看',
     workflowKicker: '使用流程',
     workflowTitle: '从选 Skill 到多 Agent 协作。',
     workflow: [

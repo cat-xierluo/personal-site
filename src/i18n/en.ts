@@ -214,74 +214,276 @@ const messages: Messages = {
     introTitle: 'Lawyers are professionals and creators at once.',
     introBody:
       'Both ends of the daily workflow need sharp tools: bringing materials in from WeChat articles, scanned documents, audio and video on one end; turning research into deliverable proposals, reports, and articles on the other. Legal Skills consolidates the whole chain into composable AI Agent skills that lawyers can invoke directly inside their own Agent workflows.',
-    featuresKicker: 'Representative Skills',
-    featuresTitle: 'Pick by scenario — from content acquisition to multi-agent orchestration.',
+    featuresKicker: 'All Skills',
+    featuresTitle: 'Organized by 4 categories — 48 skills, each linking to its GitHub repo.',
     features: [
       {
-        title: 'wechat-article-fetch',
-        text: 'Headless scraping of WeChat official-account articles, saved as Markdown.',
+        key: 'contentFetch',
+        title: '📥 Content acquisition',
+        items: [
+          {
+            title: 'wechat-article-fetch',
+            text: 'Headless scraping of WeChat official-account articles, saved as Markdown.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/wechat-article-fetch',
+          },
+          {
+            title: 'legal-ocr',
+            text: 'Unified OCR and scan recognition across PDF, images, Office documents, and URLs.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-ocr',
+          },
+          {
+            title: 'mineru-ocr',
+            text: 'Convert PDF/images to Markdown via MinerU API, with table and formula recognition.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/mineru-ocr',
+          },
+          {
+            title: 'paddle-ocr',
+            text: 'PaddleOCR-based structured parsing for legal PDFs and scans, archive preserved.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/paddle-ocr',
+          },
+          {
+            title: 'funasr-transcribe',
+            text: 'Local speech-to-text with speaker diarization for meeting notes and video subtitles.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/funasr-transcribe',
+          },
+          {
+            title: 'tingwu-asr',
+            text: 'Aliyun Tingwu cloud speech-to-text for long-audio, high-accuracy scenarios.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/tingwu-asr',
+          },
+          {
+            title: 'universal-media-downloader',
+            text: 'Video and podcast downloads for Douyin, Bilibili, YouTube, Xiaoyuzhou, and more.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/universal-media-downloader',
+          },
+          {
+            title: 'douyin-batch-download',
+            text: 'Batch Douyin video downloads on F2 framework with auto Cookie management.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/douyin-batch-download',
+          },
+          {
+            title: 'multi-search',
+            text: 'Multi-topic deep research via parallel Subagents generating systematic documents.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/multi-search',
+          },
+        ],
       },
       {
-        title: 'legal-ocr',
-        text: 'Unified OCR and scan recognition across PDF, images, Office documents, and URLs.',
+        key: 'legalApp',
+        title: '⚖️ Legal professional applications',
+        items: [
+          {
+            title: 'yuandian-law-search',
+            text: 'Yuandian statute and case search with 5 retrieval modes.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/yuandian-law-search',
+          },
+          {
+            title: 'zhihe-legal-research',
+            text: 'Zhihe AI legal model research, submits a question and generates a docx report.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/zhihe-legal-research',
+          },
+          {
+            title: 'court-sms',
+            text: 'Court SMS recognition and document download, auto-archived to case directory.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/court-sms',
+          },
+          {
+            title: 'new-case',
+            text: 'Standardize case / advisory materials into structured directory (litigation 12 / advisory 3).',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/new-case',
+          },
+          {
+            title: 'litigation-analysis',
+            text: 'Litigation analysis across complaints and evidence, judgments, and trial transcripts.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/litigation-analysis',
+          },
+          {
+            title: 'contract-copilot',
+            text: 'Contract drafting and review — risk checklist, draft skeleton, revision suggestions.',
+            url: 'https://github.com/cat-xierluo/contract-copilot.skill',
+          },
+          {
+            title: 'legal-case-analysis',
+            text: 'General legal analysis: multi-scenario scaffolds and pre-analysis engine.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-case-analysis',
+          },
+          {
+            title: 'legal-proposal-generator',
+            text: 'Auto-generate litigation plans, advisory reports, proposal letters, case-closing summaries.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-proposal-generator',
+          },
+          {
+            title: 'legal-text-format',
+            text: 'Convert legal text (statutes / cases) to standardized Markdown with archive.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-text-format',
+          },
+          {
+            title: 'legal-qa-extractor',
+            text: 'Extract QA pairs from lawyer–client communications with redaction for knowledge base.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/legal-qa-extractor',
+          },
+          {
+            title: 'trademark-assistant',
+            text: 'Trademark service: class planning, registrability screening, application prep.',
+            url: 'https://github.com/cat-xierluo/trademark-assistant.skill',
+          },
+          {
+            title: 'patent-analysis',
+            text: 'Seven patent-analysis scenarios: extraction, infringement, FTO, stability, design-around.',
+            url: 'https://github.com/cat-xierluo/patent-analysis.skill',
+          },
+          {
+            title: 'code2patent',
+            text: 'Extract technical evidence from code projects, generate invention patent drafts.',
+            url: 'https://github.com/cat-xierluo/code2patent.skill',
+          },
+          {
+            title: 'opc-legal-counsel',
+            text: 'Standing legal counsel for one-person companies / solo entrepreneurs.',
+            url: 'https://github.com/cat-xierluo/opc-legal-counsel.skill',
+          },
+        ],
       },
       {
-        title: 'funasr-transcribe',
-        text: 'Local speech-to-text with speaker diarization for meeting notes, video subtitles, podcasts.',
+        key: 'contentProcess',
+        title: '📤 Content processing',
+        items: [
+          {
+            title: 'pdf-processor',
+            text: 'Full PDF processing: scan preprocessing, OCR double-layer, page numbers, merge, decrypt, watermark, compress.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/pdf-processor',
+          },
+          {
+            title: 'img2pdf',
+            text: 'Compose images/PDFs into standardized A4 PDFs (1/2/3/4 per page) for legal evidence.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/img2pdf',
+          },
+          {
+            title: 'pdf-organizer',
+            text: 'Legal PDF organization: split, merge, rename, with page index and handoff files.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/pdf-organizer',
+          },
+          {
+            title: 'course-generator',
+            text: 'Course content management: from transcripts/literature to structured courses, archive to KB.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/course-generator',
+          },
+          {
+            title: 'video-screenshot',
+            text: 'Auto-extract keyframes from screen recordings with scene change detection and dedup.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/video-screenshot',
+          },
+          {
+            title: 'article2book',
+            text: 'Reorganize existing content assets into books / courses / manuals.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/article2book',
+          },
+          {
+            title: 'svg-article-illustrator',
+            text: 'AI-driven SVG illustration for WeChat-style articles, with dynamic SVG and PNG export.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/svg-article-illustrator',
+          },
+          {
+            title: 'svg-book-illustrator',
+            text: 'SVG illustrations for books/articles, architecture/flowchart/hierarchy diagrams, print-size optimized.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/svg-book-illustrator',
+          },
+          {
+            title: 'piclist-upload',
+            text: 'Upload local images to image host via PicList HTTP Server, replace Markdown with cloud links.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/piclist-upload',
+          },
+          {
+            title: 'md2word',
+            text: 'Convert Markdown to standard Word with automatic legal-document layout.',
+            url: 'https://github.com/cat-xierluo/md2word.skill',
+          },
+          {
+            title: 'de-ai-polish',
+            text: 'Detect and remove AI-style writing patterns, 24 rules + 5-dimension quality scoring.',
+            url: 'https://github.com/cat-xierluo/de-ai-polish.skill',
+          },
+          {
+            title: 'video-compressor',
+            text: 'Video compression and silent-segment trimming, FFmpeg CRF + hardware acceleration.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/video-compressor',
+          },
+        ],
       },
       {
-        title: 'universal-media-downloader',
-        text: 'Video and podcast downloads for Douyin, Bilibili, YouTube, Xiaoyuzhou, and more.',
-      },
-      {
-        title: 'litigation-analysis',
-        text: 'Litigation analysis across complaints and evidence, judgments, and trial transcripts.',
-      },
-      {
-        title: 'contract-copilot',
-        text: 'Contract drafting and review — risk checklist, draft skeleton, and revision suggestions in a four-step flow.',
-      },
-      {
-        title: 'legal-proposal-generator',
-        text: 'Auto-generate litigation plans, advisory reports, proposal letters, and case-closing summaries.',
-      },
-      {
-        title: 'patent-analysis',
-        text: 'Seven patent-analysis scenarios: single-patent extraction, infringement comparison, FTO, stability, design-around.',
-      },
-      {
-        title: 'pdf-processor',
-        text: 'Full PDF processing: scan preprocessing, OCR double-layer PDF, page numbers, merge, decrypt, watermark, compress.',
-      },
-      {
-        title: 'pdf-organizer',
-        text: 'Legal PDF organization: split, merge, rename, with page index and handoff files for downstream steps.',
-      },
-      {
-        title: 'md2word',
-        text: 'Convert Markdown to standard Word with automatic legal-document layout applied.',
-      },
-      {
-        title: 'svg-article-illustrator',
-        text: 'AI-driven SVG illustration generation for WeChat-style articles, with dynamic SVG and PNG export.',
-      },
-      {
-        title: 'multi-agent-orchestration',
-        text: 'Local multi-agent orchestration: worktree/session isolation, Agent Teams / tmux launch, PM patrol, PR closeout.',
-      },
-      {
-        title: 'cross-agent-coordination',
-        text: 'Cross-platform agent task coordination hub: task allocation, capability routing, handoff context.',
-      },
-      {
-        title: 'project-init',
-        text: 'Project initialization: auto-generate CLAUDE.md / docs system, supports 6 project types.',
-      },
-      {
-        title: 'skill-manager',
-        text: 'Install, sync, uninstall, and list AI Agent Skills from local paths or GitHub repos.',
+        key: 'devTool',
+        title: '🔧 Development tools',
+        items: [
+          {
+            title: 'agent-email',
+            text: 'Agent-only email service: send/receive instructions and results via email.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/agent-email',
+          },
+          {
+            title: 'project-init',
+            text: 'Project init: auto-generate CLAUDE.md / docs system, 6 project types.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/project-init',
+          },
+          {
+            title: 'skill-manager',
+            text: 'AI Agent Skills install / sync / uninstall / list, local paths and GitHub repos.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-manager',
+          },
+          {
+            title: 'skill-architect',
+            text: 'Skill architect wizard + audit, integrating skill-creator flow and compliance checks.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-architect',
+          },
+          {
+            title: 'git-batch-commit',
+            text: 'Smart Git batch commit, mixed changes categorized with standardized messages.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/git-batch-commit',
+          },
+          {
+            title: 'git-workflow',
+            text: 'Git workflow: branching, Monorepo safe-merge, PR create/review/merge, conflict recovery.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/git-workflow',
+          },
+          {
+            title: 'cross-agent-coordination',
+            text: 'Cross-platform agent task coordination: allocation, capability routing, handoff context.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/cross-agent-coordination',
+          },
+          {
+            title: 'multi-agent-orchestration',
+            text: 'Local multi-agent orchestration: worktree/session isolation, Agent Teams / tmux, PM patrol.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/multi-agent-orchestration',
+          },
+          {
+            title: 'release-workflow',
+            text: 'GitHub project release: version, CHANGELOG, tag, CI monitoring.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/release-workflow',
+          },
+          {
+            title: 'github-star-manager',
+            text: 'GitHub Star management: auto-discover / sync starred repos with dashboard.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/github-star-manager',
+          },
+          {
+            title: 'skill-lint',
+            text: 'Skill format linter: Frontmatter, version sync, doc consistency, redundancy.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/skill-lint',
+          },
+          {
+            title: 'clawhub-sync',
+            text: 'Bulk sync local Skills to ClawHub platform with smart .gitignore filtering.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/clawhub-sync',
+          },
+          {
+            title: 'subtree-publish',
+            text: 'Push monorepo subdirectories to standalone GitHub repos via git subtree.',
+            url: 'https://github.com/cat-xierluo/legal-skills/tree/main/skills/subtree-publish',
+          },
+        ],
       },
     ],
+    featureCardViewRepo: 'View on GitHub',
+    featureCardVisitAria: 'View on GitHub',
     workflowKicker: 'Workflow',
     workflowTitle: 'From picking a skill to multi-agent collaboration.',
     workflow: [

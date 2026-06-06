@@ -80,6 +80,18 @@ export interface ProductFeature {
   text: string;
 }
 
+export interface SkillItem {
+  title: string;
+  text: string;
+  url: string;
+}
+
+export interface SkillGroup {
+  key: string;
+  title: string;
+  items: SkillItem[];
+}
+
 export interface FoliaMessages {
   heroEyebrow: string;
   heroDownload: string;
@@ -141,7 +153,7 @@ export interface LegalSkillsMessages {
   introBody: string;
   featuresKicker: string;
   featuresTitle: string;
-  features: ProductFeature[];
+  features: SkillGroup[];
   workflowKicker: string;
   workflowTitle: string;
   workflow: string[];
@@ -150,6 +162,8 @@ export interface LegalSkillsMessages {
   downloadBody: string;
   downloadPrimary: string;
   downloadSecondary: string;
+  featureCardViewRepo: string;
+  featureCardVisitAria: string;
 }
 
 export interface Messages {
