@@ -17,6 +17,7 @@
   - **build 验证**：`npm run build` 干净 8 页生成（4 zh + 4 en，从 6 增到 8）。HTML 抽检：首页 3 张产品卡链接（`/folia/` / `/faropdf/` / `/legal-skills/`）。6 处 back-link 全显示（zh → `href="/"`，en → `href="/en/"`）。资源路径无 `/personal-site/` 前缀。浏览器实测 8 页面 + 0 console error / 0 warning
   - **决策记录**：DEC-011（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
   - **设计 doc**：`docs/plans/2026-06-06-legal-skills-detail-page-design.md`（12 个决策点 + 16 个 skill 列表 + 5 段式结构 + 资源生成命令 + 范围控制 + 验证 + 已知限制）
+  - **review 修复**（PR #7 review 后）：3 个 user-visible bug（`index.aboutParagraph2` zh/en 还是"两个项目"已改；`site.css` 680px 断点补 `.product-grid{grid-template-columns:1fr}` 修手机 2+1 不对称；`SiteFooter.astro` 加 Legal Skills 链接与 `FooterMessages.legalSkills` 字段）+ 5 项 dead-code 清理（删 `LegalSkillsMessages.heroKicker`、删 `--royal-soft` token、删 `MetaMessages.legalSkillsDescription`、删 LegalSkillsPage 冗余 `.feature-card:nth-child(4n + 2)` 重写为 4n+1/4n+3/4n 显式覆盖）
 
 ## 0.1.0-alpha.7 - 2026-06-05
 

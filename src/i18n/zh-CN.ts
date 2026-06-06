@@ -16,6 +16,7 @@ const messages: Messages = {
     home: '主页',
     folia: 'Folia',
     faropdf: 'FaroPDF',
+    legalSkills: 'Legal Skills',
     github: 'GitHub',
     wechatLabel: '微信',
     wechatHandlePrefix: '微信：',
@@ -48,7 +49,7 @@ const messages: Messages = {
     aboutParagraph1:
       '我是杨卫薪律师，专注于技术类纠纷领域，包括知识产权、数据与 AI 相关争议；同时长期关注 AI 技术在法律实务、知识管理和专业写作中的应用。',
     aboutParagraph2:
-      '这个页面是「作者 + 产品」的入口。下面两个项目都来自日常法律工作中的真实痛点：Folia 解决「复杂 Markdown 文档的稳定阅读和纸面导出」，FaroPDF 解决「卷宗、证据、扫描件、合同 PDF 的快读、批注、OCR 和签署交付」。',
+      '这个页面是「作者 + 产品」的入口。Folia 解决「复杂 Markdown 文档的稳定阅读和纸面导出」，FaroPDF 解决「卷宗、证据、扫描件、合同 PDF 的快读、批注、OCR 和签署交付」，Legal Skills 把这一整套工作流沉淀成可装配的 AI Agent 技能。',
     aboutContactLine: '联系方式',
     productsKicker: '产品',
     productsTitle: '三个为日常法律工作打磨的开源项目。',
@@ -212,8 +213,7 @@ const messages: Messages = {
   },
 
   legalSkills: {
-    heroEyebrow: 'AI Agent Skills collection',
-    heroKicker: 'AI Agent Skills 集合',
+    heroEyebrow: 'AI Agent Skills 集合',
     heroPrimaryCta: '了解详情',
     heroSecondaryCta: '查看 GitHub',
     introKickerPrefix: '为什么做',

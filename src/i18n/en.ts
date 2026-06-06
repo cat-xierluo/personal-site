@@ -16,6 +16,7 @@ const messages: Messages = {
     home: 'Home',
     folia: 'Folia',
     faropdf: 'FaroPDF',
+    legalSkills: 'Legal Skills',
     github: 'GitHub',
     wechatLabel: 'WeChat',
     wechatHandlePrefix: 'WeChat: ',
@@ -51,7 +52,7 @@ const messages: Messages = {
     aboutParagraph1:
       'I am Yang Weixin, an attorney-at-law. I focus on technology-related disputes, intellectual property, and data & AI-related issues. I also keep a long-running interest in applying AI to legal practice, knowledge management, and professional writing.',
     aboutParagraph2:
-      'This page is the entry point for "about + products". Both projects below come from real pain points in everyday legal work: Folia solves "stable reading and paper export for complex Markdown documents", and FaroPDF solves "fast read, annotation, OCR, and signing delivery for case files, evidence, scanned materials, and contract PDFs".',
+      'This page is the entry point for "about + products". Folia solves "stable reading and paper export for complex Markdown documents", FaroPDF solves "fast read, annotation, OCR, and signing delivery for case files, evidence, scanned materials, and contract PDFs", and Legal Skills consolidates the whole workflow into composable AI Agent skills.',
     aboutContactLine: 'Contact',
     productsKicker: 'Products',
     productsTitle: 'Three open source projects refined for everyday legal work.',
@@ -216,7 +217,6 @@ const messages: Messages = {
 
   legalSkills: {
     heroEyebrow: 'AI Agent Skills collection',
-    heroKicker: 'AI Agent Skills collection',
     heroPrimaryCta: 'Learn more',
     heroSecondaryCta: 'View on GitHub',
     introKickerPrefix: 'Why',

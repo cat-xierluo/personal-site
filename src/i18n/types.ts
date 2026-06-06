@@ -18,6 +18,7 @@ export interface FooterMessages {
   home: string;
   folia: string;
   faropdf: string;
+  legalSkills: string;
   github: string;
   wechatLabel: string;
   wechatHandlePrefix: string;
@@ -139,7 +140,6 @@ export interface MetaMessages {
 
 export interface LegalSkillsMessages {
   heroEyebrow: string;
-  heroKicker: string;
   heroPrimaryCta: string;
   heroSecondaryCta: string;
   introKickerPrefix: string;
