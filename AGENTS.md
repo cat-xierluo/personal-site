@@ -62,10 +62,10 @@ npm run preview
 
 GitHub Pages 自动部署。Push `main` 分支触发 `.github/workflows/deploy.yml`，自动 build + deploy。
 
-环境变量（默认 `cat-xierluo.github.io/personal-site/`）：
+环境变量（默认 `cat-xierluo.github.io/`，user site repo，无 subpath）：
 
 - `PERSONAL_SITE_URL`：站点 URL（默认 `https://cat-xierluo.github.io`）
-- `PERSONAL_BASE_PATH`：base path（默认 `/personal-site`）
+- `PERSONAL_BASE_PATH`：base path（默认 `/`）
 
 ## 完成标准
 

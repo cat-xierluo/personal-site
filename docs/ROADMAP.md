@@ -56,7 +56,7 @@
 第一版发布条件：
 - Phase 1-3 全部收口
 - ISS-005 跨仓 cleanup 落定
-- 部署到 cat-xierluo.github.io/personal-site/ 公开访问
+- 部署到 cat-xierluo.github.io/ 公开访问（user site repo）
 - 内容事实核查（与 Folia / FaroPDF 当前状态对齐）
 
 ## v1.1 增量

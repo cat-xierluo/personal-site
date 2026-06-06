@@ -479,3 +479,66 @@ ISS-007 + DEC-007 落地后，personal-site `src/assets/wechat-qrcode.png` 是 1
 
 - FaroPDF 仓本次未做替换（任务范围仅 personal-site）。FaroPDF 仓内 `AuthorCard` 的 QR 仍是 1×1 占位。如需统一，从 `personal-site` 仓的 `src/assets/wechat-qrcode.png`（或直接从 `Folio/docs/wechat-qr.png`）复制到 `FaroPDF/src/assets/wechat-qrcode.png` 即可 — 跨仓 follow-up。
 - 三仓真源仍是 Folia docs（不在 src 路径）。如果未来有更多仓要带 QR，统一从 Folia 复制即可。
+
+## DEC-010 站点 URL 去 subpath：改 GitHub 仓名为 `cat-xierluo.github.io`
+
+- 日期：2026-06-05
+- 状态：已采纳
+- 关联任务：ISS-011
+
+### 背景
+
+ISS-005 收口后 personal-site 站点 URL 仍是 `https://cat-xierluo.github.io/personal-site/`（仓名 `cat-xierluo/personal-site` 决定 Pages 服务根在子路径）。用户在 ISS-011 brainstorm 时明确希望 URL 形态简化成 `https://cat-xierluo.github.io/`（无 subpath），「杨卫薪」等中文姓名信息只走页面内容（hero / footer / contact section），不进 URL。
+
+GitHub Pages 服务的 URL 前缀**完全由仓库名决定**（与 `astro.config.mjs` 的 `base` 无关）：
+- 仓名 `<username>/<username>.github.io` → 服务 URL `https://<username>.github.io/`（user site，根域）
+- 仓名 `<username>/<anything-else>` → 服务 URL `https://<username>.github.io/<repo>/`（project site，子路径）
+
+这是 GitHub 强制规则，没有"绕过 subpath 但不改名"的方案。ISS-008 自定义域已被用户取消（成本 / 续费 / 维护 ROI 偏低），所以本次决策只走改仓名路径。
+
+### 决策
+
+**仓名 `cat-xierluo/personal-site` → `cat-xierluo/cat-xierluo.github.io`**，对应：
+
+1. **GitHub 端**：`gh api PATCH /repos/cat-xierluo/personal-site` 把 `name` 字段改为 `cat-xierluo.github.io`。这是 user site repo 的标准命名，Pages 服务 URL 自动从 `…/personal-site/` 变 `…/`。改名后旧 URL 立即 404（用户已确认接受，不加 404 引导页）
+2. **代码层**：`astro.config.mjs` 的 `base` 默认从 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认值同步。`src/**` 全部走 `import.meta.env.BASE_URL`，零代码改动（已 `grep` 验证 12 处 `import.meta.env.BASE_URL` 调用）
+3. **当前活文档**：`AGENTS.md` 第 65-68 行（环境变量默认说明）改 `/`；`docs/ROADMAP.md` v1.0 段目标 URL 改 `cat-xierluo.github.io/`
+4. **历史文档不改动**：`CHANGELOG.md` 0.1.0-alpha.1 ~ 0.1.0-alpha.6 / DEC-001 ~ DEC-009 / ISS-001 ~ ISS-010 里的 `https://cat-xierluo.github.io/personal-site/` 是历史事实，遵循 DEC 时间戳语义，**不**改写（参照 DEC-007 → DEC-009 supersede 模式）。新增 DEC-010 + CHANGELOG 0.1.0-alpha.7 + ISS-011 标注
+5. **本地目录名**：保留 `personal-site/`（用户决策）。git remote URL 改向新名即可
+
+### 关键决策
+
+- **优**：
+  - URL 形态简化：`https://cat-xierluo.github.io/`，分享 / 打印 / 输入都更短
+  - 长期可扩展：未来加 blog / case study / 时讯等子栏目时，子路径是新增的（如 `/blog/`），不是固化的项目名
+  - 符合 GitHub Pages user site 主流模式：所有"<username>.github.io 用作个人主页"的开发者都用这个仓库名格式
+  - 代码零改动：`src/**` 全部走 `BASE_URL`，改 astro config 一处生效
+- **劣**：
+  - 旧 URL（`/personal-site/*`）立即 404，跨仓外链（README 互链、聊天分享、邮件签名）会断。GitHub Pages 不支持 server-side 301，无法做旧 → 新 URL 跳页
+  - 旧 `cat-xierluo/personal-site` 仓 ID 变化：现有 PR 链接 / commit 永久链接的 `repos/cat-xierluo/personal-site` 路径在 GitHub 内部会 301 到新名（GitHub 自动 redirect），但用户感知到的 URL 变了
+  - 仓名变更是一次性 API 调用（可改回），但用户站点结构定型后再次改名会有更多外链/缓存负担
+- **拒绝的方案**：
+  - **只改 `astro.config.mjs` 的 `base: '/'`，仓名保持 `personal-site`**：不可行。GitHub 服务器端按仓名决定 URL 前缀，`base: '/'` 只影响 Astro 内部资源 / 链接生成，对 Pages 服务的根 URL 无任何影响。站点仍然服务在 `/personal-site/`，且 Astro 内部生成的链接会全部错位
+  - **自定义域**（ISS-008）：用户已取消，重启要新任务，资源投入不匹配 v1 体量
+  - **在仓内加 `404.html` 引导 + meta refresh JS 跳新 URL**：用户明确决定"不加，让旧 URL 直接 404"，简化方案
+  - **保留旧仓 `personal-site` + 新建 `cat-xierluo.github.io` 两个仓并存**：每个 GitHub 账号只能有 1 个 user site 仓库（`<username>.github.io`），再建会冲突。而且两个仓同步维护 = 长期负担，不可持续
+
+### 资源放置与验证
+
+- `astro.config.mjs` line 4：`'/personal-site'` → `'/'`
+- `.github/workflows/deploy.yml` line 39：`'/personal-site'` → `'/'`
+- `AGENTS.md` line 65-68：环境变量默认描述同步
+- `docs/ROADMAP.md` line 59：v1.0 段目标 URL 同步
+- **`src/data/products.ts` icon 路径修复（顺手发现）**：`icon: '/icons/...'`（前导 `/`）改为 `icon: 'icons/...'`（去掉前导 `/`）。原代码 `${base}${product.icon}` 拼接：旧 `base='/personal-site/'` 输出 `/personal-site//icons/...`（中间双斜杠，浏览器容错"碰巧"能加载），新 `base='/'` 输出 `//icons/...`（protocol-relative URL，浏览器解释为 `https://icons/...`，跨域失败）。本次顺手修，避免新站点产品卡片 + FaroPDF hero icon 加载不出来。影响 `ProductCard.astro:22` + `FaroPdfPage.astro:36` 两处
+- 验证（pre-PR）：`npm run build` 干净，6 页生成
+  - `dist/index.html`（不再是 `dist/personal-site/index.html`）
+  - HTML 抽检链接路径：`<a href="/folia/">` / `<a href="/faropdf/">` / `<a href="/en/">` / lang-switch `<a href="/en/">` / `<img src="/_astro/xxx.png">`，**无** `/personal-site/` 前缀
+- 验证（post-merge）：`curl -I https://cat-xierluo.github.io/` 应返回 200 + `text/html`；旧 `https://cat-xierluo.github.io/personal-site/` 应 404
+
+### 已知限制
+
+- 旧 URL 失效窗口：从 `gh api` 改仓名到 PR merge 触发新 deploy 之间，`<username>.github.io/personal-site/` 是 404。按本次执行顺序（先 commit + push + PR，等用户 review + merge 后 deploy）窗口约数十分钟
+- GitHub Pages 不支持 server-side 301，旧 → 新 URL 跳页无解（JS `meta refresh` 也不加，按用户决策）
+- 旧 `personal-site` 仓的所有 commit / issue / PR 永久链接会在 GitHub 内部自动 redirect 到新名（`/personal-site/...` → `/cat-xierluo.github.io/...`），但感知上 URL 变了
+- 仓名变更是可逆的（再次 `PATCH name` 即可），但每次变更都增加外链 / 缓存负担，非高频动作
+

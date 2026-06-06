@@ -1,5 +1,17 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.7 - 2026-06-05
+
+- ISS-011 站点 URL 去 subpath：把站点从 `https://cat-xierluo.github.io/personal-site/` 迁到 `https://cat-xierluo.github.io/`（user site repo，无 subpath）。docs 同步（DEC-010）。
+  - **GitHub 端**：仓名 `cat-xierluo/personal-site` → `cat-xierluo/cat-xierluo.github.io`。GitHub Pages 强制规则：user site 仓库（`<username>.github.io`）从用户名根域服务，project site 仓库从 `<username>.github.io/<repo>/` 服务。无绕过办法。改名后旧 URL 立即 404（用户已确认接受）
+  - **代码层**：`astro.config.mjs` 的 `base` 默认从 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认值同步。`src/**` 全部走 `import.meta.env.BASE_URL`，零代码改动
+  - **顺手修复**：`src/data/products.ts` 的 `icon: '/icons/...'` 改为 `icon: 'icons/...'`（去掉前导 `/`）。原 `${base}${product.icon}` 拼接在旧 `base='/personal-site/'` 下产生 `/personal-site//icons/...`（中间双斜杠，浏览器容错"碰巧"能加载），新 `base='/'` 下产生 `//icons/...`（protocol-relative URL，跨域失败）。影响主页 ProductCard + FaroPDF 详情页 hero icon 两处
+  - **本地目录**：保留 `personal-site/`（用户决策，git remote URL 改向新名即可）
+  - **build 验证**：`npm run build` 干净，6 页生成。`dist/index.html`（不再是 `dist/personal-site/index.html`）。HTML 抽检链接路径如 `<a href="/folia/">` / `<img src="/_astro/xxx.png">` / lang-switch `<a href="/en/">`，无 `/personal-site/` 前缀
+  - **历史记录保持**：CHANGELOG 0.1.0-alpha.1~0.1.0-alpha.6 / DEC-001~009 / ISS-001~010 里的 `https://cat-xierluo.github.io/personal-site/` 是历史事实，**不**改写（DEC 时间戳语义，参照 DEC-007 → DEC-009 supersede 模式）
+  - **范围**：1 commit（feat/iss-011-no-subpath，含代码 + 当前活的文档 + DEC-010 + ISS-011 + 本 CHANGELOG 条目）。GitHub 仓 rename 由 `gh api` 一次完成；PR 合并后 deploy 应在 `https://cat-xierluo.github.io/` 实际可见
+  - **决策记录**：DEC-010（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+
 ## 0.1.0-alpha.6 - 2026-06-05
 
 - ISS-010 真实微信二维码替换：把 ISS-007 时复制的 1×1 占位（67 字节）换成真实 QR（734×734 / 184KB，源自 `Folia/docs/wechat-qr.png`）。footer mini QR + contact section big QR 露出可扫码的真实图片。docs 同步（DEC-009）。
