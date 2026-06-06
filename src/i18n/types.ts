@@ -82,7 +82,6 @@ export interface ProductFeature {
 
 export interface FoliaMessages {
   heroEyebrow: string;
-  heroBack: string;
   heroDownload: string;
   heroViewSource: string;
   preview: FoliaPreviewMessages;
@@ -106,7 +105,6 @@ export interface FoliaMessages {
 
 export interface FaroPdfMessages {
   heroEyebrow: string;
-  heroBack: string;
   heroDownload: string;
   heroViewSource: string;
   heroIconAlt: string;
@@ -131,10 +129,6 @@ export interface FaroPdfMessages {
 
 export interface MetaMessages {
   descriptionSuffix: string;
-  productsList: string;
-  foliaDescription: string;
-  faropdfDescription: string;
-  legalSkillsDescription: string;
   backToHome: string;
 }
 

@@ -33,10 +33,6 @@ const messages: Messages = {
 
   meta: {
     descriptionSuffix: '。产品：Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）与 Legal Skills（AI Agent Skills 集合）。',
-    productsList: 'Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）与 Legal Skills（AI Agent Skills 集合）',
-    foliaDescription: '面向知识工作者的 Markdown 阅读与 Word 导出工具：稳定阅读复杂 Markdown，所见即所得切换源码，Word 纸张预览与导出。',
-    faropdfDescription: '面向律师的独立 PDF 阅读器：快读、检索、批注、整理、OCR、表单签署，卷宗 / 证据 / 扫描材料一条龙。',
-    legalSkillsDescription: '面向法律从业者的 AI Agent Skills 集合，从内容获取、处理到专业写作，覆盖律师日常工作全流程。',
     backToHome: '回到作者主页',
   },
 
@@ -65,7 +61,6 @@ const messages: Messages = {
 
   folia: {
     heroEyebrow: 'Markdown reader for demanding documents',
-    heroBack: '← 返回主页',
     heroDownload: '下载最新版',
     heroViewSource: '查看源码',
     preview: {
@@ -136,7 +131,6 @@ const messages: Messages = {
 
   faropdf: {
     heroEyebrow: 'PDF reader for legal materials · v0.1.0-alpha',
-    heroBack: '← 返回主页',
     heroDownload: '下载最新版',
     heroViewSource: '查看源码',
     heroIconAlt: '图标',

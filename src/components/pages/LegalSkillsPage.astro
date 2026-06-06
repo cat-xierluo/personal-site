@@ -142,20 +142,9 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
     margin-top: 32px;
   }
 
-  /* Intro / workflow / download — reuse BaseLayout + FoliaPage scoped styles */
+  /* Intro / workflow / download — uses shared classes from site.css */
 
-  .intro-grid,
-  .workflow-grid {
-    display: grid;
-    grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1fr);
-    gap: clamp(32px, 7vw, 96px);
-    align-items: start;
-  }
-
-  .intro-grid > p {
-    margin: 36px 0 0;
-    font-size: clamp(17px, 2vw, 21px);
-  }
+  /* Feature grid + feature-card — page-specific (16 features, 4n sage/steel/royal/accent cycle, mono font h3) */
 
   .feature-grid--legal-skills {
     display: grid;
@@ -200,70 +189,9 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
     line-height: 1.55;
   }
 
-  .section-workflow {
-    background: var(--surface-strong);
-  }
-
-  .workflow-list {
-    display: grid;
-    gap: 12px;
-    margin: 8px 0 0;
-    padding: 0;
-    counter-reset: workflow;
-    list-style: none;
-  }
-
-  .workflow-list li {
-    display: grid;
-    grid-template-columns: 42px 1fr;
-    gap: 16px;
-    align-items: center;
-    min-height: 66px;
-    padding: 14px 18px;
-    border: 1px solid oklch(82% 0.018 76);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.7;
-  }
-
-  .workflow-list li::before {
-    display: grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--accent-deep);
-    content: counter(workflow, decimal-leading-zero);
-    counter-increment: workflow;
-    font-family: var(--font-mono);
-    font-size: 12px;
-  }
-
-  .download-panel {
-    display: grid;
-    grid-template-columns: minmax(260px, 1.4fr) minmax(220px, 1fr);
-    gap: clamp(32px, 6vw, 64px);
-    align-items: start;
-  }
-
-  .download-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 12px;
-  }
-
   @media (max-width: 980px) {
     .feature-grid--legal-skills {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .intro-grid,
-    .workflow-grid,
-    .download-panel {
-      grid-template-columns: 1fr;
     }
   }
 
