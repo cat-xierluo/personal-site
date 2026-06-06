@@ -1,28 +1,33 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.7 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010） + URL 去 subpath（ISS-011）均已落定。ISS-008 自定义域按用户决策取消。
+> **当前阶段**：v0.1.0-alpha.8 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010） + URL 去 subpath（ISS-011） + Legal Skills 集成（ISS-012）均已落定。ISS-008 自定义域按用户决策取消。
 
 ## 活跃任务
 
-### ISS-011 站点 URL 去 subpath：改仓名为 `cat-xierluo.github.io`（进行中）
+### ISS-012 Legal Skills 集成：主页产品卡 + 5 段式详情页 + 详情页 back-link（进行中）
 
 - 优先级：P1
-- 类型：部署 / 配置
-- 状态：**进行中（2026-06-05）**
+- 类型：内容 / 架构
+- 状态：**进行中（2026-06-06）**
 - 范围：
-  - GitHub 端：`gh api PATCH /repos/cat-xierluo/personal-site` 把 `name` 改为 `cat-xierluo.github.io`
-  - 代码层：`astro.config.mjs` 的 `base` 默认 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认同步
-  - 当前活文档：`AGENTS.md` / `docs/ROADMAP.md` 目标 URL 同步
-  - 历史文档不改动：CHANGELOG 0.1.0-alpha.1~0.1.0-alpha.6 / DEC-001~009 / ISS-001~010 里的旧 URL 是历史事实，遵循 DEC 时间戳语义
-  - 本地目录：保留 `personal-site/`，git remote URL 改向新名
+  - 数据层：`src/data/products.ts` 加 `legal-skills` 条目（accent=royal）
+  - 资源：从 `cat-xierluo/legal-skills/docs/legal-skills-icon.jpg` 复制 + 裁分子结构 + 缩 256×256 → `public/icons/legal-skills-icon.png`
+  - CSS：`site.css` 加 `--royal` / `--royal-soft` OKLCH token + `.product-card--royal` 彩条 + `.back-link` 共享样式 + 主页 grid 3-column
+  - i18n：`src/i18n/{types,zh-CN,en}.ts` 新增 `legalSkills` 页块（16 features + 4 workflow + 双许可证下载说明）+ `meta.backToHome` 共享字段
+  - 详情页：`src/components/pages/LegalSkillsPage.astro` 新建（5 段式 + back-link）
+  - 详情页 back-link：FolioPage / FaroPdfPage / LegalSkillsPage 各自 hero 顶部加 `.back-link`，共享 `meta.backToHome` 字段
+  - thin wrappers：`src/pages/legal-skills.astro` (zh URL 检测) + `src/pages/en/legal-skills.astro` (en 硬编码)
 - 验收：
-  - `npm run build` 干净 6 页生成
-  - `dist/index.html`（不再是 `dist/personal-site/index.html`），HTML 抽检链接路径无 `/personal-site/` 前缀
-  - PR 合并后 deploy 在 `https://cat-xierluo.github.io/` 实际可见（200 + `text/html`）
-  - 旧 `https://cat-xierluo.github.io/personal-site/` 404（用户已确认接受，不加 404 引导页）
-- 决策：DEC-010（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+  - `npm run build` 干净 8 页生成（4 zh + 4 en，从 6 增到 8）
+  - 主页 3 张 product-card（sage / steel / royal）3-column 网格
+  - `/legal-skills/` 详情页 16 张 feature-card 4-column 网格，4n 循环 sage / accent / steel / royal
+  - 3 个详情页 hero 顶部都有"回到作者主页"back-link
+  - 资源 200：favicon / icons / _astro CSS / QR / legal-skills-icon
+  - 浏览器实测 8 页面 + 0 console error
+  - i18n 漏译 TS 编译失败（Messages interface 强约束）
+- 决策：DEC-011（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）+ `docs/plans/2026-06-06-legal-skills-detail-page-design.md`
 
-> 收口后下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-012 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
+> 收口后下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-013 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
 
 ## 已取消任务
 
@@ -111,6 +116,21 @@
   - **验证**：`npm run build` 干净 6 页生成，`dist/_astro/wechat-qrcode.BL2G81aV.png` 184KB 已替换占位版本，HTML/JS 自动跟随新 hash
   - **决策记录**：DEC-009（背景 / DEC-007 修正说明 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
 
+### ISS-011 站点 URL 去 subpath：改仓名为 `cat-xierluo.github.io`（已完成）
+
+- 2026-06-05：ISS-011 落地（PR #6 feat/iss-011-no-subpath，docs 同步）
+  - **GitHub 端**：`gh api PATCH /repos/cat-xierluo/personal-site` 把 `name` 改为 `cat-xierluo.github.io`。Pages 配置自动跟随，仓的 html_url 切到 `https://cat-xierluo.github.io/`（根域，无 subpath）。**旧 URL `…/personal-site/` 立即 404**（用户已确认接受，不加 404 引导页）。
+  - **代码层**：`astro.config.mjs` 的 `base` 默认 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认值同步。`src/**` 全部走 `import.meta.env.BASE_URL`，零业务代码改动
+  - **顺手修**：`src/data/products.ts` 的 `icon: '/icons/...'` 改为 `icon: 'icons/...'`（去掉前导 `/`），避免新 base 下产出 protocol-relative URL 跨域失败。影响主页 ProductCard + FaroPDF 详情页 hero icon
+  - **当前活文档**：`AGENTS.md` / `docs/ROADMAP.md` 目标 URL 同步
+  - **历史文档不动**：`CHANGELOG` 0.1.0-alpha.1~6 / `DEC-001~009` / `ISS-001~010` 里的旧 URL 是历史事实，遵循 DEC 时间戳语义
+  - **本地目录**：保留 `personal-site/`，git remote URL 改向新名
+  - **范围**：1 commit（feat/iss-011-no-subpath，含代码 + 当前活文档 + DEC-010 + ISS-011 + CHANGELOG 条目）
+  - **验证（pre-PR）**：`npm run build` 干净 6 页生成；`dist/index.html`（不再是 `dist/personal-site/index.html`），HTML 抽检链接路径无 `/personal-site/` 前缀
+  - **验证（post-merge）**：8 处资源 200，浏览器实测 4 页（zh + en）显示 OK，控制台 0 error / 0 warning
+  - **决策记录**：DEC-010（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+  - **已知限制**：仓名变更可逆（再次 PATCH name 即可），但每次变更都增加外链 / 缓存负担；GitHub Pages 不支持 server-side 301 跳页
+
 ## 进度日志
 
 - 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
@@ -125,4 +145,5 @@
 - 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
 - 2026-06-05：ISS-010 真实微信二维码替换（feat/iss-010-real-qr，从 Folia/docs 真源复制 184KB QR，hash 升级到 `BL2G81aV`；DEC-009 supersede 修正 DEC-007 单源）
 - 2026-06-05：ISS-011 站点 URL 去 subpath（feat/iss-011-no-subpath，仓名 `personal-site` → `cat-xierluo.github.io`，astro base → `/`，旧 URL 失效用户接受；DEC-010 落地）
-- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 / URL 去 subpath 全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-012 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令
+- 2026-06-06：ISS-012 Legal Skills 集成（feat/iss-012-legal-skills，主页 3 张 product-card 3-column 网格 + 5 段式详情页 16 features 4-col + 3 处 back-link 共享；DEC-011 落地）
+- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 / URL 去 subpath / Legal Skills 集成全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-013 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令

@@ -542,3 +542,88 @@ GitHub Pages 服务的 URL 前缀**完全由仓库名决定**（与 `astro.confi
 - 旧 `personal-site` 仓的所有 commit / issue / PR 永久链接会在 GitHub 内部自动 redirect 到新名（`/personal-site/...` → `/cat-xierluo.github.io/...`），但感知上 URL 变了
 - 仓名变更是可逆的（再次 `PATCH name` 即可），但每次变更都增加外链 / 缓存负担，非高频动作
 
+## DEC-011 Legal Skills 集成：主页产品卡 + 5 段式详情页 + 共享 back-link
+
+- 日期：2026-06-06
+- 状态：已采纳
+- 关联任务：ISS-012
+
+### 背景
+
+`cat-xierluo/legal-skills` 是杨卫薪律师 star 数最多的公开项目（316 stars / 47 forks / 47 skills），面向法律从业者的 AI Agent Skills 集合，跨 Claude Code / OpenClaw / WorkBuddy / QoderWork / CodeX / OpenCode / Hermes 等平台。personal-site 当前只展示 Folia / FaroPDF 两个产品，需要把 Legal Skills 也露出。同时按用户新需求，3 个产品详情页（Folio / FaroPDF / Legal Skills，中英双版）hero 顶部都加"回到作者主页"小链接。
+
+ISS-012 集成完成后，personal-site 主页有 3 张产品卡 + 4 个详情页（4 zh + 4 en = 8 页），3 个详情页共享 back-link。
+
+### 决策
+
+**主页**：加第 3 张 product-card（accent=royal），grid 改 `repeat(3, 1fr)`（>980px）/ `repeat(2, 1fr)`（680-980px）/ `1fr`（<680px）。
+
+**详情页**：新建 `src/components/pages/LegalSkillsPage.astro`，5 段式与 Folia / FaroPDF 同结构（hero + intro + features 16 张 4-col + workflow 4 步 + download）。Hero 顶部"← 回到作者主页"小左箭头链接（i18n 共享 `meta.backToHome`），locale-aware 链接到 `base` / `${base}en/`。
+
+**Back-link 共享**：把 Folia / FaroPDF / Legal Skills 三个详情页 hero 顶部的 back-link 统一改成共享 `.back-link` class + `dict.meta.backToHome` 字段。删除原 Folia / FaroPDF 各自的 `.folia-hero-back` / `.faropdf-hero-back` scoped 样式。
+
+**Accent 色板**：royal（深紫蓝 `oklch(0.30 0.16 285)`），AI / 智能 / 科技感，与 sage / steel 区分。`--royal` / `--royal-soft` token 加到 `site.css :root`，`.product-card--royal` 复用现有模板。
+
+**Features 段**：16 张 feature-card 4-column 网格（4×4），每张顶部彩条按 4n 循环 `var(--sage)` / `var(--accent)` / `var(--steel)` / `var(--royal)`。卡内：技能名（mono 字体，强调是 skill 而非概念）+ 1 句话说明。**不**带版本号 / 许可证 / 数量（项目持续演进，README 才是准）。
+
+**16 个 skill 挑选**（4 大类各 4 个代表）：
+- 内容获取：wechat-article-fetch / legal-ocr / funasr-transcribe / universal-media-downloader
+- 法律应用：litigation-analysis / contract-copilot / legal-proposal-generator / patent-analysis
+- 内容处理：pdf-processor / pdf-organizer / md2word / svg-article-illustrator
+- 开发工具：multi-agent-orchestration / cross-agent-coordination / project-init / skill-manager
+
+### 关键决策
+
+- **优**：
+  - 主页 / 详情页 / back-link 都沿用现有架构（Folio / FaroPDF），新读者无学习曲线
+  - 16 个 skill 选"代表性"而非"穷举"，README 升级时本表不需要同步
+  - shared `.back-link` class + `meta.backToHome` 字段：3 个详情页文案同步（改一处生效）
+  - 资源单一真相源（DEC-002 沿用）：从 legal-skills 仓 `docs/legal-skills-icon.jpg` 复制 → PIL 裁分子结构中心 660×660 → resize 256×256 → `public/icons/legal-skills-icon.png`
+  - royal accent 与分子结构图（黑白 AI 网络）调性贴
+- **劣**：
+  - 16 个 skill 的"代表性"可能不全：项目持续演进，未来某 skill 归档后本表需要更新（但不是每次 push 都要改，符合"几个具体说透"原则）
+  - 主页 3 张产品卡在 680-980px 断点会换行成 2+1 不对称，需要视觉检查
+  - royal OKLCH 数值是初选，实施时如与 sage / steel 在视觉上不和谐需微调
+  - 源图横版（1536×1024）裁中心 660×660 切掉了右侧 "LEGAL SKILLS" 文字方块（文字在 80px 太小读不清，分子结构更标志性 — 这是裁切设计选择）
+- **拒绝的方案**：
+  - **不**在 features 段按 4 大类分小节、加分类标题：会破坏与 Folia / FaroPDF 详情页 4 features / 8 features 的统一结构
+  - **不**用横版裁全幅（1536×1024）：破坏方形 icon 与 Folia / FaroPDF 80×80 一致性
+  - **不**用 sips `-c` 命令：实测 sips crop 中心在 1536→1024 时定位不可靠，最后用 PIL Python 脚本精准裁
+  - **不**把 back-link 字段放各 page 自己的 heroBack 字段：FoliaMessages.heroBack / FaroPdfMessages.heroBack 字段已存在但字段名不通用，移入共享 `meta.backToHome` 字段
+  - **不**做"star 数实时显示"（README badge 静态即可，"316 stars" 等易过期数据不进主页/详情页文案）
+  - **不**做"deep-dive 任何具体 skill"（16 features 段已覆盖代表性）
+
+### 资源放置与验证
+
+- 源图：`https://raw.githubusercontent.com/cat-xierluo/legal-skills/main/docs/legal-skills-icon.jpg`（1536×1024 JPG，104KB）
+- 复制到：`src/assets/legal-skills-icon.jpg`
+- PIL 裁中心：`img.crop((150, 180, 810, 840))` → 660×660 分子结构（去文字方块）
+- 缩放：`resize((256, 256), Image.LANCZOS)` → `public/icons/legal-skills-icon.png`（34KB）
+- 主页 product card 80×80 + 详情页 hero 86×86 共用同一张
+
+- `astro.config.mjs`：未变（沿用 ISS-011 base='/'）
+- `.github/workflows/deploy.yml`：未变（沿用 ISS-011）
+- `src/data/products.ts` 加 `'legal-skills'` 条目（kebab-case 键，ProductCard 通过 `products[slug]` 访问）
+- `src/styles/site.css`：
+  - `:root` 加 `--royal` / `--royal-soft` OKLCH 变量
+  - `.back-link` 全局样式（小左箭头 pill 按钮）
+  - `.product-grid` 改 `repeat(3, ...)` / 980px 断点改 `repeat(2, ...)`
+- `src/i18n/{types.ts,zh-CN.ts,en.ts}`：
+  - `MetaMessages.backToHome` 共享字段
+  - `NavMessages.legalSkills` 字段
+  - `LegalSkillsMessages` 类型 + 完整字典块
+  - 字段数：~20 文本字段 + 16 features × 3 + 4 workflow × 2 = **~84 字段 × 2 语种 = 168 处翻译**
+- `src/components/pages/LegalSkillsPage.astro`：5 段式 + 16 features + 4 workflow + back-link + scoped feature-card 4n 循环彩条
+- `src/components/{SiteHeader,ProductCard,FolioPage,FaroPdfPage}.astro`：nav 加 Legal Skills 链接 / ProductCard 类型加 'legal-skills' / 详情页 back-link 改用共享 `.back-link`
+- `src/pages/{legal-skills,en/legal-skills}.astro`：thin wrappers
+
+**验证（pre-PR）**：`npm run build` 干净 8 页生成（4 zh + 4 en，从 6 增到 8）。HTML 抽检：首页 3 张 product-card 链接（`/folia/` / `/faropdf/` / `/legal-skills/`），en 镜像 3 链接。6 处 back-link 全显示（zh → `href="/"`，en → `href="/en/"`）。资源路径无 `/personal-site/` 前缀。浏览器实测 8 页面 + 0 console error / 0 warning。
+
+### 已知限制
+
+- 16 个 skill 的"代表性"语义会随时间漂移：项目持续演进，未来某 skill 归档后本表需要更新
+- royal OKLCH 数值是初选值，如与 sage / steel 在视觉上不和谐需微调
+- 源图横版裁中心 660×660 去文字方块：80×86 像素下文字读不清，分子结构更标志性
+- 主页 3 张产品卡在 680-980px 断点会换行成 2+1（不对称），需视觉效果验收
+- 已归档的 FoliaMessages.heroBack / FaroPdfMessages.heroBack 字段保留（dead code 暂时无害），未来清理可一并移除
+

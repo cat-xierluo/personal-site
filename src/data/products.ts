@@ -27,6 +27,18 @@ export const products = {
     icon: 'icons/faropdf-icon.png',
     accent: 'steel',
   },
+  'legal-skills': {
+    slug: 'legal-skills',
+    name: 'Legal Skills',
+    tagline: '面向法律从业者的 AI Agent Skills 集合',
+    taglineEn: 'A collection of AI Agent Skills for legal professionals',
+    summary: '从内容获取、处理到专业写作，覆盖律师日常工作全流程。',
+    summaryEn: 'From content acquisition to professional writing — covering the full daily workflow of lawyers.',
+    repo: 'https://github.com/cat-xierluo/legal-skills',
+    path: '/legal-skills',
+    icon: 'icons/legal-skills-icon.png',
+    accent: 'royal',
+  },
 } as const;
 
 export type Product = (typeof products)[keyof typeof products];
