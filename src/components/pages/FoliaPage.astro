@@ -32,7 +32,7 @@ const introKicker = `${dict.folia.introKickerPrefix} ${p.name}`;
 >
   <section class="folia-hero" aria-labelledby="hero-title">
     <div class="folia-hero-inner">
-      <a class="folia-hero-back" href={backHref}>{dict.folia.heroBack}</a>
+      <a class="back-link" href={backHref}>{dict.meta.backToHome}</a>
       <img class="folia-hero-icon" src={foliaIcon.src} width="86" height="86" alt="" />
       <p class="eyebrow">{dict.folia.heroEyebrow}</p>
       <h1 id="hero-title">{p.name}</h1>
@@ -178,17 +178,6 @@ const introKicker = `${dict.folia.introKickerPrefix} ${p.name}`;
     align-items: center;
     width: min(1080px, 100%);
     margin: 0 auto;
-  }
-
-  .folia-hero-back {
-    align-self: flex-start;
-    margin-bottom: 18px;
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  .folia-hero-back:hover {
-    color: var(--accent);
   }
 
   .folia-hero-icon {

@@ -6,7 +6,7 @@ import type { Locale, Messages } from '../i18n/types';
 interface Props {
   locale: Locale;
   dict: Messages;
-  activeSection?: 'home' | 'folia' | 'faropdf';
+  activeSection?: 'home' | 'folia' | 'faropdf' | 'legal-skills';
 }
 
 const { locale, dict, activeSection = 'home' } = Astro.props;
@@ -14,6 +14,7 @@ const base = import.meta.env.BASE_URL;
 const homePath = locale === 'en' ? `${base}en/` : base;
 const foliaPath = locale === 'en' ? `${base}en/folia/` : `${base}folia/`;
 const faropdfPath = locale === 'en' ? `${base}en/faropdf/` : `${base}faropdf/`;
+const legalSkillsPath = locale === 'en' ? `${base}en/legal-skills/` : `${base}legal-skills/`;
 const switchHref = alternatePathForLocale(Astro.url.pathname, locale, base);
 
 const authorName = locale === 'en' ? author.nameEn : author.name;
@@ -32,6 +33,7 @@ const navAriaLabel = locale === 'en' ? 'Main navigation' : '主导航';
     <a href={homePath} class={activeSection === 'home' ? 'is-active' : ''}>{dict.nav.home}</a>
     <a href={foliaPath} class={activeSection === 'folia' ? 'is-active' : ''}>{dict.nav.folia}</a>
     <a href={faropdfPath} class={activeSection === 'faropdf' ? 'is-active' : ''}>{dict.nav.faropdf}</a>
+    <a href={legalSkillsPath} class={activeSection === 'legal-skills' ? 'is-active' : ''}>{dict.nav.legalSkills}</a>
     <a href={author.contacts.github} target="_blank" rel="noreferrer">{dict.nav.github}</a>
     <a
       class="lang-switch"

@@ -5,6 +5,7 @@ const messages: Messages = {
     home: 'Home',
     folia: 'Folia',
     faropdf: 'FaroPDF',
+    legalSkills: 'Legal Skills',
     github: 'GitHub',
     switchLanguage: '中文',
     switchLanguageTitle: '切换到中文',
@@ -30,12 +31,15 @@ const messages: Messages = {
   },
 
   meta: {
-    descriptionSuffix: '. Products: Folia (Markdown reader with Word export) and FaroPDF (a PDF reader for lawyers).',
-    productsList: 'Folia (Markdown reader with Word export) and FaroPDF (a PDF reader for lawyers)',
+    descriptionSuffix: '. Products: Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), and Legal Skills (AI Agent Skills collection).',
+    productsList: 'Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), and Legal Skills (AI Agent Skills collection)',
     foliaDescription:
       'A Markdown reader and Word export tool for demanding documents. Stable rendering of complex Markdown, WYSIWYG with source-mode fallback, and Word paper preview & export.',
     faropdfDescription:
       'An independent PDF reader for lawyers. Fast read, search, annotate, organize, OCR, and form signing for case files, evidence, judgments, contracts, and scanned materials.',
+    legalSkillsDescription:
+      'A collection of AI Agent Skills for legal professionals — from content acquisition to professional writing, covering the full daily workflow of lawyers.',
+    backToHome: 'Back to author homepage',
   },
 
   index: {
@@ -50,7 +54,7 @@ const messages: Messages = {
       'This page is the entry point for "about + products". Both projects below come from real pain points in everyday legal work: Folia solves "stable reading and paper export for complex Markdown documents", and FaroPDF solves "fast read, annotation, OCR, and signing delivery for case files, evidence, scanned materials, and contract PDFs".',
     aboutContactLine: 'Contact',
     productsKicker: 'Products',
-    productsTitle: 'Two open source projects refined for everyday legal work.',
+    productsTitle: 'Three open source projects refined for everyday legal work.',
     contactKicker: 'Contact',
     contactTitle: 'Open to collaboration, product feedback, and legal inquiries.',
     contactWechatLabel: 'WeChat',
@@ -205,9 +209,102 @@ const messages: Messages = {
     downloadListAria: 'Installer selection notes',
     downloadOptions: [
       'macOS Apple Silicon: pick the aarch64 / arm64 installer',
-      'macOS Intel: pick the x64 / x86_64 installer',
+      'macOS Intel: pick the x64 or x86_64 installer',
       'Windows: pick the .exe or .msi installer',
     ],
+  },
+
+  legalSkills: {
+    heroEyebrow: 'AI Agent Skills collection',
+    heroKicker: 'AI Agent Skills collection',
+    heroPrimaryCta: 'Learn more',
+    heroSecondaryCta: 'View on GitHub',
+    introKickerPrefix: 'Why',
+    introTitle: 'Lawyers are professionals and creators at once.',
+    introBody:
+      'Both ends of the daily workflow need sharp tools: bringing materials in from WeChat articles, scanned documents, audio and video on one end; turning research into deliverable proposals, reports, and articles on the other. Legal Skills consolidates the whole chain into composable AI Agent skills that lawyers can invoke directly inside their own Agent workflows.',
+    featuresKicker: 'Representative Skills',
+    featuresTitle: 'Pick by scenario — from content acquisition to multi-agent orchestration.',
+    features: [
+      {
+        title: 'wechat-article-fetch',
+        text: 'Headless scraping of WeChat official-account articles, saved as Markdown.',
+      },
+      {
+        title: 'legal-ocr',
+        text: 'Unified OCR and scan recognition across PDF, images, Office documents, and URLs.',
+      },
+      {
+        title: 'funasr-transcribe',
+        text: 'Local speech-to-text with speaker diarization for meeting notes, video subtitles, podcasts.',
+      },
+      {
+        title: 'universal-media-downloader',
+        text: 'Video and podcast downloads for Douyin, Bilibili, YouTube, Xiaoyuzhou, and more.',
+      },
+      {
+        title: 'litigation-analysis',
+        text: 'Litigation analysis across complaints and evidence, judgments, and trial transcripts.',
+      },
+      {
+        title: 'contract-copilot',
+        text: 'Contract drafting and review — risk checklist, draft skeleton, and revision suggestions in a four-step flow.',
+      },
+      {
+        title: 'legal-proposal-generator',
+        text: 'Auto-generate litigation plans, advisory reports, proposal letters, and case-closing summaries.',
+      },
+      {
+        title: 'patent-analysis',
+        text: 'Seven patent-analysis scenarios: single-patent extraction, infringement comparison, FTO, stability, design-around.',
+      },
+      {
+        title: 'pdf-processor',
+        text: 'Full PDF processing: scan preprocessing, OCR double-layer PDF, page numbers, merge, decrypt, watermark, compress.',
+      },
+      {
+        title: 'pdf-organizer',
+        text: 'Legal PDF organization: split, merge, rename, with page index and handoff files for downstream steps.',
+      },
+      {
+        title: 'md2word',
+        text: 'Convert Markdown to standard Word with automatic legal-document layout applied.',
+      },
+      {
+        title: 'svg-article-illustrator',
+        text: 'AI-driven SVG illustration generation for WeChat-style articles, with dynamic SVG and PNG export.',
+      },
+      {
+        title: 'multi-agent-orchestration',
+        text: 'Local multi-agent orchestration: worktree/session isolation, Agent Teams / tmux launch, PM patrol, PR closeout.',
+      },
+      {
+        title: 'cross-agent-coordination',
+        text: 'Cross-platform agent task coordination hub: task allocation, capability routing, handoff context.',
+      },
+      {
+        title: 'project-init',
+        text: 'Project initialization: auto-generate CLAUDE.md / docs system, supports 6 project types.',
+      },
+      {
+        title: 'skill-manager',
+        text: 'Install, sync, uninstall, and list AI Agent Skills from local paths or GitHub repos.',
+      },
+    ],
+    workflowKicker: 'Workflow',
+    workflowTitle: 'From picking a skill to multi-agent collaboration.',
+    workflow: [
+      'Browse the 47 skills in the README and pick the ones the task needs',
+      'Copy a one-line install hint to your Agent — it lands in Claude Code / OpenClaw / WorkBuddy / CodeX / OpenCode / Hermes in one shot',
+      'Use cross-agent-coordination to route tasks and pass context between agents',
+      'Use multi-agent-orchestration to spin up parallel worktrees for long-running jobs',
+    ],
+    downloadKicker: 'Install',
+    downloadTitle: 'One line from GitHub is all it takes.',
+    downloadBody:
+      'Dual license: MIT skills are free to use including commercial; CC-BY-NC skills are free for non-commercial use with attribution. For commercial use of CC-BY-NC skills, please reach out on WeChat (ywxlaw) for a license. To install, send your Agent: "Please install the legal-skills collection from GitHub: https://github.com/cat-xierluo/legal-skills".',
+    downloadPrimary: 'Open GitHub repo',
+    downloadSecondary: 'Read README',
   },
 };
 

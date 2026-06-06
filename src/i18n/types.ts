@@ -7,6 +7,7 @@ export interface NavMessages {
   home: string;
   folia: string;
   faropdf: string;
+  legalSkills: string;
   github: string;
   switchLanguage: string;
   switchLanguageTitle: string;
@@ -132,6 +133,29 @@ export interface MetaMessages {
   productsList: string;
   foliaDescription: string;
   faropdfDescription: string;
+  legalSkillsDescription: string;
+  backToHome: string;
+}
+
+export interface LegalSkillsMessages {
+  heroEyebrow: string;
+  heroKicker: string;
+  heroPrimaryCta: string;
+  heroSecondaryCta: string;
+  introKickerPrefix: string;
+  introTitle: string;
+  introBody: string;
+  featuresKicker: string;
+  featuresTitle: string;
+  features: ProductFeature[];
+  workflowKicker: string;
+  workflowTitle: string;
+  workflow: string[];
+  downloadKicker: string;
+  downloadTitle: string;
+  downloadBody: string;
+  downloadPrimary: string;
+  downloadSecondary: string;
 }
 
 export interface Messages {
@@ -142,4 +166,5 @@ export interface Messages {
   index: IndexMessages;
   folia: FoliaMessages;
   faropdf: FaroPdfMessages;
+  legalSkills: LegalSkillsMessages;
 }

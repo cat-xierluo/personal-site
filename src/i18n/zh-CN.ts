@@ -5,6 +5,7 @@ const messages: Messages = {
     home: '主页',
     folia: 'Folia',
     faropdf: 'FaroPDF',
+    legalSkills: 'Legal Skills',
     github: 'GitHub',
     switchLanguage: 'EN',
     switchLanguageTitle: 'Switch to English',
@@ -30,10 +31,12 @@ const messages: Messages = {
   },
 
   meta: {
-    descriptionSuffix: '。产品：Folia（Markdown 阅读与 Word 导出）与 FaroPDF（律师 PDF 阅读器）。',
-    productsList: 'Folia（Markdown 阅读与 Word 导出）与 FaroPDF（律师 PDF 阅读器）',
+    descriptionSuffix: '。产品：Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）与 Legal Skills（AI Agent Skills 集合）。',
+    productsList: 'Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）与 Legal Skills（AI Agent Skills 集合）',
     foliaDescription: '面向知识工作者的 Markdown 阅读与 Word 导出工具：稳定阅读复杂 Markdown，所见即所得切换源码，Word 纸张预览与导出。',
     faropdfDescription: '面向律师的独立 PDF 阅读器：快读、检索、批注、整理、OCR、表单签署，卷宗 / 证据 / 扫描材料一条龙。',
+    legalSkillsDescription: '面向法律从业者的 AI Agent Skills 集合，从内容获取、处理到专业写作，覆盖律师日常工作全流程。',
+    backToHome: '回到作者主页',
   },
 
   index: {
@@ -48,7 +51,7 @@ const messages: Messages = {
       '这个页面是「作者 + 产品」的入口。下面两个项目都来自日常法律工作中的真实痛点：Folia 解决「复杂 Markdown 文档的稳定阅读和纸面导出」，FaroPDF 解决「卷宗、证据、扫描件、合同 PDF 的快读、批注、OCR 和签署交付」。',
     aboutContactLine: '联系方式',
     productsKicker: '产品',
-    productsTitle: '两个为日常法律工作打磨的开源项目。',
+    productsTitle: '三个为日常法律工作打磨的开源项目。',
     contactKicker: '联系方式',
     contactTitle: '欢迎交流合作、产品建议或法律问题咨询。',
     contactWechatLabel: '微信',
@@ -206,6 +209,99 @@ const messages: Messages = {
       'macOS Intel：选择 x64 / x86_64 安装包',
       'Windows：选择 .exe 或 .msi 安装包',
     ],
+  },
+
+  legalSkills: {
+    heroEyebrow: 'AI Agent Skills collection',
+    heroKicker: 'AI Agent Skills 集合',
+    heroPrimaryCta: '了解详情',
+    heroSecondaryCta: '查看 GitHub',
+    introKickerPrefix: '为什么做',
+    introTitle: '律师既是专业工作者，也是创作者。',
+    introBody:
+      '日常工作的两端都需要顺手工具：一端是从公众号、扫描件、录音视频里把材料拿进来，另一端是把研究成果写成可交付的方案、报告与文章。Legal Skills 把这一整套链路沉淀成可装配的 AI Agent 技能，让律师在自己的 Agent 工作流里直接调用。',
+    featuresKicker: '代表性 Skills',
+    featuresTitle: '从内容获取到多 Agent 编排，按场景挑选。',
+    features: [
+      {
+        title: 'wechat-article-fetch',
+        text: '无头抓取微信公众号文章，保存为 Markdown。',
+      },
+      {
+        title: 'legal-ocr',
+        text: 'OCR 与扫描识别统一入口，覆盖 PDF、图片、Office 文档和 URL。',
+      },
+      {
+        title: 'funasr-transcribe',
+        text: '本地语音转文字，支持说话人分离、会议记录、视频字幕。',
+      },
+      {
+        title: 'universal-media-downloader',
+        text: '视频与播客平台下载，支持抖音 / B 站 / YouTube / 小宇宙等。',
+      },
+      {
+        title: 'litigation-analysis',
+        text: '诉讼分析：起诉状与证据、判决书深度分析、庭审笔录复盘。',
+      },
+      {
+        title: 'contract-copilot',
+        text: '合同起草与审查：四步流程输出风险清单、起草骨架与修改建议。',
+      },
+      {
+        title: 'legal-proposal-generator',
+        text: '诉讼方案、咨询报告、建议书、结案汇报等法律服务文档自动生成。',
+      },
+      {
+        title: 'patent-analysis',
+        text: '专利分析 7 种场景：单专利技术要点、侵权比对、FTO、稳定性与规避设计。',
+      },
+      {
+        title: 'pdf-processor',
+        text: 'PDF 全能处理：扫描件预处理、OCR 双层 PDF、页码、合并、解密、水印去除、压缩。',
+      },
+      {
+        title: 'pdf-organizer',
+        text: '法律 PDF 整理：拆分 / 合并 / 重命名，生成页面索引和下游交接文件。',
+      },
+      {
+        title: 'md2word',
+        text: 'Markdown 转标准格式 Word，自动应用法律文书排版。',
+      },
+      {
+        title: 'svg-article-illustrator',
+        text: 'AI 驱动的公众号文章 SVG 配图生成，支持动态 SVG 与 PNG 导出。',
+      },
+      {
+        title: 'multi-agent-orchestration',
+        text: '多 Agent 本地执行编排：worktree / session 隔离、Agent Teams / tmux 启动、PM 巡检和 PR 收口。',
+      },
+      {
+        title: 'cross-agent-coordination',
+        text: '跨平台 Agent 任务协调枢纽：任务分配、能力路由、交接上下文。',
+      },
+      {
+        title: 'project-init',
+        text: '项目初始化：自动生成 CLAUDE.md / docs 体系，支持 6 种项目类型。',
+      },
+      {
+        title: 'skill-manager',
+        text: 'AI Agent Skills 的安装、同步、卸载与列表查看，支持本地路径和 GitHub 仓库。',
+      },
+    ],
+    workflowKicker: '使用流程',
+    workflowTitle: '从选 Skill 到多 Agent 协作。',
+    workflow: [
+      '在 README 的 47 个 skills 里挑出本任务需要的能力',
+      '复制一行安装提示语到 Agent，一键装到 Claude Code / OpenClaw / WorkBuddy / CodeX / OpenCode / Hermes',
+      '用 cross-agent-coordination 在多 Agent 之间路由和交接上下文',
+      '用 multi-agent-orchestration 起多个 worktree 并行跑长任务',
+    ],
+    downloadKicker: '安装',
+    downloadTitle: '从 GitHub 复制一行提示即可。',
+    downloadBody:
+      '本仓库采用双许可证：MIT 技能可自由使用包括商用，CC-BY-NC 技能可自由使用但不可商用且需保留署名。商用前请添加微信（ywxlaw）联系授权。安装方法：把「请帮我从 GitHub 安装 legal-skills 技能集合：https://github.com/cat-xierluo/legal-skills」发给 Agent 即可。',
+    downloadPrimary: '打开 GitHub 仓库',
+    downloadSecondary: '阅读 README',
   },
 };
 

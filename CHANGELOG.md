@@ -1,5 +1,23 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.8 - 2026-06-06
+
+- ISS-012 Legal Skills 集成：把 star 数最高的项目（316 stars / 47 skills）以「主页产品卡 + 5 段式详情页」形式加入 personal-site，三个详情页（Folio / FaroPDF / Legal Skills，中英双版）hero 顶部加共享"回到作者主页"小链接。docs 同步（DEC-011）。
+  - **主页 3 张产品卡**：Folia（sage 彩条）+ FaroPDF（steel 彩条）+ Legal Skills（royal 彩条，深紫蓝），3-column 网格（>980px 3 列 / 680-980px 2 列 / <680px 1 列）
+  - **5 段式详情页 `/legal-skills/`**：
+    - hero 86×86 分子结构 icon + 产品名 + tagline + 双 CTA（了解详情 / 查看 GitHub）
+    - intro 一段式（律师兼内容创作者的双重身份 → 内容获取 / 处理 / 专业写作基础设施）
+    - features 16 张 feature-card 4-column 网格（4×4），4n 循环 sage / accent / steel / royal 彩条覆盖 4 大类
+    - workflow 4 步编号圆：选 Skill → 装到 Agent → 跨平台协作 → 多 Agent 调度
+    - download：GitHub 仓链接 + 双许可证说明（MIT 可商用 / CC-BY-NC 不可商用）+ 一行安装提示语
+  - **共享 back-link**：3 个详情页 hero 顶部"← 回到作者主页"小左箭头 pill 链接，共享 `.back-link` class + `meta.backToHome` i18n 字段，locale-aware 跳到 `/` 或 `/en/`
+  - **资源单一真相源**（沿用 DEC-002）：从 `cat-xierluo/legal-skills/docs/legal-skills-icon.jpg`（1536×1024）PIL 裁中心 660×660 分子结构 → resize 256×256 → `public/icons/legal-skills-icon.png`（34KB）
+  - **i18n**：src/i18n 新增 `legalSkills` 页块（~84 字段 × 2 语种 = 168 处翻译）+ `meta.backToHome` 共享字段
+  - **范围**：1 commit（feat/iss-012-legal-skills，含代码 + 当前活文档 + DEC-011 + ISS-012 + 本 CHANGELOG 条目）。未修改任何源项目（Folia / FaroPDF / legal-skills）仓内容
+  - **build 验证**：`npm run build` 干净 8 页生成（4 zh + 4 en，从 6 增到 8）。HTML 抽检：首页 3 张产品卡链接（`/folia/` / `/faropdf/` / `/legal-skills/`）。6 处 back-link 全显示（zh → `href="/"`，en → `href="/en/"`）。资源路径无 `/personal-site/` 前缀。浏览器实测 8 页面 + 0 console error / 0 warning
+  - **决策记录**：DEC-011（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
+  - **设计 doc**：`docs/plans/2026-06-06-legal-skills-detail-page-design.md`（12 个决策点 + 16 个 skill 列表 + 5 段式结构 + 资源生成命令 + 范围控制 + 验证 + 已知限制）
+
 ## 0.1.0-alpha.7 - 2026-06-05
 
 - ISS-011 站点 URL 去 subpath：把站点从 `https://cat-xierluo.github.io/personal-site/` 迁到 `https://cat-xierluo.github.io/`（user site repo，无 subpath）。docs 同步（DEC-010）。

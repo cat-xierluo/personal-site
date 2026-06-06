@@ -31,7 +31,7 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
 >
   <section class="faropdf-hero" aria-labelledby="hero-title">
     <div class="faropdf-hero-inner">
-      <a class="faropdf-hero-back" href={backHref}>{dict.faropdf.heroBack}</a>
+      <a class="back-link" href={backHref}>{dict.meta.backToHome}</a>
       <div class="faropdf-hero-icon-frame">
         <img class="faropdf-hero-icon" src={`${base}${p.icon}`} width="120" height="120" alt={`${p.name} ${dict.faropdf.heroIconAlt}`} />
       </div>
@@ -126,17 +126,6 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
     width: min(820px, 100%);
     margin: 0 auto;
     text-align: center;
-  }
-
-  .faropdf-hero-back {
-    align-self: flex-start;
-    margin-bottom: 18px;
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  .faropdf-hero-back:hover {
-    color: var(--accent);
   }
 
   .faropdf-hero-icon-frame {
