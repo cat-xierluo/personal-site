@@ -20,6 +20,7 @@
   - **视觉收益**：详情页 hero 直接展示产品内容（不再被一个孤立的 back-link pill 隔断）；footer 不再重复 header 的 nav / 微信 QR，信息密度降低
   - **数据变化**：9 files changed / +15 / -125 (净 -110 行 dead code)
 
+
 ## 0.1.0-alpha.10 - 2026-06-06
 
 - ISS-013 Legal Skills 详情页 4 大类分组 + 全部 48 skill 卡片 + hover 动画 + mono repo 链接。docs 同步。
