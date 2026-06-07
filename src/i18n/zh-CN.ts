@@ -122,7 +122,7 @@ const messages: Messages = {
   },
 
   faropdf: {
-    heroEyebrow: 'PDF reader for legal materials · v0.1.0-alpha',
+    heroEyebrow: 'PDF reader for legal materials',
     heroDownload: '下载最新版',
     heroViewSource: '查看源码',
     heroIconAlt: '图标',
@@ -141,7 +141,7 @@ const messages: Messages = {
       {
         title: '批注',
         text:
-          '9 种批注类型（高亮 / 下划线 / 删除线 / 备注 / 文本框 / 矩形 / 箭头 / 手写 / 图章）+ 6 色色板 + 5 套图章模板 + 中文图章真实绘制（思源黑体 SC + pdf-lib fontkit 嵌入）+ sidecar 摘要导出。',
+          '9 种批注类型（高亮 / 下划线 / 删除线 / 备注 / 文本框 / 矩形 / 箭头 / 手写 / 图章）+ 6 色色板 + 5 套图章模板 + 中文图章真实绘制（思源黑体 SC + pdf-lib fontkit 嵌入）+ 分组摘要面板（按类型 / 颜色 / 页面维度分组）+ 案件材料核查清单导出。',
       },
       {
         title: '页面整理',
@@ -156,7 +156,7 @@ const messages: Messages = {
       {
         title: '导出',
         text:
-          'pdf-lib 改写 + 表单 / 批注 flatten 双策略 + 文字 / 图片水印 + Bates 编号 + 普通页码 + 证据图片 A4 编排 + 压缩 plan-only。',
+          'pdf-lib 改写 + 表单 / 批注 flatten 双策略 + 文字 / 图片水印 + Bates 编号 + 普通页码 + 证据图片 A4 编排 + 法院上传压缩 4 档（5MB / 10MB / 20MB / 50MB Canvas API JPEG DCTDecode 真实重编码 + 目标体积验证）。',
       },
       {
         title: '表单签署',
@@ -171,7 +171,7 @@ const messages: Messages = {
       {
         title: '设置 + 自动更新',
         text:
-          '默认保存目录 / OCR provider / 隐私确认 / API Key 脱敏；检查更新走 `tauri-plugin-updater` 9 态状态机；`autoUpdateCheck` 设置项可关闭自动检查（DEC-056）。',
+          '默认保存目录 / OCR provider / 隐私确认 / API Key 脱敏；检查更新走 `tauri-plugin-updater` 10 态状态机（含 fallback）；`autoUpdateCheck` 设置项可关闭自动检查（DEC-056）。',
       },
     ],
     workflowKicker: '使用流程',
@@ -185,10 +185,10 @@ const messages: Messages = {
     downloadKicker: '下载',
     downloadTitle: '从 GitHub Releases 获取最新版本。',
     downloadBody1:
-      '当前 0.1.0 仍处 alpha 阶段：全平台打包与自动更新流水线已就位（`docs/RELEASE.md`），但**尚未生成任何公开 release**。下面的安装包说明在首个 release 发布后即生效。',
+      '当前已发布 v0.1.1。macOS（Apple Silicon / Intel）和 Windows 安装包均可从 GitHub Releases 下载。',
     downloadBody2:
-      'macOS 首次运行如果提示「无法验证开发者」或「已损坏」，未来指引是把 `FaroPDF.app` 拖到「应用程序」后在终端执行 `xattr -dr com.apple.quarantine /Applications/FaroPDF.app`，具体步骤以 release 时 `docs/RELEASE.md` 为准。',
-    downloadPrimary: '打开下载页（待发布）',
+      'macOS 首次运行如果提示「无法验证开发者」或「已损坏」，先把 `FaroPDF.app` 拖到「应用程序」，再在终端执行 `xattr -dr com.apple.quarantine /Applications/FaroPDF.app`。',
+    downloadPrimary: '打开下载页',
     downloadSecondary: '阅读 README',
     downloadListAria: '安装包选择说明',
     downloadOptions: [
@@ -479,7 +479,7 @@ const messages: Messages = {
     workflowKicker: '使用流程',
     workflowTitle: '从选 Skill 到多 Agent 协作。',
     workflow: [
-      '在 README 的 47 个 skills 里挑出本任务需要的能力',
+      '在 README 的 48 个 skills 里挑出本任务需要的能力',
       '复制一行安装提示语到 Agent，一键装到 Claude Code / OpenClaw / WorkBuddy / CodeX / OpenCode / Hermes',
       '用 cross-agent-coordination 在多 Agent 之间路由和交接上下文',
       '用 multi-agent-orchestration 起多个 worktree 并行跑长任务',

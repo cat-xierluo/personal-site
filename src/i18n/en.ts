@@ -122,7 +122,7 @@ const messages: Messages = {
   },
 
   faropdf: {
-    heroEyebrow: 'PDF reader for legal materials · v0.1.0-alpha',
+    heroEyebrow: 'PDF reader for legal materials',
     heroDownload: 'Download latest',
     heroViewSource: 'View source',
     heroIconAlt: 'icon',
@@ -141,7 +141,7 @@ const messages: Messages = {
       {
         title: 'Annotation',
         text:
-          'Nine annotation types (highlight / underline / strikethrough / note / text box / rectangle / arrow / freehand / stamp) plus a six-color palette, five stamp templates, real Chinese stamp rendering (Source Han Sans SC + pdf-lib fontkit embedding), and sidecar summary export.',
+          'Nine annotation types (highlight / underline / strikethrough / note / text box / rectangle / arrow / freehand / stamp) plus a six-color palette, five stamp templates, real Chinese stamp rendering (Source Han Sans SC + pdf-lib fontkit embedding), grouped summary panel (by type / color / page), and case-material checklist export.',
       },
       {
         title: 'Page organization',
@@ -156,7 +156,7 @@ const messages: Messages = {
       {
         title: 'Export',
         text:
-          'pdf-lib rewrite, form / annotation flatten with dual strategy, text and image watermark, Bates numbering, plain page numbers, A4 evidence image composition, and compression plan-only.',
+          'pdf-lib rewrite, form / annotation flatten with dual strategy, text and image watermark, Bates numbering, plain page numbers, A4 evidence image composition, and court-upload compression presets (5/10/20/50 MB Canvas API JPEG DCTDecode real re-encoding with target-size verification).',
       },
       {
         title: 'Forms and signing',
@@ -171,7 +171,7 @@ const messages: Messages = {
       {
         title: 'Settings and auto-update',
         text:
-          'Default save directory, OCR provider, privacy confirmation, and redacted API keys. Update checks run through the `tauri-plugin-updater` 9-state machine, and the `autoUpdateCheck` setting can disable automatic checks (DEC-056).',
+          'Default save directory, OCR provider, privacy confirmation, and redacted API keys. Update checks run through the `tauri-plugin-updater` 10-state machine (with fallback), and the `autoUpdateCheck` setting can disable automatic checks (DEC-056).',
       },
     ],
     workflowKicker: 'Workflow',
@@ -185,10 +185,10 @@ const messages: Messages = {
     downloadKicker: 'Download',
     downloadTitle: 'Get the latest version from GitHub Releases.',
     downloadBody1:
-      '0.1.0 is still in alpha: the cross-platform packaging and auto-update pipeline is in place (`docs/RELEASE.md`), but **no public release has been published yet**. The installer notes below will apply once the first release is out.',
+      'v0.1.1 is now available. macOS (Apple Silicon / Intel) and Windows installers can be downloaded from GitHub Releases.',
     downloadBody2:
-      'If macOS shows "cannot verify developer" or "damaged" on first launch, the future guidance is to drag `FaroPDF.app` to Applications and run `xattr -dr com.apple.quarantine /Applications/FaroPDF.app` in Terminal. See `docs/RELEASE.md` at release time for the exact steps.',
-    downloadPrimary: 'Open downloads (pending)',
+      'If macOS shows "cannot verify developer" or "damaged" on first launch, drag `FaroPDF.app` to Applications and run `xattr -dr com.apple.quarantine /Applications/FaroPDF.app` in Terminal.',
+    downloadPrimary: 'Open downloads',
     downloadSecondary: 'Read README',
     downloadListAria: 'Installer selection notes',
     downloadOptions: [
@@ -479,7 +479,7 @@ const messages: Messages = {
     workflowKicker: 'Workflow',
     workflowTitle: 'From picking a skill to multi-agent collaboration.',
     workflow: [
-      'Browse the 47 skills in the README and pick the ones the task needs',
+      'Browse the 48 skills in the README and pick the ones the task needs',
       'Copy a one-line install hint to your Agent — it lands in Claude Code / OpenClaw / WorkBuddy / CodeX / OpenCode / Hermes in one shot',
       'Use cross-agent-coordination to route tasks and pass context between agents',
       'Use multi-agent-orchestration to spin up parallel worktrees for long-running jobs',

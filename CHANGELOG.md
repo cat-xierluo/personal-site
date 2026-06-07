@@ -1,5 +1,18 @@
 # personal-site 变更日志
 
+## 0.1.0-alpha.12 - 2026-06-07
+
+- v1.0 内容事实核查 + FaroPDF v0.1.1 同步：对齐三个源仓库（Folia / FaroPDF / Legal Skills）当前状态。docs 同步。
+  - **FaroPDF 版本**：hero eyebrow 去掉 `v0.1.0-alpha` 版本标记（已发布 v0.1.1 稳定版）
+  - **FaroPDF 下载**：download 文案从"尚未发布"改为"v0.1.1 已发布"；macOS 首次运行指引更新为实际 release 说明；CTA 从"待发布"改为"打开下载页"
+  - **FaroPDF 批注**：补充"分组摘要面板（按类型 / 颜色 / 页面维度分组）+ 案件材料核查清单导出"（v0.1.1 新功能 DEC-068）
+  - **FaroPDF 导出**：补充"法院上传压缩 4 档（5/10/20/50MB Canvas API JPEG DCTDecode 真实重编码）"（v0.1.1 新功能 DEC-069）；去掉"压缩 plan-only"（已真实交付）
+  - **FaroPDF 自动更新**："9 态状态机"→"10 态状态机（含 fallback）"（v0.1.0-alpha.20 DEC-066）
+  - **Legal Skills workflow**：中英 workflow 第一步 "47 个 skills" → "48 个 skills"（与 features 标题一致）
+  - **FaroPDF QR 跨仓**：FaroPDF 仓 `wechat-qrcode.png` 已是 183KB 真实图片（非 67B 占位），无需操作
+  - **范围**：仅 i18n 字典更新（`src/i18n/{zh-CN,en}.ts`），零代码 / 组件 / CSS 改动
+  - **build 验证**：`npm run build` 干净 8 页生成
+
 ## 0.1.0-alpha.11 - 2026-06-06
 
 - ISS-014 Header / Footer 简化：详情页 back-link 上移 + 去 brand + Footer 去除重复信息。docs 同步。
