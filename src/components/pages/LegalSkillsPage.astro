@@ -16,7 +16,6 @@ const p = products['legal-skills'];
 const tagline = locale === 'en' ? p.taglineEn : p.tagline;
 const title = `${p.name} - ${tagline}`;
 const description = locale === 'en' ? p.summaryEn : p.summary;
-const backHref = locale === 'en' ? `${base}en/` : base;
 const repoUrl = p.repo;
 const readmeUrl = `${repoUrl}#readme`;
 const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
@@ -30,7 +29,6 @@ const introKicker = `${dict.legalSkills.introKickerPrefix} ${p.name}`;
 >
   <section class="legalskills-hero" aria-labelledby="hero-title">
     <div class="legalskills-hero-inner">
-      <a class="back-link" href={backHref}>{dict.meta.backToHome}</a>
       <img class="legalskills-hero-icon" src={`${base}${p.icon}`} width="86" height="86" alt="" />
       <p class="eyebrow">{dict.legalSkills.heroEyebrow}</p>
       <h1 id="hero-title">{p.name}</h1>

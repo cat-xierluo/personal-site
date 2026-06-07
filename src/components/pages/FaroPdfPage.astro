@@ -16,7 +16,6 @@ const p = products.faropdf;
 const tagline = locale === 'en' ? p.taglineEn : p.tagline;
 const title = `${p.name} - ${tagline}`;
 const description = locale === 'en' ? p.summaryEn : p.summary;
-const backHref = locale === 'en' ? `${base}en/` : base;
 const repoUrl = p.repo;
 const releasesUrl = `${repoUrl}/releases/latest`;
 const introKicker = `${dict.faropdf.introKickerPrefix} ${p.name}`;
@@ -31,7 +30,6 @@ const introBody = dict.faropdf.introBody.replace(/\{name\}/g, p.name);
 >
   <section class="faropdf-hero" aria-labelledby="hero-title">
     <div class="faropdf-hero-inner">
-      <a class="back-link" href={backHref}>{dict.meta.backToHome}</a>
       <div class="faropdf-hero-icon-frame">
         <img class="faropdf-hero-icon" src={`${base}${p.icon}`} width="120" height="120" alt={`${p.name} ${dict.faropdf.heroIconAlt}`} />
       </div>

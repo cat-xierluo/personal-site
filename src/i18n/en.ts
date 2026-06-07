@@ -13,14 +13,6 @@ const messages: Messages = {
   },
 
   footer: {
-    home: 'Home',
-    folia: 'Folia',
-    faropdf: 'FaroPDF',
-    legalSkills: 'Legal Skills',
-    github: 'GitHub',
-    wechatLabel: 'WeChat',
-    wechatHandlePrefix: 'WeChat: ',
-    wechatQrAlt: 'WeChat QR code — ywxlaw',
     copyright: 'Apache License 2.0',
   },
 

@@ -17,18 +17,14 @@ const faropdfPath = locale === 'en' ? `${base}en/faropdf/` : `${base}faropdf/`;
 const legalSkillsPath = locale === 'en' ? `${base}en/legal-skills/` : `${base}legal-skills/`;
 const switchHref = alternatePathForLocale(Astro.url.pathname, locale, base);
 
-const authorName = locale === 'en' ? author.nameEn : author.name;
-const brandAriaLabel = locale === 'en'
-  ? `${authorName} personal site`
-  : `${authorName} 个人主页`;
 const navAriaLabel = locale === 'en' ? 'Main navigation' : '主导航';
+const isHome = activeSection === 'home';
 ---
 
 <header class="site-header">
-  <a class="brand" href={homePath} aria-label={brandAriaLabel}>
-    <span class="brand-mark">▲</span>
-    <span>{authorName}</span>
-  </a>
+  {!isHome && (
+    <a class="back-link" href={homePath}>{dict.meta.backToHome}</a>
+  )}
   <nav class="nav-links" aria-label={navAriaLabel}>
     <a href={homePath} class={activeSection === 'home' ? 'is-active' : ''}>{dict.nav.home}</a>
     <a href={foliaPath} class={activeSection === 'folia' ? 'is-active' : ''}>{dict.nav.folia}</a>

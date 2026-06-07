@@ -15,14 +15,6 @@ export interface NavMessages {
 }
 
 export interface FooterMessages {
-  home: string;
-  folia: string;
-  faropdf: string;
-  legalSkills: string;
-  github: string;
-  wechatLabel: string;
-  wechatHandlePrefix: string;
-  wechatQrAlt: string;
   copyright: string;
 }
 
