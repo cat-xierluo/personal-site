@@ -1,10 +1,15 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.11 — Phase 1-3.6 全部收口，v1.1（i18n + 微信二维码）已落地。Header/Footer 简化（ISS-014）已合并。ISS-008 自定义域已取消。下一步：v1.0 内容事实核查。
+> **当前阶段**：v0.1.0-alpha.12 — v1.0 内容事实核查完成，FaroPDF v0.1.1 内容已同步，Legal Skills 48 修正。ISS-008 自定义域已取消。FaroPDF QR 跨仓已同步。下一步：用户指定。
 
 ## 活跃任务
 
 （无活跃任务 — 等待用户指定下一步）
+
+### 远期候选
+
+- v1.1：i18n 同步到产品仓 README / blog 子栏目
+- v1.2：analytics（Umani / Plausible）/ SEO（sitemap + meta + OG）/ 自定义域（已取消，可重启）
 
 ## 已取消任务
 
@@ -147,4 +152,5 @@
 - 2026-06-06：ISS-013 Legal Skills 4 大类分组 + 48 skill 卡片 + hover 动画 + mono repo 链接（PR #9）
 - 2026-06-06：代码质量清理 + dead-code 批量清（PR #8）
 - 2026-06-07：ISS-014 Header / Footer 简化（PR #10 squash `a866aa4`，净删 110 行 dead code）
-- 下一步：v1.0 内容事实核查（与 Folia / FaroPDF / Legal Skills 当前状态对齐），或用户指定其他任务
+- 2026-06-07：v1.0 内容事实核查（FaroPDF v0.1.1 同步：hero 版本 / download 文案 / 批注分组 + 压缩新功能 / 10 态状态机；Legal Skills 47→48；FaroPDF QR 跨仓已确认同步；ROADMAP + TASKS 文档更新）
+- 下一步：用户指定 — 远期候选（blog / analytics / SEO / i18n README 同步 / 自定义域重启）
