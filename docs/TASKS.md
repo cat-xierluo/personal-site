@@ -1,33 +1,10 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.8 — Phase 1 + 1.5 + 2 + 3 主体 + v1.1（i18n + 微信二维码） + 部署修复（ISS-009） + 真实微信二维码替换（ISS-010） + URL 去 subpath（ISS-011） + Legal Skills 集成（ISS-012）均已落定。ISS-008 自定义域按用户决策取消。
+> **当前阶段**：v0.1.0-alpha.11 — Phase 1-3.6 全部收口，v1.1（i18n + 微信二维码）已落地。Header/Footer 简化（ISS-014）已合并。ISS-008 自定义域已取消。下一步：v1.0 内容事实核查。
 
 ## 活跃任务
 
-### ISS-012 Legal Skills 集成：主页产品卡 + 5 段式详情页 + 详情页 back-link（进行中）
-
-- 优先级：P1
-- 类型：内容 / 架构
-- 状态：**进行中（2026-06-06）**
-- 范围：
-  - 数据层：`src/data/products.ts` 加 `legal-skills` 条目（accent=royal）
-  - 资源：从 `cat-xierluo/legal-skills/docs/legal-skills-icon.jpg` 复制 + 裁分子结构 + 缩 256×256 → `public/icons/legal-skills-icon.png`
-  - CSS：`site.css` 加 `--royal` / `--royal-soft` OKLCH token + `.product-card--royal` 彩条 + `.back-link` 共享样式 + 主页 grid 3-column
-  - i18n：`src/i18n/{types,zh-CN,en}.ts` 新增 `legalSkills` 页块（16 features + 4 workflow + 双许可证下载说明）+ `meta.backToHome` 共享字段
-  - 详情页：`src/components/pages/LegalSkillsPage.astro` 新建（5 段式 + back-link）
-  - 详情页 back-link：FolioPage / FaroPdfPage / LegalSkillsPage 各自 hero 顶部加 `.back-link`，共享 `meta.backToHome` 字段
-  - thin wrappers：`src/pages/legal-skills.astro` (zh URL 检测) + `src/pages/en/legal-skills.astro` (en 硬编码)
-- 验收：
-  - `npm run build` 干净 8 页生成（4 zh + 4 en，从 6 增到 8）
-  - 主页 3 张 product-card（sage / steel / royal）3-column 网格
-  - `/legal-skills/` 详情页 16 张 feature-card 4-column 网格，4n 循环 sage / accent / steel / royal
-  - 3 个详情页 hero 顶部都有"回到作者主页"back-link
-  - 资源 200：favicon / icons / _astro CSS / QR / legal-skills-icon
-  - 浏览器实测 8 页面 + 0 console error
-  - i18n 漏译 TS 编译失败（Messages interface 强约束）
-- 决策：DEC-011（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）+ `docs/plans/2026-06-06-legal-skills-detail-page-design.md`
-
-> 收口后下一步候选：FaroPDF 仓同步真实 QR（跨仓 follow-up，DEC-009 § 已知限制）、v1.2 内容增量（ISS-013 候选：博客 / 案例 / 时讯 / RSS / sitemap）等，等 PM 启动。
+（无活跃任务 — 等待用户指定下一步）
 
 ## 已取消任务
 
@@ -52,6 +29,27 @@
 
 - 2026-06-05：commit `01c4f75`。workflow 文件就位（permissions / concurrency / 环境变量 / 步骤顺序）。
 - 2026-06-05：ISS-009 排查发现 workflow 文件本身正确，但 main 上 5 个 push 的 Actions 全部失败，根因不在 workflow 而是 (1) 缺 lock file + (2) GitHub Pages 未启用 + (3) Node 20 不足以跑 Astro 6.4。三项在 ISS-009 / DEC-008 收口（见归档）。
+
+### ISS-012 Legal Skills 集成（Phase 3.5，已完成）
+
+- 2026-06-06：ISS-012 落地（PR #7 feat/iss-012-legal-skills，已合并）
+  - 主页第 3 张 product-card（royal 彩条）+ 3-column 网格
+  - 5 段式详情页 16 features 4-col 网格 + 共享 back-link
+  - 8 页生成（4 zh + 4 en），DEC-011
+
+### ISS-013 Legal Skills 详情页 4 大类分组 + 48 skill 卡片（已完成）
+
+- 2026-06-06：ISS-013 落地（PR #9，已合并）
+  - 4 大类分组（内容获取 / 法律专业应用 / 内容处理 / 开发工具）+ 全部 48 skill 卡片
+  - hover 动画 + mono repo 链接
+
+### ISS-014 Header / Footer 简化（Phase 3.6，已完成）
+
+- 2026-06-07：ISS-014 落地（PR #10，已合并 squash `a866aa4`）
+  - 详情页 back-link 上移到 header 左上角，删 in-content back-link
+  - 删 header brand 块（不显示作者名）
+  - Footer 去除重复 nav + 微信 QR，只留 brand + copyright
+  - 净删 110 行 dead code
 
 ### ISS-003 Folia website 迁出到 personal-site（Phase 2 主体，已完成）
 
@@ -145,5 +143,8 @@
 - 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
 - 2026-06-05：ISS-010 真实微信二维码替换（feat/iss-010-real-qr，从 Folia/docs 真源复制 184KB QR，hash 升级到 `BL2G81aV`；DEC-009 supersede 修正 DEC-007 单源）
 - 2026-06-05：ISS-011 站点 URL 去 subpath（feat/iss-011-no-subpath，仓名 `personal-site` → `cat-xierluo.github.io`，astro base → `/`，旧 URL 失效用户接受；DEC-010 落地）
-- 2026-06-06：ISS-012 Legal Skills 集成（feat/iss-012-legal-skills，主页 3 张 product-card 3-column 网格 + 5 段式详情页 16 features 4-col + 3 处 back-link 共享；DEC-011 落地）
-- 下一步：v1 MVP / v1.1 增量 / 部署链路 / QR 真实化 / URL 去 subpath / Legal Skills 集成全部收口；可启动跨仓 follow-up（FaroPDF 仓同步真实 QR）或 v1.2 内容增量（ISS-013 候选：博客 / 案例 / 时讯 / RSS / sitemap 等），等用户下一步指令
+- 2026-06-06：ISS-012 Legal Skills 集成（PR #7，主页 3 张 product-card + 5 段式详情页 + back-link 共享；DEC-011）
+- 2026-06-06：ISS-013 Legal Skills 4 大类分组 + 48 skill 卡片 + hover 动画 + mono repo 链接（PR #9）
+- 2026-06-06：代码质量清理 + dead-code 批量清（PR #8）
+- 2026-06-07：ISS-014 Header / Footer 简化（PR #10 squash `a866aa4`，净删 110 行 dead code）
+- 下一步：v1.0 内容事实核查（与 Folia / FaroPDF / Legal Skills 当前状态对齐），或用户指定其他任务

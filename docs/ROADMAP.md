@@ -34,12 +34,10 @@
 
 **目标**：Folia website 完整内容迁到 personal-site/folia，跨仓 cleanup
 
-- 主体：5 段式（hero / intro / features / workflow / download）迁到 `src/pages/folia.astro`（commit `3891da4`）
-- 跨仓 cleanup（ISS-005）：
-  - Folia 仓：删 `website/` + 删 `.github/workflows/pages.yml` + 更新 README §"官方仓库"
-  - FaroPDF 仓：更新 README §"官方仓库"
+- 主体：5 段式迁到 `src/pages/folia.astro`（commit `3891da4`）
+- 跨仓 cleanup（ISS-005）：Folia 仓删 `website/` + 更新 README / FaroPDF 仓更新 README
 
-**当前进度**：主体已落，跨仓 cleanup 待办
+**完成**：PR-A / PR-B 已合并
 
 ## Phase 3 FaroPDF 详情页扩全结构
 
@@ -49,15 +47,36 @@
 - 数据来源：FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力
 - **不**发明未交付功能
 
-**下一步 ISS-004**
+**完成**：commit `6d8f52b`
+
+## Phase 3.5 Legal Skills 集成
+
+**目标**：第 3 个产品（Legal Skills）加入站点
+
+- 主页第 3 张 product-card（royal 彩条）+ 3-column 网格
+- 5 段式详情页 16 features + 共享 back-link
+- 4 大类分组 + 全部 48 skill 卡片 + hover 动画 + mono repo 链接
+
+**完成**：ISS-012 commit + ISS-013 PR #9 + 代码质量清理 PR #8
+
+## Phase 3.6 Header / Footer 简化
+
+**目标**：减少重复信息，提升详情页视觉
+
+- 详情页 back-link 上移到 header 左上角
+- 删 header brand 块（不显示作者名）
+- Footer 去除重复 nav + 微信 QR，只留 brand + copyright
+- 净删 110 行 dead code
+
+**完成**：ISS-014 PR #10
 
 ## v1.0 范围
 
 第一版发布条件：
-- Phase 1-3 全部收口
-- ISS-005 跨仓 cleanup 落定
-- 部署到 cat-xierluo.github.io/ 公开访问（user site repo）
-- 内容事实核查（与 Folia / FaroPDF 当前状态对齐）
+- Phase 1-3.6 全部收口 ✅
+- ISS-005 跨仓 cleanup 落定 ✅
+- 部署到 cat-xierluo.github.io/ 公开访问 ✅
+- 内容事实核查（与 Folia / FaroPDF / Legal Skills 当前状态对齐）
 
 ## v1.1 增量
 
@@ -77,8 +96,10 @@
 | Phase 0 | ✅ | 无 |
 | Phase 1 | ✅ | 无 |
 | Phase 1.5 | ✅ | 无 |
-| Phase 2 | 🔄 进行中 | Folia 仓删 website/ + 更新 README；FaroPDF 仓更新 README（ISS-005） |
-| Phase 3 | ⏳ 待启动 | 无（只在 personal-site 仓内） |
+| Phase 2 | ✅ | Folia 仓删 website/ + 更新 README；FaroPDF 仓更新 README（ISS-005） |
+| Phase 3 | ✅ | FaroPDF 详情页扩全结构（ISS-004） |
+| Phase 3.5 | ✅ | Legal Skills 集成（ISS-012/013） |
+| Phase 3.6 | ✅ | Header / Footer 简化（ISS-014） |
 | v1.0 | ⏳ | 跨仓 README 双向链接（personal-site ↔ Folia ↔ FaroPDF） |
 | v1.1 | ⏳ | 视情况同步 i18n 到产品仓的 README |
 | v1.2 | ⏳ | 自定义域 + DNS |
