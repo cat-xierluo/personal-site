@@ -1,156 +1,47 @@
 # personal-site 任务源
 
-> **当前阶段**：v0.1.0-alpha.12 — v1.0 内容事实核查完成，FaroPDF v0.1.1 内容已同步，Legal Skills 48 修正。ISS-008 自定义域已取消。FaroPDF QR 跨仓已同步。下一步：用户指定。
+> **当前阶段**：v0.1.0-alpha.12 — 全部 Phase 收口，v1.0 事实核查完成。下一步：用户指定。
 
 ## 活跃任务
 
-（无活跃任务 — 等待用户指定下一步）
+（无 — 等待用户指定下一步）
 
 ### 远期候选
 
 - v1.1：i18n 同步到产品仓 README / blog 子栏目
 - v1.2：analytics（Umani / Plausible）/ SEO（sitemap + meta + OG）/ 自定义域（已取消，可重启）
 
-## 已取消任务
+### 跨仓遗留
 
-### ISS-008 自定义域（v1.2，已取消）
+- Folia README 官网链接仍指向旧 URL `/personal-site/folia/` → 应改为 `/folia/`
+- FaroPDF README download 部分仍说"待发布" → 应更新为 v0.1.1 已发布
 
-- 优先级：P2
-- 类型：部署
-- 状态：**用户决策取消（2026-06-05）**
-- 依赖：v1 MVP + v1.1
-- 范围：DNS 配置 + `astro.config.mjs` site URL
-- 目标：从 `cat-xierluo.github.io/personal-site/` 迁到自定义域（如 `yangweixin.com` / `weixin.law` 等）
-- 验收：DNS CNAME 配置正确；HTTPS 证书自动；`PERSONAL_SITE_URL` 环境变量在 deploy.yml 覆盖
-- **取消原因**：用户在 ISS-009 排查期间明确决定"项目的域名就先不做配置吧，我们就用这个 GitHub 本身的那个，GitHub 点 io 的这个网址"，保持 `https://cat-xierluo.github.io/personal-site/` 作为正式站点。资源投入（DNS / CNAME / HTTPS 证书 / 续费）相对项目体量（v1 MVP 6 页静态站）ROI 偏低；如未来需要再重启为 v1.3+ 任务。
+## 已取消
+
+- **ISS-008 自定义域**（2026-06-05 用户决策取消，保持 `cat-xierluo.github.io/`）
 
 ## 归档任务索引
 
-### ISS-001 个人主页 scaffold + bio + 产品列表（已完成）
+详细实现记录见 CHANGELOG.md；决策背景见 docs/DECISIONS.md。
 
-- 2026-06-05：commit `a92dacd`。3 页静态生成（`index.html` / `folia/index.html` / `faropdf/index.html`），5 段齐全（hero / about / products / contact / footer），资源从源项目复用（DEC-002 § 2.3）。
-
-### ISS-002 personal-site GitHub Pages 自动部署（workflow 已交付，ISS-009 修复激活）
-
-- 2026-06-05：commit `01c4f75`。workflow 文件就位（permissions / concurrency / 环境变量 / 步骤顺序）。
-- 2026-06-05：ISS-009 排查发现 workflow 文件本身正确，但 main 上 5 个 push 的 Actions 全部失败，根因不在 workflow 而是 (1) 缺 lock file + (2) GitHub Pages 未启用 + (3) Node 20 不足以跑 Astro 6.4。三项在 ISS-009 / DEC-008 收口（见归档）。
-
-### ISS-012 Legal Skills 集成（Phase 3.5，已完成）
-
-- 2026-06-06：ISS-012 落地（PR #7 feat/iss-012-legal-skills，已合并）
-  - 主页第 3 张 product-card（royal 彩条）+ 3-column 网格
-  - 5 段式详情页 16 features 4-col 网格 + 共享 back-link
-  - 8 页生成（4 zh + 4 en），DEC-011
-
-### ISS-013 Legal Skills 详情页 4 大类分组 + 48 skill 卡片（已完成）
-
-- 2026-06-06：ISS-013 落地（PR #9，已合并）
-  - 4 大类分组（内容获取 / 法律专业应用 / 内容处理 / 开发工具）+ 全部 48 skill 卡片
-  - hover 动画 + mono repo 链接
-
-### ISS-014 Header / Footer 简化（Phase 3.6，已完成）
-
-- 2026-06-07：ISS-014 落地（PR #10，已合并 squash `a866aa4`）
-  - 详情页 back-link 上移到 header 左上角，删 in-content back-link
-  - 删 header brand 块（不显示作者名）
-  - Footer 去除重复 nav + 微信 QR，只留 brand + copyright
-  - 净删 110 行 dead code
-
-### ISS-003 Folia website 迁出到 personal-site（Phase 2 主体，已完成）
-
-- 2026-06-05：commit `3891da4`。Folia 详情页 5 段式（hero / app mockup / intro / features 4 / workflow 4 / download）从 `cat-xierluo/Folia/website/src/pages/index.astro` 完整迁出。Folia 仓 cleanup（删 `website/` + 更新 README）由 ISS-005 PR-A 处理。
-
-### ISS-004 FaroPDF 详情页扩为全结构（Phase 3，已完成）
-
-- 2026-06-05：commit `6d8f52b`。FaroPDF 详情页从 minimal 扩为 Folia 同结构（hero / intro / features 8 / workflow 4 / download），数据严格来自 FaroPDF CHANGELOG 0.1.0-alpha.0 ~ 0.1.0-alpha.13 实际交付能力，**不**发明未交付功能。
-
-### ISS-005 跨仓 cleanup（Folio + FaroPDF README 链接，已完成）
-
-- 2026-06-05：PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新（PR-A 已合并 / PR-B 已合并）。两个仓 README 一致指向 personal-site 产品页。
-
-### ISS-006 中英文切换（v1.1，已完成）
-
-- 2026-06-05：ISS-006 落地（PR feat/iss-006-i18n，待合并）
-  - i18n 框架选型：自建轻量字典 + `/en/` 子路径，zh-CN 为默认（DEC-006）
-  - **新增** `src/i18n/{types.ts,zh-CN.ts,en.ts,index.ts}`：4 个文件 ~600 行，强类型 Messages interface
-  - **重构** `src/data/author.ts`：补 `nameEn` / `titleEn` / `focusEn` / `bioEn`
-  - **重构** `src/layouts/BaseLayout.astro`：接受 `locale?` prop，URL 检测 fallback，`<html lang>` 切换
-  - **重构** `src/components/{SiteHeader,SiteFooter,ProductCard}.astro`：3 个公共组件全走 dict，SiteHeader 右上角加 lang-switch pill 按钮
-  - **新增** `src/components/pages/{HomePage,FoliaPage,FaroPdfPage}.astro`：3 个 page 组件（zh-CN / en 共享），`FolioPage.astro` 已重命名为 `FoliaPage.astro`
-  - **重写** `src/pages/{index,folia,faropdf}.astro` 为 thin wrappers（URL 检测 locale）
-  - **新增** `src/pages/en/{index,folia,faropdf}.astro` 镜像（locale="en" 硬编码）
-  - **新增** `set:html` 指令用于 FaroPDF downloadBody1/Body2 渲染 `<strong>` / `<code>` 标签
-  - Folia preview 窗口 h2 用 `preview.heading1.replace(/^#\s*/, '')` 去掉 `# ` 前缀（中英都生效）
-  - **范围**：1 commit（feat/iss-006-i18n）。未修改任何源项目（Folia / FaroPDF）仓内容。
-  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` / `dist/faropdf/index.html` / `dist/en/faropdf/index.html` 抽检中英差异正确，lang-switch href 切换方向正确。
-
-### ISS-007 微信二维码（v1.1，已完成）
-
-- 2026-06-05：ISS-007 落地（feat/iss-007-wechat-qr，docs 同步）
-  - 资源单源：从 `FaroPDF/src/assets/wechat-qrcode.png` 复制到 `personal-site/src/assets/wechat-qrcode.png`（DEC-002 § 2.3 + DEC-007）
-  - 已知事实：两仓当前都是 1×1 灰度占位（67 字节），任务卡接受标准里写明「实际添加时 PM 替换真实二维码」（替换入口：FaroPDF `src/assets/wechat-qrcode.png` 和 personal-site `src/assets/wechat-qrcode.png` 各替换一次，rebuild 后 hash 自动刷新）
-  - **新增** `src/components/WechatQr.astro`：共享组件，props `size: 64 | 160` + `alt: string` + `caption?: string`；用 Astro `import qrImage from '../assets/wechat-qrcode.png'` 走 `dist/_astro/` hash 资源
-  - **重构** `src/components/SiteFooter.astro`：`footer-meta` 行内新增 `footer-wechat` 块，64×64 QR + 微信标签 + handle 文本
-  - **重构** `src/components/pages/HomePage.astro`：contact 列表新增 `contact-item--qr` 一项，160×160 QR + caption
-  - **扩展** i18n 字典（4 个字段 ×2 语种 = 8 处）：`footer.wechatHandlePrefix` / `footer.wechatQrAlt` / `index.contactWechatCaption` / `index.contactWechatQrAlt`
-  - **扩展** `src/styles/site.css`：`.wechat-qr` 系列 + `.contact-item--qr` + `.footer-wechat` 样式，窄屏（≤680px）下 contact-item--qr 改单列布局
-  - **范围**：1 commit（feat/iss-007-wechat-qr）。未修改任何源项目（Folia / FaroPDF）仓内容；后续 PM 替换真实二维码时需要分别去两仓替换一次。
-  - **验证**：`npm run build` 干净，6 页（3 zh-CN + 3 en）生成。`dist/index.html` / `dist/en/index.html` 抽检 footer mini QR + contact big QR 都在，alt 文案中英分别正确（`微信二维码 — ywxlaw` / `WeChat QR code — ywxlaw` 等），资源 hash 一致（`DdK2Yptz`），BASE_URL 前缀 `/personal-site/` 正确。
-
-### ISS-009 修复 Actions 失败：补 lock file + 启用 GitHub Pages + 升 Node 22（已完成）
-
-- 2026-06-05：ISS-009 落地（PR #3 fix/iss-009-lock-file 已合并为 `4ffff64`；本次 follow-up PR docs/iss-009-deploy-fix 待合并）
-  - **根因 1 — 缺 `package-lock.json`**：`npm ci` 严格要求 lock file，scaffold 时只生成 `package.json`。**修复**：`npm install --package-lock-only` 生成 `package-lock.json`（257 packages / 0 vulnerabilities），让 Install 步骤通过。PR #3。
-  - **根因 2 — GitHub Pages 未启用**：`.github/workflows/deploy.yml` 假设 Pages 已开，但仓库 Settings 默认是关闭的。**修复**：用户手动在 GitHub 仓库 Settings → Pages → Source = GitHub Actions 启用一次（一次性配置，Agent 不应代调 API 改共享仓库设置）。验证：`GET /repos/cat-xierluo/personal-site/pages` 返回 `{"build_type":"workflow","public":true,"html_url":"https://cat-xierluo.github.io/personal-site/"}`。
-  - **根因 3 — Node 20 不支持 Astro 6.4**（follow-up 发现）：补完 lock file 后 PR #3 触发的 run 仍然失败 —— Astro 6.4.4 要求 Node `>=22.12.0`，但 `setup-node@v4` 装的是 20.20.2，错误信息 `Node.js v20.20.2 is not supported by Astro!`。**修复**：
-    - `.github/workflows/deploy.yml` line 27 `node-version: 20` → `node-version: 22`
-    - `package.json` 新增 `"engines": { "node": ">=22.12.0" }` 显式声明
-  - **范围**：1 commit（fix/iss-009-lock-file）+ 1 follow-up commit（docs/iss-009-deploy-fix，含 workflow 修复 + 文档同步）。未修改任何源项目（Folia / FaroPDF）仓内容。
-  - **验证（预期）**：`gh run watch` 跑完一次 main 触发的 deploy 应进入 success；`curl -I https://cat-xierluo.github.io/personal-site/` 应返回 200 + `text/html`。
-  - **决策记录**：DEC-008（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）。
-  - **已知限制**：GitHub Pages 启用是用户一次性手动操作（未来 transfer ownership 或新 fork 需要重做）；Astro 6.4.x 仍在 minor 演进，未来若引入 Node 24+ 强制要求需同步升 setup-node。
-
-### ISS-010 真实微信二维码替换（已完成）
-
-- 2026-06-05：ISS-010 落地（feat/iss-010-real-qr，docs 同步）
-  - **修正 DEC-007 单源声明**：DEC-007 § 资源单源 写的"从 `FaroPDF/src/assets/wechat-qrcode.png` 复制"实际是误读 — FaroPDF 那个文件自 ISS-007 时就是 1×1 占位（67 字节），真实 QR 一直在 `Folia/docs/wechat-qr.png`（734×734 / 184KB / 2026-05-20 入仓）。本次新增 DEC-009 supersede 修正单源 = Folia docs，**不**改 DEC-007 原文保留历史
-  - **资源替换**：`cp Folia/docs/wechat-qr.png personal-site/src/assets/wechat-qrcode.png`（734×734 / 184KB），Astro build 资源 hash 从 `DdK2Yptz`（占位 67B）自动变为 `BL2G81aV`（真图 184KB）。零代码改动
-  - **范围**：1 commit（feat/iss-010-real-qr）。**未**修改任何源项目（Folia / FaroPDF）仓内容；FaroPDF 仓 `AuthorCard` 仍是 1×1 占位，跨仓 follow-up 不在本次范围
-  - **验证**：`npm run build` 干净 6 页生成，`dist/_astro/wechat-qrcode.BL2G81aV.png` 184KB 已替换占位版本，HTML/JS 自动跟随新 hash
-  - **决策记录**：DEC-009（背景 / DEC-007 修正说明 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
-
-### ISS-011 站点 URL 去 subpath：改仓名为 `cat-xierluo.github.io`（已完成）
-
-- 2026-06-05：ISS-011 落地（PR #6 feat/iss-011-no-subpath，docs 同步）
-  - **GitHub 端**：`gh api PATCH /repos/cat-xierluo/personal-site` 把 `name` 改为 `cat-xierluo.github.io`。Pages 配置自动跟随，仓的 html_url 切到 `https://cat-xierluo.github.io/`（根域，无 subpath）。**旧 URL `…/personal-site/` 立即 404**（用户已确认接受，不加 404 引导页）。
-  - **代码层**：`astro.config.mjs` 的 `base` 默认 `/personal-site` → `/`；`.github/workflows/deploy.yml` 的 `PERSONAL_BASE_PATH` 默认值同步。`src/**` 全部走 `import.meta.env.BASE_URL`，零业务代码改动
-  - **顺手修**：`src/data/products.ts` 的 `icon: '/icons/...'` 改为 `icon: 'icons/...'`（去掉前导 `/`），避免新 base 下产出 protocol-relative URL 跨域失败。影响主页 ProductCard + FaroPDF 详情页 hero icon
-  - **当前活文档**：`AGENTS.md` / `docs/ROADMAP.md` 目标 URL 同步
-  - **历史文档不动**：`CHANGELOG` 0.1.0-alpha.1~6 / `DEC-001~009` / `ISS-001~010` 里的旧 URL 是历史事实，遵循 DEC 时间戳语义
-  - **本地目录**：保留 `personal-site/`，git remote URL 改向新名
-  - **范围**：1 commit（feat/iss-011-no-subpath，含代码 + 当前活文档 + DEC-010 + ISS-011 + CHANGELOG 条目）
-  - **验证（pre-PR）**：`npm run build` 干净 6 页生成；`dist/index.html`（不再是 `dist/personal-site/index.html`），HTML 抽检链接路径无 `/personal-site/` 前缀
-  - **验证（post-merge）**：8 处资源 200，浏览器实测 4 页（zh + en）显示 OK，控制台 0 error / 0 warning
-  - **决策记录**：DEC-010（背景 / 决策 / 关键决策 / 拒绝的方案 / 资源放置 / 验证 / 已知限制）
-  - **已知限制**：仓名变更可逆（再次 PATCH name 即可），但每次变更都增加外链 / 缓存负担；GitHub Pages 不支持 server-side 301 跳页
+| ISS | 标题 | 日期 | 交付物 |
+| --- | --- | --- | --- |
+| ISS-001 | scaffold + bio + 产品列表 | 2026-06-05 | commit `a92dacd`，3 页 5 段式 |
+| ISS-002 | GitHub Pages workflow | 2026-06-05 | commit `01c4f75`，ISS-009 修复激活 |
+| ISS-003 | Folia website 迁出 | 2026-06-05 | commit `3891da4`，5 段式详情页 |
+| ISS-004 | FaroPDF 详情页扩全结构 | 2026-06-05 | commit `6d8f52b`，8 features |
+| ISS-005 | 跨仓 cleanup | 2026-06-05 | PR-A + PR-B 已合并 |
+| ISS-006 | 中英文切换 | 2026-06-05 | 自建 i18n 字典，6→6 页 |
+| ISS-007 | 微信二维码 | 2026-06-05 | WechatQr 组件 + footer/contact QR |
+| ISS-009 | 部署修复 | 2026-06-05 | PR #3，lock file + Node 22 + Pages 启用 |
+| ISS-010 | 真实 QR 替换 | 2026-06-05 | 184KB 真图替换 1×1 占位 |
+| ISS-011 | URL 去 subpath | 2026-06-05 | PR #6，仓名 → `cat-xierluo.github.io` |
+| ISS-012 | Legal Skills 集成 | 2026-06-06 | PR #7，第 3 张产品卡 + 5 段式详情页 |
+| ISS-013 | 48 skill 卡片 | 2026-06-06 | PR #9，4 大类分组 + hover + mono repo |
+| ISS-014 | Header / Footer 简化 | 2026-06-07 | PR #10，净删 110 行 |
 
 ## 进度日志
 
-- 2026-06-05：ISS-001 scaffold + bio + 产品列表占位 + 主页（commit `a92dacd`）
-- 2026-06-05：ISS-002 GitHub Actions workflow（commit `01c4f75`）
-- 2026-06-05：ISS-003 Folia website 迁出主体（commit `3891da4`）
-- 2026-06-05：ISS-004 FaroPDF 详情页扩全结构（commit `6d8f52b`）
-- 2026-06-05：项目协议落地（AGENTS / docs/TASKS / docs/DECISIONS / docs/ROADMAP / CHANGELOG，commit `0ef5455`）
-- 2026-06-05：ISS-005 跨仓 cleanup（PR-A Folia `website/` 删除 + README 更新 / PR-B FaroPDF README 链接更新，PR-A 已合并 / PR-B 已合并）
-- 2026-06-05：ISS-006 中英文切换（feat/iss-006-i18n，6 页 + 3 components + 1 layout + 2 data + i18n/ 字典，docs-only 同步）
-- 2026-06-05：ISS-007 微信二维码（feat/iss-007-wechat-qr，QR 资源从 FaroPDF 复制 + 新 WechatQr 共享组件 + footer mini 64×64 + contact big 160×160 + i18n 字典扩展 + docs 同步）
-- 2026-06-05：ISS-009 部署修复（PR #3 fix/iss-009-lock-file 补 `package-lock.json` + 用户手动启用 GitHub Pages + 本次 follow-up 升 Node 22 修 Astro 6.4 engine；DEC-008 落地）
-- 2026-06-05：ISS-008 自定义域按用户决策取消，保持 `https://cat-xierluo.github.io/personal-site/`
-- 2026-06-05：ISS-010 真实微信二维码替换（feat/iss-010-real-qr，从 Folia/docs 真源复制 184KB QR，hash 升级到 `BL2G81aV`；DEC-009 supersede 修正 DEC-007 单源）
-- 2026-06-05：ISS-011 站点 URL 去 subpath（feat/iss-011-no-subpath，仓名 `personal-site` → `cat-xierluo.github.io`，astro base → `/`，旧 URL 失效用户接受；DEC-010 落地）
-- 2026-06-06：ISS-012 Legal Skills 集成（PR #7，主页 3 张 product-card + 5 段式详情页 + back-link 共享；DEC-011）
-- 2026-06-06：ISS-013 Legal Skills 4 大类分组 + 48 skill 卡片 + hover 动画 + mono repo 链接（PR #9）
-- 2026-06-06：代码质量清理 + dead-code 批量清（PR #8）
-- 2026-06-07：ISS-014 Header / Footer 简化（PR #10 squash `a866aa4`，净删 110 行 dead code）
-- 2026-06-07：v1.0 内容事实核查（FaroPDF v0.1.1 同步：hero 版本 / download 文案 / 批注分组 + 压缩新功能 / 10 态状态机；Legal Skills 47→48；FaroPDF QR 跨仓已确认同步；ROADMAP + TASKS 文档更新）
-- 下一步：用户指定 — 远期候选（blog / analytics / SEO / i18n README 同步 / 自定义域重启）
+- 2026-06-05：ISS-001~005 + ISS-006~007 + ISS-009~011（10 个任务，scaffold → 部署 → i18n → QR → URL）
+- 2026-06-06：ISS-012~013 + 代码质量清理（Legal Skills 集成 + 48 skill 卡片）
+- 2026-06-07：ISS-014 + v1.0 内容事实核查（Header/Footer 简化 + FaroPDF v0.1.1 同步）
