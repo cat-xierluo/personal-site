@@ -1,0 +1,245 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { products } from '../../data/products';
+import { getDictionary } from '../../i18n';
+import type { Locale, Messages } from '../../i18n/types';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict: Messages = getDictionary(locale);
+const base = import.meta.env.BASE_URL;
+const p = products['agent-executor'];
+
+const tagline = locale === 'en' ? p.taglineEn : p.tagline;
+const title = `${p.name} - ${tagline}`;
+const description = locale === 'en' ? p.summaryEn : p.summary;
+const repoUrl = p.repo;
+const introKicker = `${dict.agentExecutor.introKickerPrefix} ${p.name}`;
+const introBody = dict.agentExecutor.introBody.replace(/\{name\}/g, p.name);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  activeSection="agent-executor"
+  locale={locale}
+>
+  <section class="ae-hero" aria-labelledby="hero-title">
+    <div class="ae-hero-inner">
+      <div class="ae-hero-icon-frame">
+        <img class="ae-hero-icon" src={`${base}${p.icon}`} width="120" height="120" alt={`${p.name} icon`} />
+      </div>
+      <p class="eyebrow">{dict.agentExecutor.heroEyebrow}</p>
+      <h1 id="hero-title">{p.name}</h1>
+      <p class="ae-hero-tagline">{tagline}</p>
+      <p class="ae-hero-summary">{description}</p>
+      <div class="ae-hero-actions">
+        <a class="button button-secondary" href={repoUrl} target="_blank" rel="noreferrer">{dict.agentExecutor.heroViewSource}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-intro" aria-labelledby="intro-title">
+    <div class="section-inner intro-grid">
+      <div>
+        <p class="section-kicker">{introKicker}</p>
+        <h2 id="intro-title">{dict.agentExecutor.introTitle}</h2>
+      </div>
+      <p>{introBody}</p>
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="section-inner">
+      <p class="section-kicker">{dict.agentExecutor.featuresKicker}</p>
+      <h2 id="features-title">{dict.agentExecutor.featuresTitle}</h2>
+      <div class="feature-grid">
+        {dict.agentExecutor.features.map((feature) => (
+          <article class="feature-card">
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-workflow" aria-labelledby="workflow-title">
+    <div class="section-inner workflow-grid">
+      <div>
+        <p class="section-kicker">{dict.agentExecutor.workflowKicker}</p>
+        <h2 id="workflow-title">{dict.agentExecutor.workflowTitle}</h2>
+      </div>
+      <ol class="workflow-list">
+        {dict.agentExecutor.workflow.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="download" aria-labelledby="download-title">
+    <div class="section-inner download-panel">
+      <div>
+        <p class="section-kicker">{dict.agentExecutor.downloadKicker}</p>
+        <h2 id="download-title">{dict.agentExecutor.downloadTitle}</h2>
+        <p>{dict.agentExecutor.downloadBody}</p>
+      </div>
+      <div class="download-actions">
+        <a class="button button-primary" href={repoUrl} target="_blank" rel="noreferrer">{dict.agentExecutor.downloadPrimary}</a>
+        <a class="button button-secondary" href={`${repoUrl}#readme`} target="_blank" rel="noreferrer">{dict.agentExecutor.downloadSecondary}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ae-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(46px, 7vw, 82px) clamp(18px, 4vw, 56px) clamp(28px, 4vw, 42px);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  }
+
+  .ae-hero-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(820px, 100%);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ae-hero-icon-frame {
+    display: grid;
+    place-items: center;
+    width: 132px;
+    height: 132px;
+    margin-bottom: 22px;
+    border-radius: 28px;
+    background: var(--surface);
+    box-shadow: 0 14px 38px oklch(32% 0.035 60 / 14%);
+  }
+
+  .ae-hero-icon {
+    display: block;
+    width: 96px;
+    height: 96px;
+  }
+
+  .ae-hero-tagline {
+    max-width: 640px;
+    margin: 16px 0 0;
+    color: var(--amber);
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.4vw, 24px);
+    font-weight: 400;
+  }
+
+  .ae-hero-summary {
+    max-width: 580px;
+    margin: 22px 0 0;
+    color: oklch(28% 0.025 60);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.7;
+  }
+
+  .ae-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 42px;
+  }
+
+  .feature-card {
+    min-height: 220px;
+    padding: 24px 22px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-card:nth-child(1) {
+    border-top-color: var(--amber);
+  }
+
+  .feature-card:nth-child(2) {
+    border-top-color: var(--accent);
+  }
+
+  .feature-card:nth-child(3) {
+    border-top-color: var(--sage);
+  }
+
+  .feature-card:nth-child(4) {
+    border-top-color: var(--steel);
+  }
+
+  .feature-card:nth-child(5) {
+    border-top-color: var(--royal);
+  }
+
+  .feature-card:nth-child(6) {
+    border-top-color: var(--amber);
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .feature-card p {
+    margin: 14px 0 0;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 980px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .download-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+      min-height: 0;
+    }
+
+    .ae-hero-icon-frame {
+      width: 100px;
+      height: 100px;
+    }
+
+    .ae-hero-icon {
+      width: 76px;
+      height: 76px;
+    }
+  }
+</style>

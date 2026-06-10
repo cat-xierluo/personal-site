@@ -6,6 +6,7 @@ const messages: Messages = {
     folia: 'Folia',
     faropdf: 'FaroPDF',
     legalSkills: 'Legal Skills',
+    agentExecutor: 'Agent Executor',
     github: 'GitHub',
     switchLanguage: '中文',
     switchLanguageTitle: '切换到中文',
@@ -24,7 +25,7 @@ const messages: Messages = {
   },
 
   meta: {
-    descriptionSuffix: '. Products: Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), and Legal Skills (AI Agent Skills collection).',
+    descriptionSuffix: '. Products: Folia (Markdown reader with Word export), FaroPDF (a PDF reader for lawyers), Legal Skills (AI Agent Skills collection), and Agent Executor (Raycast Skills runner).',
     backToHome: 'Back to author homepage',
   },
 
@@ -40,7 +41,7 @@ const messages: Messages = {
       'This page is the entry point for "about + products". Folia solves "stable reading and paper export for complex Markdown documents", FaroPDF solves "fast read, annotation, OCR, and signing delivery for case files, evidence, scanned materials, and contract PDFs", and Legal Skills consolidates the whole workflow into composable AI Agent skills.',
     aboutContactLine: 'Contact',
     productsKicker: 'Products',
-    productsTitle: 'Three open source projects refined for everyday legal work.',
+    productsTitle: 'Four open source projects refined for everyday legal work.',
     contactKicker: 'Contact',
     contactTitle: 'Open to collaboration, product feedback, and legal inquiries.',
     contactWechatLabel: 'WeChat',
@@ -488,6 +489,57 @@ const messages: Messages = {
     downloadTitle: 'One line from GitHub is all it takes.',
     downloadBody:
       'Dual license: MIT skills are free to use including commercial; CC-BY-NC skills are free for non-commercial use with attribution. For commercial use of CC-BY-NC skills, please reach out on WeChat (ywxlaw) for a license. To install, send your Agent: "Please install the legal-skills collection from GitHub: https://github.com/cat-xierluo/legal-skills".',
+    downloadPrimary: 'Open GitHub repo',
+    downloadSecondary: 'Read README',
+  },
+
+  agentExecutor: {
+    heroEyebrow: 'Raycast extension for Claude Code Skills',
+    heroViewSource: 'View source',
+    introKickerPrefix: 'Why',
+    introTitle: 'Skills are written — now make them run.',
+    introBody:
+      'Agent Executor is a Raycast extension that brings the Claude Code Skills ecosystem into your launcher. It automatically scans .claude/skills/ directories, dynamically loads all skills, and lets you execute them with one click while tracking status in real time. No hardcoding needed — add a new skill by simply creating a subdirectory with a SKILL.md file.',
+    featuresKicker: 'Core capabilities',
+    featuresTitle: 'From discovering skills to checking results, one Raycast shortcut away.',
+    features: [
+      {
+        title: 'Dynamic skill scanning',
+        text: 'Automatically loads skills from project .claude/skills/ and global ~/.claude/skills/ directories, extracting titles, descriptions, and icons — no code changes required.',
+      },
+      {
+        title: 'One-click execution',
+        text: 'Select a skill, add an optional instruction, and hit Enter. Supports both background and terminal-popout modes, with base64-encoded prompts to prevent injection.',
+      },
+      {
+        title: 'Real-time status tracking',
+        text: 'Auto-grouped by Running / Completed / Failed. Running tasks refresh every 5 seconds — quickly spot what needs attention.',
+      },
+      {
+        title: 'Structured logging',
+        text: 'JSONL-format execution history (Run ID, PID, elapsed time, full output, exit code) retained for 7 days, viewable directly inside Raycast.',
+      },
+      {
+        title: 'Task queue',
+        text: 'Concurrency control with configurable max parallel tasks (1–10). Queue survives window closure.',
+      },
+      {
+        title: 'Multi-project support',
+        text: 'Configure up to 5 project directories and manage skill sets across multiple Agent workspaces.',
+      },
+    ],
+    workflowKicker: 'Workflow',
+    workflowTitle: 'From scanning skills to reviewing results.',
+    workflow: [
+      'Open Agent Executor in Raycast — all available skills are listed automatically',
+      'Select a skill, add an optional instruction, and press Enter to execute',
+      'Check real-time progress and history in "Agent Status"',
+      'Click any record to view detailed logs, output, and execution time',
+    ],
+    downloadKicker: 'Install',
+    downloadTitle: 'Clone from GitHub and load into Raycast.',
+    downloadBody:
+      'This extension requires Raycast and Claude Code CLI. Clone the repo, run npm install && npm run dev, and it appears in Raycast. See the README for detailed setup instructions.',
     downloadPrimary: 'Open GitHub repo',
     downloadSecondary: 'Read README',
   },

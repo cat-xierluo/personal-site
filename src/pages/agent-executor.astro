@@ -1,0 +1,9 @@
+---
+import AgentExecutorPage from '../components/pages/AgentExecutorPage.astro';
+import { resolveLocale, localeFromPath } from '../i18n';
+import type { Locale } from '../i18n/types';
+
+const base = import.meta.env.BASE_URL;
+const locale: Locale = resolveLocale(localeFromPath(Astro.url.pathname, base));
+---
+<AgentExecutorPage locale={locale} />

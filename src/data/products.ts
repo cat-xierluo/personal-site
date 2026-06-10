@@ -39,4 +39,16 @@ export const products = {
     icon: 'icons/legal-skills-icon.png',
     accent: 'royal',
   },
+  'agent-executor': {
+    slug: 'agent-executor',
+    name: 'Agent Executor',
+    tagline: '在 Raycast 里执行 Claude Code Skills 的通用工具',
+    taglineEn: 'Execute Claude Code Skills from Raycast',
+    summary: '动态扫描 Skills、一键执行、实时状态追踪、结构化日志，把 AI Agent 能力装进你的启动器。',
+    summaryEn: 'Dynamic skill scanning, one-click execution, real-time status tracking, and structured logging — AI Agent power in your launcher.',
+    repo: 'https://github.com/cat-xierluo/agent-executor-raycast',
+    path: '/agent-executor',
+    icon: 'icons/agent-executor-icon.png',
+    accent: 'amber',
+  },
 } as const;

@@ -8,6 +8,7 @@ export interface NavMessages {
   folia: string;
   faropdf: string;
   legalSkills: string;
+  agentExecutor: string;
   github: string;
   switchLanguage: string;
   switchLanguageTitle: string;
@@ -158,6 +159,25 @@ export interface LegalSkillsMessages {
   featureCardVisitAria: string;
 }
 
+export interface AgentExecutorMessages {
+  heroEyebrow: string;
+  heroViewSource: string;
+  introKickerPrefix: string;
+  introTitle: string;
+  introBody: string;
+  featuresKicker: string;
+  featuresTitle: string;
+  features: ProductFeature[];
+  workflowKicker: string;
+  workflowTitle: string;
+  workflow: string[];
+  downloadKicker: string;
+  downloadTitle: string;
+  downloadBody: string;
+  downloadPrimary: string;
+  downloadSecondary: string;
+}
+
 export interface Messages {
   nav: NavMessages;
   footer: FooterMessages;
@@ -167,4 +187,5 @@ export interface Messages {
   folia: FoliaMessages;
   faropdf: FaroPdfMessages;
   legalSkills: LegalSkillsMessages;
+  agentExecutor: AgentExecutorMessages;
 }

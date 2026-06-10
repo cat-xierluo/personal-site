@@ -14,7 +14,7 @@ export const author = {
     wechat: 'ywxlaw',
     githubHandle: 'cat-xierluo',
   },
-  products: ['folia', 'faropdf'] as const,
+  products: ['folia', 'faropdf', 'legal-skills', 'agent-executor'] as const,
 } as const;
 
 export type Author = typeof author;

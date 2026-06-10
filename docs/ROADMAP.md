@@ -30,6 +30,7 @@
 
 ## v1.2 远期
 
+- **ISS-015** Agent Execute Recast 插件集成（第 4 张产品卡 + 详情页）
 - **ISS-008** 自定义域（用户已取消，可重启）
 - analytics / SEO 增强（sitemap + meta + OG）
 - blog 子栏目

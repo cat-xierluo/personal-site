@@ -6,6 +6,7 @@ const messages: Messages = {
     folia: 'Folia',
     faropdf: 'FaroPDF',
     legalSkills: 'Legal Skills',
+    agentExecutor: 'Agent Executor',
     github: 'GitHub',
     switchLanguage: 'EN',
     switchLanguageTitle: 'Switch to English',
@@ -24,7 +25,7 @@ const messages: Messages = {
   },
 
   meta: {
-    descriptionSuffix: '。产品：Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）与 Legal Skills（AI Agent Skills 集合）。',
+    descriptionSuffix: '。产品：Folia（Markdown 阅读与 Word 导出）、FaroPDF（律师 PDF 阅读器）、Legal Skills（AI Agent Skills 集合）与 Agent Executor（Raycast Skills 执行器）。',
     backToHome: '回到作者主页',
   },
 
@@ -40,7 +41,7 @@ const messages: Messages = {
       '这个页面是「作者 + 产品」的入口。Folia 解决「复杂 Markdown 文档的稳定阅读和纸面导出」，FaroPDF 解决「卷宗、证据、扫描件、合同 PDF 的快读、批注、OCR 和签署交付」，Legal Skills 把这一整套工作流沉淀成可装配的 AI Agent 技能。',
     aboutContactLine: '联系方式',
     productsKicker: '产品',
-    productsTitle: '三个为日常法律工作打磨的开源项目。',
+    productsTitle: '四个为日常法律工作打磨的开源项目。',
     contactKicker: '联系方式',
     contactTitle: '欢迎交流合作、产品建议或法律问题咨询。',
     contactWechatLabel: '微信',
@@ -488,6 +489,57 @@ const messages: Messages = {
     downloadTitle: '从 GitHub 复制一行提示即可。',
     downloadBody:
       '本仓库采用双许可证：MIT 技能可自由使用包括商用，CC-BY-NC 技能可自由使用但不可商用且需保留署名。商用前请添加微信（ywxlaw）联系授权。安装方法：把「请帮我从 GitHub 安装 legal-skills 技能集合：https://github.com/cat-xierluo/legal-skills」发给 Agent 即可。',
+    downloadPrimary: '打开 GitHub 仓库',
+    downloadSecondary: '阅读 README',
+  },
+
+  agentExecutor: {
+    heroEyebrow: 'Raycast extension for Claude Code Skills',
+    heroViewSource: '查看源码',
+    introKickerPrefix: '为什么做',
+    introTitle: 'Skills 写好了，还要跑起来。',
+    introBody:
+      'Agent Executor 是一个 Raycast 扩展，把 Claude Code 的 Skills 生态搬进你的启动器。它自动扫描 .claude/skills/ 目录，动态加载所有技能，一键执行并实时追踪状态。不需要硬编码——添加新技能只需要创建一个含 SKILL.md 的子目录。',
+    featuresKicker: '核心能力',
+    featuresTitle: '从发现技能到查看结果，一条 Raycast 快捷键搞定。',
+    features: [
+      {
+        title: '动态技能扫描',
+        text: '自动从项目 .claude/skills/ 和全局 ~/.claude/skills/ 目录加载技能，提取标题、描述和图标，无需修改代码。',
+      },
+      {
+        title: '一键执行',
+        text: '选择技能、输入附加指令后直接执行，支持后台运行和终端弹窗两种模式，base64 编码传递 prompt 防止注入。',
+      },
+      {
+        title: '实时状态追踪',
+        text: '按运行中 / 已完成 / 失败自动分组，每 5 秒刷新正在运行的任务，快速定位问题。',
+      },
+      {
+        title: '结构化日志',
+        text: 'JSONL 格式记录全部执行历史（Run ID、PID、耗时、完整输出、退出码），保留最近 7 天，支持在 Raycast 内直接查看。',
+      },
+      {
+        title: '任务队列',
+        text: '支持并发控制，可配置最大并发数（1-10），窗口关闭后队列不丢失。',
+      },
+      {
+        title: '多项目支持',
+        text: '可配置最多 5 个项目目录，同时管理多个 Agent 的技能集合。',
+      },
+    ],
+    workflowKicker: '使用流程',
+    workflowTitle: '从扫描技能到查看结果。',
+    workflow: [
+      '在 Raycast 中打开 Agent Executor，自动列出所有可用技能',
+      '选择一个技能，输入附加指令（可选），按回车执行',
+      '在「Agent 运行状态」中查看实时执行进度和历史记录',
+      '点击任意记录查看详细日志、输出和执行时长',
+    ],
+    downloadKicker: '安装',
+    downloadTitle: '从 GitHub 克隆并在 Raycast 中加载。',
+    downloadBody:
+      '本扩展需要 Raycast 和 Claude Code CLI。克隆仓库后运行 npm install && npm run dev，即可在 Raycast 中使用。详细配置请参考 README。',
     downloadPrimary: '打开 GitHub 仓库',
     downloadSecondary: '阅读 README',
   },

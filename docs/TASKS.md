@@ -4,7 +4,7 @@
 
 ## 活跃任务
 
-（无 — 等待用户指定下一步）
+- **ISS-015** Agent Execute Recast 插件集成 — 在主页新增第 4 张产品卡 + 详情页（与 Folia / FaroPDF / Legal Skills 同级）
 
 ### 远期候选
 
